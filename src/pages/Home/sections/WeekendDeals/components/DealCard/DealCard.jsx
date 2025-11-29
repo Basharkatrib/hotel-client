@@ -18,10 +18,11 @@ const DealCard = ({
     <div className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
       {/* Image */}
       <div className="relative h-64 overflow-hidden">
-        <img 
+        <img
           src={image} 
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         
         {/* Favorite Button */}
@@ -30,6 +31,7 @@ const DealCard = ({
             e.stopPropagation();
             setIsFavorite(!isFavorite);
           }}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-200 z-10"
         >
           {isFavorite ? (

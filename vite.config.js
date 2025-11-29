@@ -5,4 +5,29 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    // Optimize build
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.log in production
+      },
+    },
+    // Code splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'swiper-vendor': ['swiper'],
+          'icons-vendor': ['react-icons'],
+        },
+      },
+    },
+    // Chunk size warnings
+    chunkSizeWarningLimit: 1000,
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+  },
 })

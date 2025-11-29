@@ -14,17 +14,21 @@ const Hero = () => {
   const [children, setChildren] = useState(0);
 
   return (
-    <section className="relative h-screen w-full">
+    <section className="relative h-screen w-full" role="banner" aria-label="Hero section">
       {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{backgroundImage: `url(${bannerImg})`}}
-      >
+      <div className="absolute inset-0">
+        <img 
+          src={bannerImg}
+          alt="Beautiful hotel destination"
+          className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+        />
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center pb-8 sm:pb-12 lg:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 h-full flex flex-col justify-end pb-6 sm:justify-center sm:pb-12 lg:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-30">
         {/* Hero Text */}
         <HeroContent 
           title="Your Trip Starts Here"
@@ -32,7 +36,7 @@ const Hero = () => {
         />
 
         {/* Search Card */}
-        <div className="max-w-5xl mx-auto w-full sm:absolute sm:-bottom-15 sm:left-0 sm:right-0">
+        <div className="sm:max-w-xl md:max-w-2xl lg:max-w-5xl mx-auto w-full sm:absolute sm:-bottom-15 sm:left-0 sm:right-0">
           <SearchForm
             location={location}
             checkIn={checkIn}

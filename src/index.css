@@ -1,4 +1,11 @@
 @import "tailwindcss";
+
+/* Custom Font - Poppins */
+@layer base {
+  * {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  }
+}
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -68,6 +75,29 @@ button:focus-visible {
   }
 } */
 
-.swiper-wrapper{
+/* Swiper Customization */
+.swiper-wrapper {
   padding-bottom: 30px;
+}
+
+/* Performance Optimizations */
+@layer utilities {
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize Images */
+img {
+  content-visibility: auto;
 }

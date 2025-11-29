@@ -1,0 +1,42 @@
+/* Poppins Font - Modern and Professional (Local Files) */
+
+/* Regular - 400 */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Poppins Regular'), local('Poppins-Regular'),
+       url('./Poppins-Regular.woff2') format('woff2');
+}
+
+/* Medium - 500 */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Poppins Medium'), local('Poppins-Medium'),
+       url('./Poppins-Medium.woff2') format('woff2');
+}
+
+/* SemiBold - 600 */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'),
+       url('./Poppins-SemiBold.woff2') format('woff2');
+}
+
+/* Bold - 700 */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Poppins Bold'), local('Poppins-Bold'),
+       url('./Poppins-Bold.woff2') format('woff2');
+}
+

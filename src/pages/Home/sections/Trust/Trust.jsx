@@ -25,12 +25,12 @@ const Trust = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-white">
+    <section className="py-12 sm:py-16 lg:py-24 bg-white" aria-labelledby="trust-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
-          <div className="w-12 sm:w-16 h-0.5 bg-blue-400 mx-auto mb-3 sm:mb-4"></div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 px-4">
+          <div className="w-12 sm:w-16 h-0.5 bg-blue-400 mx-auto mb-3 sm:mb-4" aria-hidden="true"></div>
+          <h2 id="trust-heading" className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 px-4">
             Why Travellers Trust Tripto
           </h2>
         </div>

@@ -7,6 +7,8 @@ const CategoryFilter = ({ categories, activeFilter, onFilterChange }) => {
         <button
           key={category.name}
           onClick={() => onFilterChange(category.name)}
+          aria-label={`Filter by ${category.name}`}
+          aria-pressed={activeFilter === category.name}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
             activeFilter === category.name
               ? 'bg-gray-900 text-white shadow-lg'

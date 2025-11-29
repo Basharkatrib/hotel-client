@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { FaGlobe, FaUser } from 'react-icons/fa';
 import logo from '../../../assets/Home/navbar/Logo.svg';
-import headphone from '../../../assets/Home/navbar/headphone.svg';
-import profImage from '../../../assets/Home/navbar/profileImage.png';
-import USA from '../../../assets/Home/navbar/USA.svg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -18,47 +15,56 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`${isScrolled ? 'bg-white/95' : 'bg-white/10'} backdrop-blur-sm transition-all duration-300`}>
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 shadow-lg backdrop-blur-md' 
+          : 'bg-transparent'
+      }`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo Section */}
+          {/* Logo */}
           <div className="shrink-0">
             <img 
               src={logo} 
-              alt="tripto logo" 
-              className="h-8 md:h-10 w-auto cursor-pointer"
+              alt="Tripto" 
+              className="h-8 md:h-10 w-auto cursor-pointer hover:opacity-80 transition-opacity"
+              loading="eager"
+              width="120"
+              height="40"
             />
           </div>
 
-          {/* Right Side Items */}
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-            {/* Flag and Currency */}
-            <div className="flex items-center gap-2 sm:gap-3  rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 cursor-pointer hover:bg-purple-50 transition-colors">
-              <img 
-                src={USA} 
-                alt="USA flag" 
-                className="w-5 h-5 sm:w-6 sm:h-6"
-              />
-              <span className="text-blue-600 font-medium text-sm sm:text-base">USD</span>
-            </div>
+          {/* Right Side */}
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+            {/* Language/Currency */}
+            <button 
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full font-medium text-sm transition-all duration-200 ${
+                isScrolled 
+                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
+                  : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
+              }`}
+              aria-label="Change language and currency"
+            >
+              <FaGlobe className="text-base" />
+              <span className="hidden sm:inline">USD</span>
+            </button>
 
-            {/* Headphone Icon */}
-            <div className="p-2 sm:p-2.5 cursor-pointer hover:bg-gray-100 rounded-full transition-colors">
-              <img 
-                src={headphone} 
-                alt="support" 
-                className="w-5 h-5 sm:w-6 sm:h-6"
-              />
-            </div>
-
-            {/* Profile Image */}
-            <div className="shrink-0 cursor-pointer hover:opacity-80 transition-opacity">
-              <img 
-                src={profImage} 
-                alt="profile" 
-                className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-gray-200"
-              />
-            </div>
+            {/* Sign In Button */}
+            <button 
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2 rounded-full font-semibold text-sm transition-all duration-200 ${
+                isScrolled 
+                  ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg' 
+                  : 'bg-white text-blue-600 hover:bg-white/90 shadow-lg'
+              }`}
+              aria-label="Sign in"
+            >
+              <FaUser className="text-sm" />
+              <span>Sign In</span>
+            </button>
           </div>
         </div>
       </div>
@@ -67,4 +73,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
