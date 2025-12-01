@@ -60,7 +60,7 @@ const TopThingsToDo = () => {
         </h2>
 
         {/* Category Filters */}
-        <div className="mb-6 sm:mb-8">
+        <div className="sm:mb-8">
           <CategoryFilter 
             categories={categories}
             activeFilter={activeFilter}
