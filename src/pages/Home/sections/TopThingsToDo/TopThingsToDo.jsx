@@ -104,7 +104,7 @@ const TopThingsToDo = () => {
         </Swiper>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-end items-center gap-3 mt-6">
+        <div className="flex justify-center items-center gap-3 mt-2">
           <button 
             className="top-things-prev w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-200"
             aria-label="Previous activities"

@@ -28,7 +28,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-end pb-6 sm:justify-center sm:pb-12 lg:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-30">
+      <div className="relative z-10 h-full flex flex-col justify-center pb-6 sm:justify-center sm:pb-12 lg:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-30">
         {/* Hero Text */}
         <HeroContent 
           title="Your Trip Starts Here"
@@ -36,7 +36,7 @@ const Hero = () => {
         />
 
         {/* Search Card */}
-        <div className="sm:max-w-xl md:max-w-2xl lg:max-w-5xl mx-auto w-full sm:absolute sm:-bottom-15 sm:left-0 sm:right-0">
+        <div className="hidden sm:block sm:max-w-xl md:max-w-2xl lg:max-w-5xl mx-auto w-full sm:absolute sm:-bottom-15 sm:left-0 sm:right-0">
           <SearchForm
             location={location}
             checkIn={checkIn}
