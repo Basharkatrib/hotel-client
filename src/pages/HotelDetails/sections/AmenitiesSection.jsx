@@ -108,3 +108,4 @@ const AmenitiesSection = ({ hotel }) => {
 
 export default AmenitiesSection;
 
+

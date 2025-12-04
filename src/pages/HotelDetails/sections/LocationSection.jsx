@@ -103,3 +103,4 @@ const LocationSection = ({ hotel }) => {
 
 export default LocationSection;
 
+

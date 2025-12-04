@@ -68,3 +68,4 @@ curl -X POST http://hotel-server.test/api/auth/register \
 ```
 
 
+

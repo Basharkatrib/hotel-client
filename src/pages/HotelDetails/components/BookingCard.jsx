@@ -77,3 +77,4 @@ const BookingCard = ({ hotel }) => {
 
 export default BookingCard;
 
+

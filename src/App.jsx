@@ -33,7 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/hotel/:id" element={<HotelDetails />} />
+            <Route path="/hotel/:slug" element={<HotelDetails />} />
             {/* Auth routes are handled as overlay */}
             <Route path="/auth/login" element={<Home />} />
             <Route path="/auth/login/verify" element={<Home />} />

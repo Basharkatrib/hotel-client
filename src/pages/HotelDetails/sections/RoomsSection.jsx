@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RoomCard from '../RoomCard';
+import RoomCard from '../components/RoomCard';
 
 const RoomsSection = ({ hotelId, rooms, loading }) => {
   const [selectedBedFilter, setSelectedBedFilter] = useState('all');
@@ -87,4 +87,5 @@ const RoomsSection = ({ hotelId, rooms, loading }) => {
 };
 
 export default RoomsSection;
+
 

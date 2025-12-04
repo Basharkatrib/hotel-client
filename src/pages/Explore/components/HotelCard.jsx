@@ -100,7 +100,7 @@ const HotelCard = ({ hotel }) => {
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
             <div>
               <h2 
-                onClick={() => navigate(`/hotel/${hotel.id}`)}
+                onClick={() => navigate(`/hotel/${hotel.slug}`)}
                 className="text-lg sm:text-xl font-semibold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors"
               >
                 {hotel.name}

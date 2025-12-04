@@ -65,8 +65,9 @@ export const hotelsApi = createApi({
     }),
     
     getHotel: builder.query({
-      query: (id) => `/hotels/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Hotels', id }],
+      // Fetch hotel by slug
+      query: (slug) => `/hotels/${slug}`,
+      providesTags: (result, error, slug) => [{ type: 'Hotels', id: slug }],
     }),
     
     getRooms: builder.query({
