@@ -6,6 +6,7 @@ import AuthOverlay from './components/auth/AuthOverlay'
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home/index'))
 const Explore = lazy(() => import('./pages/Explore/Explore.jsx'))
+const HotelDetails = lazy(() => import('./pages/HotelDetails'))
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/hotel/:id" element={<HotelDetails />} />
             {/* Auth routes are handled as overlay */}
             <Route path="/auth/login" element={<Home />} />
             <Route path="/auth/login/verify" element={<Home />} />

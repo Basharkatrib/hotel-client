@@ -88,6 +88,29 @@ button:focus-visible {
   padding-bottom: 0;
 }
 
+/* Override padding for room card swiper to avoid extra vertical space/jitter */
+.room-card-swiper .swiper-wrapper {
+  padding-bottom: 0;
+}
+
+/* Fix Leaflet Map z-index issues */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-pane,
+.leaflet-shadow-pane,
+.leaflet-overlay-pane,
+.leaflet-map-pane {
+  z-index: 0 !important;
+}
+
+.leaflet-control {
+  z-index: 1 !important;
+}
+
+.leaflet-popup {
+  z-index: 2 !important;
+}
+
 /* Performance Optimizations */
 @layer utilities {
   .will-change-transform {

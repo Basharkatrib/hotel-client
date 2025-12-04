@@ -6,42 +6,31 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../../components/ui/accordion';
-import { FaStar } from 'react-icons/fa';
 
 const PRICE_MIN = 0;
 const PRICE_MAX = 2000;
 
-const FiltersSidebar = () => {
-  const [typeOfPlace, setTypeOfPlace] = useState('Any type');
-  const [minPrice, setMinPrice] = useState(200);
-  const [maxPrice, setMaxPrice] = useState(1500);
-  const [selectedScores, setSelectedScores] = useState([
-    '5.0 Excellent',
-    '4.0+ Very good',
-    '3.0+ Good',
-  ]);
-  const [selectedStars, setSelectedStars] = useState([5, 4, 3]);
-  const [selectedAmenities, setSelectedAmenities] = useState([
-    'Air Conditioning',
-    'Wi-Fi',
-    'BBQ Grill',
-  ]);
+const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
+  const [typeOfPlace, setTypeOfPlace] = useState(filters?.type === 'any' ? 'Any type' : filters?.type === 'room' ? 'Room' : filters?.type === 'entire_home' ? 'Entire home' : 'Any type');
+  const [minPrice, setMinPrice] = useState(filters?.minPrice || 0);
+  const [maxPrice, setMaxPrice] = useState(filters?.maxPrice || 2000);
+  const [selectedAmenities, setSelectedAmenities] = useState(filters?.selectedAmenities || []);
 
-  const toggleScore = (label) => {
-    setSelectedScores((prev) =>
-      prev.includes(label)
-        ? prev.filter((item) => item !== label)
-        : [...prev, label],
-    );
-  };
+  // Update parent component when filters change (with debounce for price)
+  React.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const typeValue = typeOfPlace === 'Any type' ? 'any' : typeOfPlace === 'Room' ? 'room' : typeOfPlace === 'Entire home' ? 'entire_home' : 'any';
+      
+      onFiltersChange({
+        type: typeValue,
+        minPrice,
+        maxPrice,
+        selectedAmenities,
+      });
+    }, 500); // Debounce for 500ms
 
-  const toggleStar = (value) => {
-    setSelectedStars((prev) =>
-      prev.includes(value)
-        ? prev.filter((star) => star !== value)
-        : [...prev, value],
-    );
-  };
+    return () => clearTimeout(timeoutId);
+  }, [typeOfPlace, minPrice, maxPrice, selectedAmenities, onFiltersChange]);
 
   const toggleAmenity = (label) => {
     setSelectedAmenities((prev) =>
@@ -53,17 +42,15 @@ const FiltersSidebar = () => {
 
   const handleClear = () => {
     setTypeOfPlace('Any type');
-    setMinPrice(200);
-    setMaxPrice(1500);
-    setSelectedScores(['5.0 Excellent', '4.0+ Very good', '3.0+ Good']);
-    setSelectedStars([5, 4, 3]);
-    setSelectedAmenities(['Air Conditioning', 'Wi-Fi', 'BBQ Grill']);
+    setMinPrice(0);
+    setMaxPrice(2000);
+    setSelectedAmenities([]);
   };
 
   return (
     <div className="space-y-4">
       {/* Map above filters */}
-      <MapSection />
+      <MapSection hotels={hotels} />
 
       <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-sm">
         <div className="flex items-center justify-between mb-2">
@@ -79,7 +66,7 @@ const FiltersSidebar = () => {
 
         <Accordion
           type="multiple"
-          defaultValue={['type-of-place', 'price-range', 'guest-score']}
+          defaultValue={['type-of-place', 'price-range', 'amenities']}
           className="divide-y divide-gray-200"
         >
           {/* Type of place */}
@@ -193,88 +180,6 @@ const FiltersSidebar = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-          {/* Guest review score */}
-          <AccordionItem value="guest-score">
-            <AccordionTrigger className="text-sm font-semibold text-gray-900">
-              Guest Review Score
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 text-xs text-gray-700">
-                {[
-                  '5.0 Excellent',
-                  '4.0+ Very good',
-                  '3.0+ Good',
-                  '2.0+ Fair',
-                  '< 2.0 Poor',
-                ].map((label) => {
-                  const checked = selectedScores.includes(label);
-                  return (
-                    <label
-                      key={label}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => toggleScore(label)}
-                        className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      />
-                      <span>{label}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-          {/* Property classification */}
-          <AccordionItem value="property-classification">
-            <AccordionTrigger className="text-sm font-semibold text-gray-900">
-              Property Classification
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 text-xs text-gray-700">
-                {[5, 4, 3, 2, 1, 0].map((stars) => {
-                  const label =
-                    stars === 0 ? 'No rating' : `${stars}-star`;
-                  const checked = selectedStars.includes(stars);
-                  return (
-                    <label
-                      key={label}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => toggleStar(stars)}
-                        className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      />
-                      <span className="flex items-center gap-1">
-                        {stars > 0 ? (
-                          Array.from({ length: 5 }).map((_, index) => (
-                            <FaStar
-                              key={index}
-                              className={
-                                index < stars
-                                  ? 'text-yellow-400 text-sm'
-                                  : 'text-gray-300 text-sm'
-                              }
-                            />
-                          ))
-                        ) : (
-                          <span className="text-gray-300">
-                            <FaStar className="text-sm" />
-                          </span>
-                        )}
-                        <span className="ml-2">{label}</span>
-                      </span>
-                    </label>
-                  );
-                })}
               </div>
             </AccordionContent>
           </AccordionItem>

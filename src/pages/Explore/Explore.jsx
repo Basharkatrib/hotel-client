@@ -1,10 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import MapSection from './components/MapSection';
 import FiltersSidebar from './components/FiltersSidebar';
 import HotelList from './components/HotelList';
 
 const Explore = () => {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  
+  // Filters state
+  const [filters, setFilters] = useState({
+    type: 'any',
+    minPrice: 0,
+    maxPrice: 2000,
+    selectedAmenities: [],
+  });
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage] = useState(10);
+  
+  // Sorting state
+  const [sortBy, setSortBy] = useState('created_at');
+  const [sortOrder, setSortOrder] = useState('desc');
+  
+  // Hotels state (to pass to map)
+  const [currentHotels, setCurrentHotels] = useState([]);
+
+  const handleFiltersChange = useCallback((newFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(1); // Reset to first page when filters change
+  }, []);
 
   return (
     <main className="min-h-screen bg-gray-50 pt-14">
@@ -39,12 +63,53 @@ const Explore = () => {
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Sidebar (desktop) */}
           <aside className="hidden lg:block w-full lg:w-80 xl:w-88 shrink-0">
-            <FiltersSidebar />
+            <FiltersSidebar 
+              filters={filters} 
+              onFiltersChange={handleFiltersChange}
+              hotels={currentHotels}
+            />
           </aside>
 
           {/* Results */}
           <section className="flex-1">
-            <HotelList />
+            {/* Sorting bar */}
+            <div className="mb-4 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm">
+              <span className="text-sm text-gray-600">Sort by:</span>
+              <div className="flex gap-2">
+                <select
+                  value={sortBy}
+                  onChange={(e) => {
+                    setSortBy(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                >
+                  <option value="created_at">Newest First</option>
+                  <option value="price_per_night">Price</option>
+                  <option value="rating">Rating</option>
+                </select>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                    setCurrentPage(1);
+                  }}
+                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {sortOrder === 'asc' ? '↑ Ascending' : '↓ Descending'}
+                </button>
+              </div>
+            </div>
+
+            <HotelList 
+              filters={filters}
+              currentPage={currentPage}
+              perPage={perPage}
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onPageChange={setCurrentPage}
+              onHotelsChange={setCurrentHotels}
+            />
           </section>
         </div>
       </div>
@@ -73,7 +138,11 @@ const Explore = () => {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-4">
-              <FiltersSidebar />
+              <FiltersSidebar 
+                filters={filters} 
+                onFiltersChange={handleFiltersChange}
+                hotels={currentHotels}
+              />
             </div>
           </div>
         </div>
