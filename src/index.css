@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "react-datepicker/dist/react-datepicker.css";
+@import "react-toastify/dist/ReactToastify.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -257,20 +259,4 @@ img {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;                
-}
-
-/* Slow, smooth slide-in for mobile filters sidebar */
-@keyframes slide-in-right {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slide-in-right {
-  animation: slide-in-right 0.45s ease-out forwards;
 }

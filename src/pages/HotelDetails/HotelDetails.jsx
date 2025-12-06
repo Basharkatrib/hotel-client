@@ -18,6 +18,13 @@ const HotelDetails = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMobileBookingOpen, setIsMobileBookingOpen] = useState(false);
+  
+  // Booking state to share between BookingCard and RoomsSection
+  const [bookingDates, setBookingDates] = useState({
+    checkIn: new Date(Date.now() + 86400000).toISOString(),
+    checkOut: new Date(Date.now() + 86400000 * 6).toISOString(),
+    guests: 2,
+  });
 
   // Refs for scrolling
   const overviewRef = useRef(null);
@@ -29,6 +36,11 @@ const HotelDetails = () => {
   // Fetch hotel details by slug
   const { data: hotelData, isLoading: hotelLoading, isError: hotelError } = useGetHotelQuery(slug);
   
+  console.log('Hotel Data:', hotelData);
+  console.log('Hotel Loading:', hotelLoading);
+  console.log('Hotel Error:', hotelError);
+  console.log('Slug:', slug);
+  
   const hotelId = hotelData?.data?.hotel?.id;
 
   // Fetch hotel rooms once we know the numeric hotel ID
@@ -37,6 +49,8 @@ const HotelDetails = () => {
       ? {
           hotel_id: hotelId,
           per_page: 20,
+          check_in_date: bookingDates.checkIn ? new Date(bookingDates.checkIn).toISOString().split('T')[0] : undefined,
+          check_out_date: bookingDates.checkOut ? new Date(bookingDates.checkOut).toISOString().split('T')[0] : undefined,
         }
       : skipToken
   );
@@ -219,6 +233,10 @@ const HotelDetails = () => {
                 hotelId={hotel.id} 
                 rooms={rooms} 
                 loading={roomsLoading}
+                hotel={hotel}
+                checkIn={bookingDates.checkIn}
+                checkOut={bookingDates.checkOut}
+                guests={bookingDates.guests}
               />
             </div>
 
@@ -230,7 +248,10 @@ const HotelDetails = () => {
           {/* Booking Card - Sidebar (Desktop & Large Screens) */}
           <div className="hidden lg:block lg:w-96">
             <div className="sticky top-32">
-              <BookingCard hotel={hotel} />
+              <BookingCard 
+                hotel={hotel} 
+                onDatesChange={setBookingDates}
+              />
             </div>
           </div>
         </div>
@@ -282,7 +303,10 @@ const HotelDetails = () => {
               </button>
             </div>
             <div className="px-4 py-4 overflow-y-auto">
-              <BookingCard hotel={hotel} />
+              <BookingCard 
+                hotel={hotel} 
+                onDatesChange={setBookingDates}
+              />
             </div>
           </div>
         </div>

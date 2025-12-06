@@ -14,6 +14,8 @@ import storage from 'redux-persist/lib/storage'; // localStorage
 import { combineReducers } from '@reduxjs/toolkit';
 import { api } from '../services/api';
 import { hotelsApi } from '../services/hotelsApi';
+import { bookingsApi } from '../services/bookingsApi';
+import { paymentsApi } from '../services/paymentsApi';
 import authReducer from './slices/authSlice';
 
 // إعدادات Redux Persist
@@ -28,6 +30,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
   [hotelsApi.reducerPath]: hotelsApi.reducer,
+  [bookingsApi.reducerPath]: bookingsApi.reducer,
+  [paymentsApi.reducerPath]: paymentsApi.reducer,
   auth: authReducer,
 });
 
@@ -42,12 +46,10 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware, hotelsApi.middleware),
+    }).concat(api.middleware, hotelsApi.middleware, bookingsApi.middleware, paymentsApi.middleware),
 });
 
-// إعداد listeners للـ RTK Query (refetch on focus/reconnect)
 setupListeners(store.dispatch);
 
-// إنشاء persistor
 export const persistor = persistStore(store);
 

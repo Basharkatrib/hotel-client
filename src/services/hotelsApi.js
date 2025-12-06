@@ -65,9 +65,8 @@ export const hotelsApi = createApi({
     }),
     
     getHotel: builder.query({
-      // Fetch hotel by slug
-      query: (slug) => `/hotels/${slug}`,
-      providesTags: (result, error, slug) => [{ type: 'Hotels', id: slug }],
+      query: (id) => `/hotels/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Hotels', id }],
     }),
     
     getRooms: builder.query({
@@ -77,6 +76,14 @@ export const hotelsApi = createApi({
         // Hotel filter
         if (params.hotel_id) {
           searchParams.append('hotel_id', params.hotel_id);
+        }
+        
+        // Date filters for availability
+        if (params.check_in_date) {
+          searchParams.append('check_in_date', params.check_in_date);
+        }
+        if (params.check_out_date) {
+          searchParams.append('check_out_date', params.check_out_date);
         }
         
         // Type filter

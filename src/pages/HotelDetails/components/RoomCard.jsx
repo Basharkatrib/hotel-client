@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { getImageUrls } from '../../../utils/imageHelper';
@@ -16,14 +17,79 @@ import {
   FaUtensils
 } from 'react-icons/fa';
 import { MdBalcony } from 'react-icons/md';
+import { toast } from 'react-toastify';
+import { differenceInDays } from 'date-fns';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const RoomCard = ({ room }) => {
+const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
+  const navigate = useNavigate();
   const images = getImageUrls(room.images);
   
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
+  
+  // Check if room is available for selected dates
+  const isAvailableForDates = room.is_available_for_dates !== undefined 
+    ? room.is_available_for_dates 
+    : room.is_available;
+  
+  const handleBookNow = () => {
+    // Check general availability first
+    if (!room.is_available) {
+      toast.error('This room is not available at the moment.');
+      return;
+    }
+    
+    // Validate dates
+    if (!checkIn || !checkOut) {
+      toast.warning('Please select check-in and check-out dates.');
+      return;
+    }
+    
+    // Check if available for selected dates
+    if (!isAvailableForDates) {
+      toast.error('This room is already booked for the selected dates. Please choose different dates.');
+      return;
+    }
+    
+    // Validate guest capacity
+    const guestCount = guests || 2;
+    if (guestCount > room.max_guests) {
+      toast.error(`This room can accommodate a maximum of ${room.max_guests} guests. Please select fewer guests.`);
+      return;
+    }
+    
+    // Calculate pricing
+    const nights = checkIn && checkOut 
+      ? Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24))
+      : 5;
+    const pricePerNight = Number(room.price_per_night);
+    const subtotal = pricePerNight * nights;
+    const serviceFee = subtotal * 0.028;
+    const taxes = subtotal * 0.0164;
+    const total = subtotal + serviceFee + taxes;
+    
+    // Navigate to booking confirmation
+    navigate('/booking/confirm', {
+      state: {
+        hotel,
+        room,
+        checkIn: checkIn || new Date(Date.now() + 86400000).toISOString(),
+        checkOut: checkOut || new Date(Date.now() + 86400000 * 6).toISOString(),
+        guests: guestCount,
+        rooms: 1,
+        pricing: {
+          nights,
+          pricePerNight,
+          subtotal: subtotal.toFixed(2),
+          serviceFee: serviceFee.toFixed(2),
+          taxes: taxes.toFixed(2),
+          total: total.toFixed(2),
+        },
+      },
+    });
+  };
   
   // Build bed description
   const beds = [];
@@ -72,11 +138,15 @@ const RoomCard = ({ room }) => {
           </Swiper>
           
           {/* Availability Badge */}
-          {!room.is_available && (
+          {!room.is_available ? (
             <div className="absolute top-2 left-2 z-10 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
               Not Available
             </div>
-          )}
+          ) : room.is_available && !isAvailableForDates && checkIn && checkOut ? (
+            <div className="absolute top-2 left-2 z-10 bg-orange-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+              Booked for Selected Dates
+            </div>
+          ) : null}
           
           {/* Discount Badge */}
           {hasDiscount && (
@@ -173,6 +243,27 @@ const RoomCard = ({ room }) => {
             </div>
           )}
 
+          {/* Unavailability Notice for Selected Dates */}
+          {room.is_available && !isAvailableForDates && checkIn && checkOut && (
+            <div className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <div className="flex items-start gap-2">
+                <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <div>
+                  <p className="text-sm font-semibold text-red-900">Not Available for Selected Dates</p>
+                  <p className="text-xs text-red-700 mt-1">
+                    {room.booked_dates ? (
+                      <>This room is already booked from {new Date(room.booked_dates.check_in).toLocaleDateString()} to {new Date(room.booked_dates.check_out).toLocaleDateString()}. Please select different dates.</>
+                    ) : (
+                      <>This room is not available for your selected dates. Please choose different dates.</>
+                    )}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Price & CTA */}
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 pt-3 border-t border-gray-200">
             <div>
@@ -199,14 +290,19 @@ const RoomCard = ({ room }) => {
 
             <button
               type="button"
-              disabled={!room.is_available}
+              onClick={handleBookNow}
+              disabled={!room.is_available || !isAvailableForDates}
               className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                !room.is_available
+                !room.is_available || !isAvailableForDates
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5'
               }`}
             >
-              {!room.is_available ? 'Not Available' : 'Book Now'}
+              {!room.is_available 
+                ? 'Not Available' 
+                : !isAvailableForDates 
+                ? 'Booked for Selected Dates' 
+                : 'Book Now'}
             </button>
           </div>
         </div>

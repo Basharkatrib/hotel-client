@@ -7,6 +7,10 @@ import AuthOverlay from './components/auth/AuthOverlay'
 const Home = lazy(() => import('./pages/Home/index'))
 const Explore = lazy(() => import('./pages/Explore/Explore.jsx'))
 const HotelDetails = lazy(() => import('./pages/HotelDetails'))
+const BookingConfirmation = lazy(() => import('./pages/BookingConfirmation'))
+const Payment = lazy(() => import('./pages/Payment'))
+const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
+const MyBookings = lazy(() => import('./pages/MyBookings'))
 
 function App() {
   return (
@@ -34,6 +38,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/hotel/:slug" element={<HotelDetails />} />
+            
+            {/* Booking routes */}
+            <Route path="/booking/confirm" element={<BookingConfirmation />} />
+            <Route path="/payment/:bookingId" element={<Payment />} />
+            <Route path="/payment/success/:bookingId" element={<PaymentSuccess />} />
+            <Route path="/my-bookings" element={<MyBookings />} />
+            
             {/* Auth routes are handled as overlay */}
             <Route path="/auth/login" element={<Home />} />
             <Route path="/auth/login/verify" element={<Home />} />

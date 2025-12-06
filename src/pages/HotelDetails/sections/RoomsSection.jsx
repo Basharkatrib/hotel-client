@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RoomCard from '../components/RoomCard';
 
-const RoomsSection = ({ hotelId, rooms, loading }) => {
+const RoomsSection = ({ hotelId, rooms, loading, hotel, checkIn, checkOut, guests }) => {
   const [selectedBedFilter, setSelectedBedFilter] = useState('all');
 
   // Filter rooms by bed type
@@ -78,7 +78,14 @@ const RoomsSection = ({ hotelId, rooms, loading }) => {
       ) : (
         <div className="space-y-4">
           {filteredRooms.map((room) => (
-            <RoomCard key={room.id} room={room} />
+            <RoomCard 
+              key={room.id} 
+              room={room} 
+              hotel={hotel}
+              checkIn={checkIn}
+              checkOut={checkOut}
+              guests={guests}
+            />
           ))}
         </div>
       )}
