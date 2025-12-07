@@ -6,7 +6,10 @@ import AuthOverlay from './components/auth/AuthOverlay'
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home/index'))
 const Explore = lazy(() => import('./pages/Explore/Explore.jsx'))
+const Rooms = lazy(() => import('./pages/Rooms/index'))
+const RoomDetails = lazy(() => import('./pages/RoomDetails/index'))
 const HotelDetails = lazy(() => import('./pages/HotelDetails'))
+const Favorites = lazy(() => import('./pages/Favorites/Favorites'))
 const BookingConfirmation = lazy(() => import('./pages/BookingConfirmation'))
 const Payment = lazy(() => import('./pages/Payment'))
 const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
@@ -37,7 +40,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/room/:id" element={<RoomDetails />} />
             <Route path="/hotel/:slug" element={<HotelDetails />} />
+            <Route path="/favorites" element={<Favorites />} />
             
             {/* Booking routes */}
             <Route path="/booking/confirm" element={<BookingConfirmation />} />

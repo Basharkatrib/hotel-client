@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const hotelsApi = createApi({
   reducerPath: 'hotelsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://hotel-server.test/api',
+    baseUrl: 'http://127.0.0.1:8000/api',
   }),
   tagTypes: ['Hotels'],
   endpoints: (builder) => ({
@@ -84,6 +84,11 @@ export const hotelsApi = createApi({
         }
         if (params.check_out_date) {
           searchParams.append('check_out_date', params.check_out_date);
+        }
+        
+        // Guests filter
+        if (params.max_guests) {
+          searchParams.append('max_guests', params.max_guests);
         }
         
         // Type filter

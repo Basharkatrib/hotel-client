@@ -1,20 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart, FaStar, FaUmbrellaBeach } from 'react-icons/fa';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { PiTrainRegionalBold } from 'react-icons/pi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { getImageUrls } from '../../../utils/imageHelper';
+import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
+import { toast } from 'react-toastify';
 import HotelLocationModal from './HotelLocationModal';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
+  const { token } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
+  
   // Handle images - API returns array of paths, we need to construct full URLs
   const images = getImageUrls(hotel.images);
+  
+  // Check if hotel is favorited
+  const { data: favoriteData } = useCheckFavoriteQuery(
+    { favoritable_type: 'hotel', favoritable_id: hotel.id },
+    { skip: !token }
+  );
+  
+  const [addToFavorites] = useAddToFavoritesMutation();
+  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
+  
+  useEffect(() => {
+    if (favoriteData?.data?.is_favorited) {
+      setIsFavorited(true);
+    } else {
+      setIsFavorited(false);
+    }
+  }, [favoriteData]);
+  
+  const handleFavoriteToggle = async (e) => {
+    e.stopPropagation();
+    
+    if (!token) {
+      toast.info('Please login to add to favorites');
+      navigate('/auth/login');
+      return;
+    }
+    
+    try {
+      if (isFavorited) {
+        await removeFromFavorites({
+          favoritable_type: 'hotel',
+          favoritable_id: hotel.id,
+        }).unwrap();
+        setIsFavorited(false);
+        toast.success('Removed from favorites');
+      } else {
+        await addToFavorites({
+          favoritable_type: 'hotel',
+          favoritable_id: hotel.id,
+        }).unwrap();
+        setIsFavorited(true);
+        toast.success('Added to favorites');
+      }
+    } catch (error) {
+      toast.error(error.data?.messages?.[0] || 'Failed to update favorites');
+    }
+  };
 
   const hasDiscount = hotel.original_price && hotel.original_price > hotel.price_per_night;
   const discountPercent = hasDiscount
@@ -86,11 +139,20 @@ const HotelCard = ({ hotel }) => {
           {/* Favorite */}
           <button
             type="button"
-            className="absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-gray-700 shadow-md hover:scale-110 transition-transform"
-            aria-label="Add to favorites"
+            onClick={handleFavoriteToggle}
+            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition-transform ${
+              isFavorited ? 'text-red-500' : 'text-gray-700'
+            }`}
+            aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
           >
-            <FaRegHeart className="group-hover:hidden" />
-            <FaHeart className="hidden text-red-500 group-hover:block" />
+            {isFavorited ? (
+              <FaHeart className="text-red-500" />
+            ) : (
+              <>
+                <FaRegHeart className="group-hover:hidden" />
+                <FaHeart className="hidden text-red-500 group-hover:block" />
+              </>
+            )}
           </button>
         </div>
 

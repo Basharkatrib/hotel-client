@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetHotelQuery, useGetRoomsQuery } from '../../services/hotelsApi';
+import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../services/favoritesApi';
 import { FaStar, FaMapMarkerAlt, FaShare } from 'react-icons/fa';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { toast } from 'react-toastify';
 import ImageGallery from './components/ImageGallery';
 import BookingCard from './components/BookingCard';
 import OverviewSection from './sections/OverviewSection';
@@ -15,6 +18,7 @@ import '../../index.css';
 
 const HotelDetails = () => {
   const { slug } = useParams();
+  const { token } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState('overview');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMobileBookingOpen, setIsMobileBookingOpen] = useState(false);
@@ -36,12 +40,53 @@ const HotelDetails = () => {
   // Fetch hotel details by slug
   const { data: hotelData, isLoading: hotelLoading, isError: hotelError } = useGetHotelQuery(slug);
   
-  console.log('Hotel Data:', hotelData);
-  console.log('Hotel Loading:', hotelLoading);
-  console.log('Hotel Error:', hotelError);
-  console.log('Slug:', slug);
-  
   const hotelId = hotelData?.data?.hotel?.id;
+  
+  // Check if hotel is favorited
+  const { data: favoriteData } = useCheckFavoriteQuery(
+    { favoritable_type: 'hotel', favoritable_id: hotelId },
+    { skip: !token || !hotelId }
+  );
+  
+  const [addToFavorites] = useAddToFavoritesMutation();
+  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
+  
+  useEffect(() => {
+    if (favoriteData?.data?.is_favorited) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [favoriteData]);
+  
+  const handleFavoriteToggle = async () => {
+    if (!token) {
+      toast.info('Please login to add to favorites');
+      return;
+    }
+    
+    if (!hotelId) return;
+    
+    try {
+      if (isFavorite) {
+        await removeFromFavorites({
+          favoritable_type: 'hotel',
+          favoritable_id: hotelId,
+        }).unwrap();
+        setIsFavorite(false);
+        toast.success('Removed from favorites');
+      } else {
+        await addToFavorites({
+          favoritable_type: 'hotel',
+          favoritable_id: hotelId,
+        }).unwrap();
+        setIsFavorite(true);
+        toast.success('Added to favorites');
+      }
+    } catch (error) {
+      toast.error(error.data?.messages?.[0] || 'Failed to update favorites');
+    }
+  };
 
   // Fetch hotel rooms once we know the numeric hotel ID
   const { data: roomsData, isLoading: roomsLoading } = useGetRoomsQuery(
@@ -51,6 +96,7 @@ const HotelDetails = () => {
           per_page: 20,
           check_in_date: bookingDates.checkIn ? new Date(bookingDates.checkIn).toISOString().split('T')[0] : undefined,
           check_out_date: bookingDates.checkOut ? new Date(bookingDates.checkOut).toISOString().split('T')[0] : undefined,
+          max_guests: bookingDates.guests || undefined,
         }
       : skipToken
   );
@@ -169,8 +215,10 @@ const HotelDetails = () => {
             <div className="flex items-center gap-2 sm:self-auto">
               <button
                 type="button"
-                onClick={() => setIsFavorite(!isFavorite)}
-                className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                onClick={handleFavoriteToggle}
+                className={`flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors ${
+                  isFavorite ? 'bg-red-50' : ''
+                }`}
               >
                 {isFavorite ? (
                   <MdFavorite className="text-red-500" size={20} />
