@@ -1,20 +1,29 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+=======
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> origin/j-branch
 import { FaHeart, FaRegHeart, FaStar, FaUmbrellaBeach } from 'react-icons/fa';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { PiTrainRegionalBold } from 'react-icons/pi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { getImageUrls } from '../../../utils/imageHelper';
+<<<<<<< HEAD
 import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
 import { toast } from 'react-toastify';
+=======
+>>>>>>> origin/j-branch
 import HotelLocationModal from './HotelLocationModal';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const { token } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -68,6 +77,11 @@ const HotelCard = ({ hotel }) => {
       toast.error(error.data?.messages?.[0] || 'Failed to update favorites');
     }
   };
+=======
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  // Handle images - API returns array of paths, we need to construct full URLs
+  const images = getImageUrls(hotel.images);
+>>>>>>> origin/j-branch
 
   const hasDiscount = hotel.original_price && hotel.original_price > hotel.price_per_night;
   const discountPercent = hasDiscount
@@ -139,6 +153,7 @@ const HotelCard = ({ hotel }) => {
           {/* Favorite */}
           <button
             type="button"
+<<<<<<< HEAD
             onClick={handleFavoriteToggle}
             className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition-transform ${
               isFavorited ? 'text-red-500' : 'text-gray-700'
@@ -153,6 +168,13 @@ const HotelCard = ({ hotel }) => {
                 <FaHeart className="hidden text-red-500 group-hover:block" />
               </>
             )}
+=======
+            className="absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-gray-700 shadow-md hover:scale-110 transition-transform"
+            aria-label="Add to favorites"
+          >
+            <FaRegHeart className="group-hover:hidden" />
+            <FaHeart className="hidden text-red-500 group-hover:block" />
+>>>>>>> origin/j-branch
           </button>
         </div>
 

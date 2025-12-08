@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+<<<<<<< HEAD
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetHotelQuery, useGetRoomsQuery } from '../../services/hotelsApi';
@@ -7,6 +8,12 @@ import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavorite
 import { FaStar, FaMapMarkerAlt, FaShare } from 'react-icons/fa';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { toast } from 'react-toastify';
+=======
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useGetHotelQuery, useGetRoomsQuery } from '../../services/hotelsApi';
+import { FaStar, FaMapMarkerAlt, FaShare } from 'react-icons/fa';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+>>>>>>> origin/j-branch
 import ImageGallery from './components/ImageGallery';
 import BookingCard from './components/BookingCard';
 import OverviewSection from './sections/OverviewSection';
@@ -18,7 +25,10 @@ import '../../index.css';
 
 const HotelDetails = () => {
   const { slug } = useParams();
+<<<<<<< HEAD
   const { token } = useSelector((state) => state.auth);
+=======
+>>>>>>> origin/j-branch
   const [activeTab, setActiveTab] = useState('overview');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMobileBookingOpen, setIsMobileBookingOpen] = useState(false);
@@ -40,6 +50,7 @@ const HotelDetails = () => {
   // Fetch hotel details by slug
   const { data: hotelData, isLoading: hotelLoading, isError: hotelError } = useGetHotelQuery(slug);
   
+<<<<<<< HEAD
   const hotelId = hotelData?.data?.hotel?.id;
   
   // Check if hotel is favorited
@@ -87,6 +98,14 @@ const HotelDetails = () => {
       toast.error(error.data?.messages?.[0] || 'Failed to update favorites');
     }
   };
+=======
+  console.log('Hotel Data:', hotelData);
+  console.log('Hotel Loading:', hotelLoading);
+  console.log('Hotel Error:', hotelError);
+  console.log('Slug:', slug);
+  
+  const hotelId = hotelData?.data?.hotel?.id;
+>>>>>>> origin/j-branch
 
   // Fetch hotel rooms once we know the numeric hotel ID
   const { data: roomsData, isLoading: roomsLoading } = useGetRoomsQuery(
@@ -96,7 +115,10 @@ const HotelDetails = () => {
           per_page: 20,
           check_in_date: bookingDates.checkIn ? new Date(bookingDates.checkIn).toISOString().split('T')[0] : undefined,
           check_out_date: bookingDates.checkOut ? new Date(bookingDates.checkOut).toISOString().split('T')[0] : undefined,
+<<<<<<< HEAD
           max_guests: bookingDates.guests || undefined,
+=======
+>>>>>>> origin/j-branch
         }
       : skipToken
   );
@@ -215,10 +237,15 @@ const HotelDetails = () => {
             <div className="flex items-center gap-2 sm:self-auto">
               <button
                 type="button"
+<<<<<<< HEAD
                 onClick={handleFavoriteToggle}
                 className={`flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors ${
                   isFavorite ? 'bg-red-50' : ''
                 }`}
+=======
+                onClick={() => setIsFavorite(!isFavorite)}
+                className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+>>>>>>> origin/j-branch
               >
                 {isFavorite ? (
                   <MdFavorite className="text-red-500" size={20} />

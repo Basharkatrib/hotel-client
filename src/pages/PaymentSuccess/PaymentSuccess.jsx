@@ -190,5 +190,8 @@ const PaymentSuccess = () => {
 
 export default PaymentSuccess;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/j-branch
