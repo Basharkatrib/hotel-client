@@ -85,6 +85,13 @@ const BookingConfirmation = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    // Validate guests count against room capacity
+    if (guests > room.max_guests) {
+      toast.error(`This room can accommodate a maximum of ${room.max_guests} guests. Please reduce the number of guests.`);
+      setIsLoading(false);
+      return;
+    }
+
     // Validate all guests have required info
     const allGuestsValid = guestsInfo.every(guest => 
       guest.name.trim() && guest.email.trim() && guest.phone.trim()

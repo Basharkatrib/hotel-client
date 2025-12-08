@@ -59,6 +59,7 @@ const Navbar = () => {
   const navLinks = [
     { label: 'Home', to: '/' },
     { label: 'Explore', to: '/explore' },
+    { label: 'Rooms', to: '/rooms' },
   ];
 
   return (
