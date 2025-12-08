@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import Navbar from './components/common/Navbar/index'
 import AuthOverlay from './components/auth/AuthOverlay'
+import Footer from './components/common/Footer'
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home/index'))
 const Explore = lazy(() => import('./pages/Explore/Explore.jsx'))
@@ -54,6 +55,7 @@ function App() {
             <Route path="/auth/verify-email" element={<Home />} />
           </Routes>
           <AuthOverlay />
+          <Footer />
         </div>
       </Suspense>
     </BrowserRouter>
