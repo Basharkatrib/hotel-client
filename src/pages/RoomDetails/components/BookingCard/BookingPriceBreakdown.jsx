@@ -25,3 +25,4 @@ const BookingPriceBreakdown = ({ pricePerNight, nights, subtotal, serviceFee, ta
 
 export default BookingPriceBreakdown;
 
+

@@ -60,3 +60,4 @@ const RoomAmenities = ({ room }) => {
 
 export default RoomAmenities;
 
+

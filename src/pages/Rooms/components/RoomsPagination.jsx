@@ -64,3 +64,4 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
 
 export default RoomsPagination;
 
+

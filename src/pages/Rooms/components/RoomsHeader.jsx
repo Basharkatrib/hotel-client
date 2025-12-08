@@ -13,3 +13,4 @@ const RoomsHeader = ({ totalRooms }) => {
 
 export default RoomsHeader;
 
+
