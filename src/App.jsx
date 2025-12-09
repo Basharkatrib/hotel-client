@@ -1,9 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import Navbar from './components/common/Navbar/index'
-import Footer from './components/common/Footer/index'
 import AuthOverlay from './components/auth/AuthOverlay'
+import { AccountLayout, MainLayout } from './components/layout'
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home/index'))
 const Explore = lazy(() => import('./pages/Explore/Explore.jsx'))
@@ -15,6 +14,7 @@ const BookingConfirmation = lazy(() => import('./pages/BookingConfirmation'))
 const Payment = lazy(() => import('./pages/Payment'))
 const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
 const MyBookings = lazy(() => import('./pages/MyBookings'))
+const PersonalDataForm = lazy(() => import('./pages/personalDataForm/PersonalDataForm'))
 
 function App() {
   return (
@@ -36,21 +36,19 @@ function App() {
           </div>
         }
       >
-        <div className="relative">
-          <Navbar />
-          <Routes>
+        <Routes>
+          {/* Routes with Navbar and Footer */}
+          <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/room/:id" element={<RoomDetails />} />
             <Route path="/hotel/:slug" element={<HotelDetails />} />
-            <Route path="/favorites" element={<Favorites />} />
             
             {/* Booking routes */}
             <Route path="/booking/confirm" element={<BookingConfirmation />} />
             <Route path="/payment/:bookingId" element={<Payment />} />
             <Route path="/payment/success/:bookingId" element={<PaymentSuccess />} />
-            <Route path="/my-bookings" element={<MyBookings />} />
             
             {/* Auth routes are handled as overlay */}
             <Route path="/auth/login" element={<Home />} />
@@ -59,10 +57,17 @@ function App() {
             <Route path="/auth/forgot-password" element={<Home />} />
             <Route path="/auth/reset-password" element={<Home />} />
             <Route path="/auth/verify-email" element={<Home />} />
-          </Routes>
-          <AuthOverlay />
-          <Footer />
-        </div>
+          </Route>
+
+          {/* Account Layout with Sidebar - No Navbar/Footer */}
+          <Route element={<AccountLayout />}>
+            <Route path="/my-profile" element={<PersonalDataForm />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/my-bookings" element={<MyBookings />} />
+            {/* Add more account routes here as needed */}
+          </Route>
+        </Routes>
+        <AuthOverlay />
       </Suspense>
     </BrowserRouter>
   )

@@ -185,9 +185,7 @@ const ReviewsSection = ({ hotel }) => {
         {!statsLoading && (
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-6 border-b border-gray-200">
             <div className="text-center md:text-left">
-              <div className="text-5xl font-bold text-gray-900 mb-1">
-                {stats.average_rating ? stats.average_rating.toFixed(1) : '0.0'}
-              </div>
+           
               <RatingStars 
                 rating={stats.average_rating || 0} 
                 size={20}
@@ -222,48 +220,7 @@ const ReviewsSection = ({ hotel }) => {
         )}
 
         {/* Filters and Sort */}
-        <div className="mt-6 flex flex-wrap items-center gap-4 pb-4 border-b border-gray-200">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm font-medium text-gray-700">Filter by rating:</span>
-            <button
-              onClick={() => setFilterRating(null)}
-              className={`px-3 py-1 text-sm rounded-lg transition-colors ${
-                filterRating === null
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              All
-            </button>
-            {[5, 4, 3, 2, 1].map((rating) => (
-              <button
-                key={rating}
-                onClick={() => setFilterRating(filterRating === rating ? null : rating)}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
-                  filterRating === rating
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {rating} Star{rating > 1 ? 's' : ''}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2 ml-auto">
-            <span className="text-sm font-medium text-gray-700">Sort by:</span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-1 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="latest">Latest</option>
-              <option value="oldest">Oldest</option>
-              <option value="highest">Highest Rating</option>
-              <option value="lowest">Lowest Rating</option>
-            </select>
-          </div>
-        </div>
+     
 
         {/* Reviews List */}
         {reviewsLoading ? (

@@ -130,7 +130,7 @@ const Explore = () => {
           />
 
           {/* Panel */}
-          <div className="absolute inset-y-0 right-0 w-full max-w-xs bg-white shadow-xl flex flex-col pt-14 slide-in-right">
+          <div className="absolute inset-y-0 right-0 w-full max-w-xs bg-white shadow-xl flex flex-col pt-18 slide-in-right">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
               <h2 className="text-sm font-semibold text-gray-900">Filters</h2>
               <button

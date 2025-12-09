@@ -34,31 +34,25 @@ const Favorites = () => {
 
   if (!token) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20 pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-            <FaHeart className="mx-auto text-gray-400 mb-4" size={48} />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Please Login</h2>
-            <p className="text-gray-600 mb-6">You need to be logged in to view your favorites.</p>
-            <button
-              onClick={() => navigate('/auth/login')}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Login
-            </button>
-          </div>
-        </div>
+      <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+        <FaHeart className="mx-auto text-gray-400 mb-4" size={48} />
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Please Login</h2>
+        <p className="text-gray-600 mb-6">You need to be logged in to view your favorites.</p>
+        <button
+          onClick={() => navigate('/auth/login')}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Login
+        </button>
       </div>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20 pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
-          </div>
+      <div className="bg-white rounded-xl border border-gray-200 p-12">
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
         </div>
       </div>
     );
@@ -69,18 +63,10 @@ const Favorites = () => {
   const hasItems = filteredHotels.length > 0 || filteredRooms.length > 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-white border border-gray-200 p-4 sm:p-6">
         {/* Header */}
         <div className="mb-8">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
-          >
-            <FaArrowLeft />
-            <span>Back</span>
-          </button>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">My Favorites</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">My Favorites</h1>
           <p className="text-gray-600">
             {hotels.length + rooms.length} {hotels.length + rooms.length === 1 ? 'item' : 'items'} saved
           </p>
@@ -298,7 +284,6 @@ const Favorites = () => {
           </div>
         )}
       </div>
-    </div>
   );
 };
 

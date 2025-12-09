@@ -185,9 +185,9 @@ const HotelList = ({
         </span>
       </div>
 
-      {/* Hotels */}
+      {/* Hotels - Using React.memo optimized cards */}
       {hotels.map((hotel) => (
-        <HotelCard key={hotel.id} hotel={hotel} />
+        <HotelCard key={`hotel-${hotel.id}-${hotel.slug}`} hotel={hotel} />
       ))}
 
       {/* Pagination */}

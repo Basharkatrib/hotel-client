@@ -52,7 +52,7 @@ const Payment = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-10">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Complete Your Payment</h1>
@@ -72,16 +72,6 @@ const Payment = () => {
                 <PaymentForm booking={booking} />
               </Elements>
 
-              {/* Test Card Info */}
-              <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                <h3 className="font-semibold text-yellow-900 mb-2">Test Mode - Use Test Card</h3>
-                <div className="text-sm text-yellow-800 space-y-1">
-                  <p><strong>Card Number:</strong> 4242 4242 4242 4242</p>
-                  <p><strong>Expiry:</strong> Any future date (e.g., 12/34)</p>
-                  <p><strong>CVC:</strong> Any 3 digits (e.g., 123)</p>
-                  <p><strong>ZIP:</strong> Any 5 digits (e.g., 12345)</p>
-                </div>
-              </div>
             </div>
           </div>
 

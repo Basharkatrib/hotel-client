@@ -169,7 +169,7 @@ const Navbar = () => {
                         <button
                           onClick={() => {
                             setIsUserMenuOpen(false);
-                            navigate('/profile');
+                            navigate('/my-profile');
                           }}
                           className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors group"
                         >

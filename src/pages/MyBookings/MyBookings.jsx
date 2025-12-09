@@ -60,7 +60,7 @@ const MyBookings = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
+      <div className="bg-white rounded-xl border border-gray-200 p-12">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your bookings...</p>
@@ -70,8 +70,7 @@ const MyBookings = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-white border border-gray-200 p-4 sm:p-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">My Bookings</h1>
 
         {/* Tabs */}
@@ -221,7 +220,6 @@ const MyBookings = () => {
             </button>
           </div>
         )}
-      </div>
     </div>
   );
 };

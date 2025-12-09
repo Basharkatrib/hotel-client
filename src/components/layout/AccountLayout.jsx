@@ -1,0 +1,64 @@
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../common/Sidebar';
+import { IoMenu, IoClose } from 'react-icons/io5';
+
+const AccountLayout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  return (
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+      <div className="w-full">
+        {/* Mobile Menu Button */}
+        <button
+          onClick={toggleSidebar}
+          className="lg:hidden fixed top-4 right-4 z-50 p-2 bg-white rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
+          aria-label="Toggle menu"
+        >
+          {isSidebarOpen ? (
+            <IoClose className="w-6 h-6 text-gray-700" />
+          ) : (
+            <IoMenu className="w-6 h-6 text-gray-700" />
+          )}
+        </button>
+
+        {/* Backdrop for Mobile */}
+        {isSidebarOpen && (
+          <div
+            className="lg:hidden fixed inset-0 bg-black/50 z-40 transition-opacity"
+            onClick={closeSidebar}
+          />
+        )}
+
+        <div className="flex flex-col lg:flex-row">
+          {/* Sidebar */}
+          <div
+            className={`
+              fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
+              transform transition-transform duration-300 ease-in-out
+              ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+              lg:shrink-0
+            `}
+          >
+            <Sidebar onClose={closeSidebar} />
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1 w-full">
+            <Outlet />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AccountLayout;
