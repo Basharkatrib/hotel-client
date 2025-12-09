@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import Navbar from './components/common/Navbar/index'
+import Footer from './components/common/Footer/index'
 import AuthOverlay from './components/auth/AuthOverlay'
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home/index'))
@@ -61,6 +62,7 @@ function App() {
           </Routes>
           <AuthOverlay />
         </div>
+        <Footer />
       </Suspense>
     </BrowserRouter>
   )

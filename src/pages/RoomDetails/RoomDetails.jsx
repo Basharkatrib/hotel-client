@@ -12,6 +12,7 @@ import RoomImageGallery from './components/RoomImageGallery';
 import RoomInfo from './components/RoomInfo';
 import RoomDescription from './components/RoomDescription';
 import RoomAmenities from './components/RoomAmenities';
+import RoomReviews from './components/RoomReviews';
 import BookingCard from './components/BookingCard/BookingCard';
 
 const RoomDetails = () => {
@@ -249,6 +250,11 @@ const RoomDetails = () => {
               onBookNow={handleBookNow}
             />
           </div>
+        </div>
+
+        {/* Reviews Section - Full Width */}
+        <div className="mt-8">
+          <RoomReviews room={room} />
         </div>
       </div>
     </div>

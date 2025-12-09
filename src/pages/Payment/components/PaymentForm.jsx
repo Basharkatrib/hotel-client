@@ -133,8 +133,5 @@ const PaymentForm = ({ booking }) => {
 
 export default PaymentForm;
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/j-branch
