@@ -499,3 +499,4 @@ curl -X POST "http://127.0.0.1:8000/api/hotels/1/reviews" \
 # Get review stats
 curl -X GET "http://127.0.0.1:8000/api/hotels/1/reviews/stats"
 ```
+

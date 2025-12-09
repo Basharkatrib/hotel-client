@@ -39,3 +39,4 @@ const BookingAvailabilityStatus = ({ isChecking, isAvailable }) => {
 export default BookingAvailabilityStatus;
 
 
+
