@@ -70,9 +70,19 @@ const Footer = () => {
                   {section.title}
                 </h2>
                 {section.links.map((link, i) => (
-                  <p key={i} className="text-sm text-gray-200 leading-12">
+                  <a
+                    href=""
+                    key={i}
+                    className="
+                              text-sm text-gray-200 leading-12
+                              hover:text-transparent
+                              hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-700
+                              hover:bg-clip-text
+                              transition-all duration-300
+                              "
+                  >
                     {link}
-                  </p>
+                  </a>
                 ))}
 
                 {section.socialIcons && (

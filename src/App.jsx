@@ -61,8 +61,8 @@ function App() {
             <Route path="/auth/verify-email" element={<Home />} />
           </Routes>
           <AuthOverlay />
+          <Footer />
         </div>
-        <Footer />
       </Suspense>
     </BrowserRouter>
   )
