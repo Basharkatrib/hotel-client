@@ -9,25 +9,12 @@ export default defineConfig({
     react({
       // Fix for React 19 compatibility issues
       // jsxRuntime is automatic by default in @vitejs/plugin-react v5+
-      // This ensures consistent handling of React imports
     }), 
     tailwindcss()
   ],
   build: {
     // Use esbuild instead of terser for better React 19 compatibility
     minify: 'esbuild',
-    // Keep terser options as fallback if needed
-    // minify: 'terser',
-    // terserOptions: {
-    //   compress: {
-    //     drop_console: false, // Keep console in production for debugging
-    //     drop_debugger: true,
-    //     pure_funcs: ['console.log', 'console.info', 'console.debug'],
-    //   },
-    //   format: {
-    //     comments: false,
-    //   },
-    // },
     // Code splitting - better chunking strategy
     rollupOptions: {
       output: {
@@ -45,8 +32,15 @@ export default defineConfig({
           if (id.includes('node_modules/react-router')) {
             return 'router-vendor';
           }
-          // Redux
-          if (id.includes('node_modules/@reduxjs') || id.includes('node_modules/redux')) {
+          // Redux - CRITICAL: All Redux packages must be in the same chunk
+          // This fixes the "Cannot set properties of undefined" error
+          if (
+            id.includes('node_modules/@reduxjs') || 
+            id.includes('node_modules/redux') ||
+            id.includes('node_modules/react-redux') ||
+            id.includes('node_modules/redux-persist') ||
+            id.includes('node_modules/use-sync-external-store')
+          ) {
             return 'redux-vendor';
           }
           // Swiper - separate chunk for lazy loading
@@ -117,6 +111,9 @@ export default defineConfig({
       'react-router-dom',
       'react-redux',
       '@reduxjs/toolkit',
+      'redux-persist',
+      'use-sync-external-store',
+      'use-sync-external-store/shim',
     ],
     exclude: ['swiper'], // Exclude swiper to force lazy loading
     // Force pre-bundling for React 19
