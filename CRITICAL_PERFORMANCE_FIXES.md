@@ -98,3 +98,4 @@
 3. ⏳ Optimize React-icons imports
 4. ⏳ Add image preloading
 5. ⏳ Review and remove unused dependencies
+

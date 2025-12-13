@@ -5,23 +5,40 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react({
+      // Fix for React 19 compatibility issues
+      // jsxRuntime is automatic by default in @vitejs/plugin-react v5+
+      // This ensures consistent handling of React imports
+    }), 
+    tailwindcss()
+  ],
   build: {
-    // Optimize build
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'],
-      },
-    },
+    // Use esbuild instead of terser for better React 19 compatibility
+    minify: 'esbuild',
+    // Keep terser options as fallback if needed
+    // minify: 'terser',
+    // terserOptions: {
+    //   compress: {
+    //     drop_console: false, // Keep console in production for debugging
+    //     drop_debugger: true,
+    //     pure_funcs: ['console.log', 'console.info', 'console.debug'],
+    //   },
+    //   format: {
+    //     comments: false,
+    //   },
+    // },
     // Code splitting - better chunking strategy
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // React core
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+          // React core - ensure React and ReactDOM are together
+          if (
+            id.includes('node_modules/react/') || 
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/react/jsx-runtime') ||
+            id.includes('node_modules/react/jsx-dev-runtime')
+          ) {
             return 'react-vendor';
           }
           // React Router
@@ -81,21 +98,31 @@ export default defineConfig({
     },
     // Chunk size warnings
     chunkSizeWarningLimit: 500,
-    // Enable source maps only in dev
-    sourcemap: false,
+    // Enable source maps in production for debugging (can disable later)
+    sourcemap: true, // Change to false after fixing the issue
     // Target modern browsers for smaller bundles
-    target: 'es2015',
+    target: 'es2020', // Updated for better React 19 support
+    // CommonJS options
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
   },
   // Optimize dependencies
   optimizeDeps: {
     include: [
       'react',
       'react-dom',
+      'react/jsx-runtime',
       'react-router-dom',
       'react-redux',
       '@reduxjs/toolkit',
     ],
     exclude: ['swiper'], // Exclude swiper to force lazy loading
+    // Force pre-bundling for React 19
+    esbuildOptions: {
+      target: 'es2020',
+    },
   },
   resolve: {
     alias: {
