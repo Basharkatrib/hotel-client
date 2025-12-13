@@ -1,7 +1,3 @@
-// Polyfill for use-sync-external-store (fixes React 19 compatibility with react-redux)
-// This must be imported BEFORE react-redux
-import 'use-sync-external-store/shim'
-
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'

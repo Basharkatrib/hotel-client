@@ -9,6 +9,10 @@ export default defineConfig({
     react({
       // Fix for React 19 compatibility issues
       // jsxRuntime is automatic by default in @vitejs/plugin-react v5+
+      // Ensure React is properly available to all modules
+      babel: {
+        plugins: [],
+      },
     }), 
     tailwindcss()
   ],
@@ -17,23 +21,26 @@ export default defineConfig({
     minify: 'esbuild',
     // Code splitting - better chunking strategy
     rollupOptions: {
+      // External dependencies that should not be bundled
+      external: [],
       output: {
+        // Ensure proper chunk loading order
+        // React must load before any library that depends on it
         manualChunks: (id) => {
           // React core - ensure React and ReactDOM are together
+          // CRITICAL: React must be loaded first, before any library that uses it
+          // Include all React-related modules in the same chunk
           if (
-            id.includes('node_modules/react/') || 
-            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/react') || 
+            id.includes('node_modules/react-dom') ||
             id.includes('node_modules/react/jsx-runtime') ||
             id.includes('node_modules/react/jsx-dev-runtime')
           ) {
             return 'react-vendor';
           }
-          // React Router
-          if (id.includes('node_modules/react-router')) {
-            return 'router-vendor';
-          }
           // Redux - CRITICAL: All Redux packages must be in the same chunk
           // This fixes the "Cannot set properties of undefined" error
+          // IMPORTANT: Keep Redux separate from React to ensure proper loading order
           if (
             id.includes('node_modules/@reduxjs') || 
             id.includes('node_modules/redux') ||
@@ -42,6 +49,10 @@ export default defineConfig({
             id.includes('node_modules/use-sync-external-store')
           ) {
             return 'redux-vendor';
+          }
+          // React Router - depends on React, so keep separate
+          if (id.includes('node_modules/react-router')) {
+            return 'router-vendor';
           }
           // Swiper - separate chunk for lazy loading
           if (id.includes('node_modules/swiper')) {
@@ -113,7 +124,6 @@ export default defineConfig({
       '@reduxjs/toolkit',
       'redux-persist',
       'use-sync-external-store',
-      'use-sync-external-store/shim',
     ],
     exclude: ['swiper'], // Exclude swiper to force lazy loading
     // Force pre-bundling for React 19
@@ -125,6 +135,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    // Ensure proper module resolution
+    dedupe: ['react', 'react-dom'],
   },
   // Performance optimizations
   server: {
