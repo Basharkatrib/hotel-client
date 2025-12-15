@@ -98,6 +98,9 @@ const HotelCard = ({ hotel }) => {
   if (hotel.room_type) metaParts.push(hotel.room_type);
   if (hotel.bed_type) metaParts.push(hotel.bed_type);
   if (hotel.room_size) metaParts.push(`${hotel.room_size} m²`);
+  if (hotel.max_guests_capacity) {
+    metaParts.push(`Up to ${hotel.max_guests_capacity} guests`);
+  }
   const meta = metaParts.join(' • ');
 
   return (
@@ -192,14 +195,15 @@ const HotelCard = ({ hotel }) => {
             </div>
 
             {/* Rating */}
-            {hotel.rating > 0 && (
+            {Number(hotel.rating) > 0 && (
               <div className="flex items-center gap-3 self-start sm:self-auto">
                 <div className="flex flex-col items-end">
                   <button
                     type="button"
                     className="text-xs font-semibold text-blue-600 hover:underline"
                   >
-                    {getRatingText(hotel.rating)}
+                    {/* عرض التقييم الحقيقي كنص رقمي */}
+                    {Number(hotel.rating).toFixed(1)} / 5
                   </button>
                   <span className="text-[11px] text-gray-500">
                     {hotel.reviews_count.toLocaleString()} reviews

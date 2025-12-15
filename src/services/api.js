@@ -4,13 +4,16 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL + '/api',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, { getState, endpoint }) => {
       const token = getState().auth.token;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
       headers.set('Accept', 'application/json');
-      headers.set('Content-Type', 'application/json');
+      // Avoid forcing JSON Content-Type for file uploads (e.g. avatar)
+      if (endpoint !== 'uploadAvatar') {
+        headers.set('Content-Type', 'application/json');
+      }
       return headers;
     },
   }),
@@ -94,6 +97,30 @@ export const api = createApi({
       providesTags: ['User'],
     }),
 
+    // Update profile
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: '/user/profile',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    // Upload avatar (profile image)
+    uploadAvatar: builder.mutation({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append('avatar', file);
+        return {
+          url: '/user/avatar',
+          method: 'POST',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['User'],
+    }),
+
     // Logout
     logout: builder.mutation({
       query: () => ({
@@ -116,5 +143,7 @@ export const {
   useResetPasswordMutation,
   useGetUserQuery,
   useLogoutMutation,
+  useUpdateProfileMutation,
+  useUploadAvatarMutation,
 } = api;
 
