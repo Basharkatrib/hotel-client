@@ -118,6 +118,26 @@ const HotelList = ({
     queryParams.type = filters.type;
   }
 
+  if (filters.city) {
+    queryParams.city = filters.city;
+  }
+
+  if (filters.checkInDate) {
+    queryParams.check_in_date = filters.checkInDate;
+  }
+
+  if (filters.checkOutDate) {
+    queryParams.check_out_date = filters.checkOutDate;
+  }
+
+  if (filters.guests) {
+    queryParams.guests = filters.guests;
+  }
+
+  if (filters.rooms) {
+    queryParams.rooms = filters.rooms;
+  }
+
   if (filters.minPrice > 0) {
     queryParams.min_price = filters.minPrice;
   }

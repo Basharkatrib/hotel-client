@@ -19,9 +19,18 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
   // Update parent component when filters change (with debounce for price)
   React.useEffect(() => {
     const timeoutId = setTimeout(() => {
-      const typeValue = typeOfPlace === 'Any type' ? 'any' : typeOfPlace === 'Room' ? 'room' : typeOfPlace === 'Entire home' ? 'entire_home' : 'any';
-      
+      const typeValue =
+        typeOfPlace === 'Any type'
+          ? 'any'
+          : typeOfPlace === 'Room'
+            ? 'room'
+            : typeOfPlace === 'Entire home'
+              ? 'entire_home'
+              : 'any';
+
+      // Preserve existing filters coming from URL (city, dates, guests, rooms, ...)
       onFiltersChange({
+        ...filters,
         type: typeValue,
         minPrice,
         maxPrice,
@@ -30,7 +39,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
     }, 500); // Debounce for 500ms
 
     return () => clearTimeout(timeoutId);
-  }, [typeOfPlace, minPrice, maxPrice, selectedAmenities, onFiltersChange]);
+  }, [typeOfPlace, minPrice, maxPrice, selectedAmenities, onFiltersChange, filters]);
 
   const toggleAmenity = (label) => {
     setSelectedAmenities((prev) =>

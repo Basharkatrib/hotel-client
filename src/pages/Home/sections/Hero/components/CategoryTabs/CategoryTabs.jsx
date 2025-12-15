@@ -12,7 +12,7 @@ const categories = [
 
 const CategoryTabs = ({ activeCategory, onCategoryChange }) => {
   return (
-    <div className="absolute top-104 sm:-top-9 left-1/2 -translate-x-1/2 w-[90%] sm:w-11/12 md:w-full lg:w-4/5 z-10">
+    <div className="hidden absolute top-104 sm:-top-9 left-1/2 -translate-x-1/2 w-[90%] sm:w-11/12 md:w-full lg:w-4/5 z-10">
       <div className="bg-gray-600/90 backdrop-blur-md rounded-xl sm:rounded-full px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 shadow-xl">
         <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 md:gap-3">
           {categories.map((category) => {

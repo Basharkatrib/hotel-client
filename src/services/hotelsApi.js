@@ -28,6 +28,22 @@ export const hotelsApi = createApi({
         if (params.city) {
           searchParams.append('city', params.city);
         }
+
+        // Availability filters (optional, backend may ignore if not supported)
+        if (params.check_in_date) {
+          searchParams.append('check_in_date', params.check_in_date);
+        }
+        if (params.check_out_date) {
+          searchParams.append('check_out_date', params.check_out_date);
+        }
+
+        // Guests / rooms (used to filter hotels that can accommodate the party)
+        if (params.guests) {
+          searchParams.append('guests', params.guests);
+        }
+        if (params.rooms) {
+          searchParams.append('rooms', params.rooms);
+        }
         
         // Boolean filters
         if (params.has_free_cancellation) {

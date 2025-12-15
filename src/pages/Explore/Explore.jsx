@@ -1,18 +1,35 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import MapSection from './components/MapSection';
 import FiltersSidebar from './components/FiltersSidebar';
 import HotelList from './components/HotelList';
 
 const Explore = () => {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
-  
+
+  const [searchParams] = useSearchParams();
+
+  const initialFilters = useMemo(
+    () => ({
+      type: 'any',
+      minPrice: 0,
+      maxPrice: 2000,
+      selectedAmenities: [],
+      city: searchParams.get('city') || '',
+      checkInDate: searchParams.get('check_in_date') || '',
+      checkOutDate: searchParams.get('check_out_date') || '',
+      guests: searchParams.get('guests')
+        ? Number.parseInt(searchParams.get('guests'), 10) || null
+        : null,
+      rooms: searchParams.get('rooms')
+        ? Number.parseInt(searchParams.get('rooms'), 10) || null
+        : null,
+    }),
+    [searchParams],
+  );
+
   // Filters state
-  const [filters, setFilters] = useState({
-    type: 'any',
-    minPrice: 0,
-    maxPrice: 2000,
-    selectedAmenities: [],
-  });
+  const [filters, setFilters] = useState(() => initialFilters);
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);

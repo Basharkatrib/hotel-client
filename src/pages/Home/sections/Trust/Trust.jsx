@@ -25,7 +25,7 @@ const Trust = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-white" aria-labelledby="trust-heading">
+    <section className="mt-44 sm:mt-0 py-12 sm:py-16 lg:py-24 bg-white" aria-labelledby="trust-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
