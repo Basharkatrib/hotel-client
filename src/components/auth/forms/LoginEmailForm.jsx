@@ -22,7 +22,7 @@ const LoginEmailForm = () => {
         password: values.password,
       }).unwrap();
 
-      if (result.status && result.data.token) {
+      if (result.status && result.data.user) {
         toast.success('Logged in successfully. Welcome back!', {
           toastId: 'login-success',
         });

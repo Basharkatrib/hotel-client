@@ -16,7 +16,7 @@ const LoginCodeForm = () => {
       const code = `${values.d1}${values.d2}${values.d3}${values.d4}`;
       const result = await verifyOtp({ email, code }).unwrap();
       
-      if (result.status && result.data.token) {
+      if (result.status && result.data.user) {
         navigate(location.state?.backgroundLocation || '/');
       }
     } catch (error) {

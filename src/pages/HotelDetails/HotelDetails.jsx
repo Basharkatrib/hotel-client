@@ -18,7 +18,7 @@ import '../../index.css';
 
 const HotelDetails = () => {
   const { slug } = useParams();
-  const { token } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState('overview');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMobileBookingOpen, setIsMobileBookingOpen] = useState(false);
@@ -45,7 +45,7 @@ const HotelDetails = () => {
   // Check if hotel is favorited
   const { data: favoriteData } = useCheckFavoriteQuery(
     { favoritable_type: 'hotel', favoritable_id: hotelId },
-    { skip: !token || !hotelId }
+    { skip: !isAuthenticated || !hotelId }
   );
   
   const [addToFavorites] = useAddToFavoritesMutation();
@@ -60,7 +60,7 @@ const HotelDetails = () => {
   }, [favoriteData]);
   
   const handleFavoriteToggle = async () => {
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to add to favorites');
       return;
     }

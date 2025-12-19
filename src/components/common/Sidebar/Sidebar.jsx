@@ -16,11 +16,10 @@ import { logout as logoutAction } from '../../../store/slices/authSlice';
 import { useLogoutMutation } from '../../../services/api';
 import { toast } from 'react-toastify';
 
-function Sidebar({ onClose }) {
+function Sidebar({ onClose, user }) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
   const [logoutMutation] = useLogoutMutation();
 
   const sidebarItems = [
@@ -87,13 +86,13 @@ function Sidebar({ onClose }) {
         {/* PROFILE */}
         <div className="flex items-center gap-3">
           <img
-            src={profileImg}
+            src={`${import.meta.env.VITE_API_URL}${user?.data?.user?.avatar}` || profileImg}
             alt="profile"
             className="w-12 h-12 rounded-full object-cover"
           />
           <div>
-            <h2 className="text-[16px] font-medium">{user?.name || 'User'}</h2>
-            <h5 className="text-[12px] text-gray-500">{user?.email || 'Customer Operations'}</h5>
+            <h2 className="text-[16px] font-medium">{user?.data?.user?.first_name || 'User'}</h2>
+            <h5 className="text-[12px] text-gray-500">{user?.data?.user?.email || 'Customer Operations'}</h5>
           </div>
         </div>
 

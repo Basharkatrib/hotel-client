@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const RoomCard = ({ room }) => {
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [isFavorited, setIsFavorited] = useState(false);
   
   const images = getImageUrls(room.images);
@@ -20,7 +20,7 @@ const RoomCard = ({ room }) => {
   // Check if room is favorited
   const { data: favoriteData } = useCheckFavoriteQuery(
     { favoritable_type: 'room', favoritable_id: room.id },
-    { skip: !token }
+    { skip: !isAuthenticated }
   );
   
   const [addToFavorites] = useAddToFavoritesMutation();
@@ -49,7 +49,7 @@ const RoomCard = ({ room }) => {
   const handleFavoriteToggle = async (e) => {
     e.stopPropagation();
     
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to add to favorites');
       navigate('/auth/login');
       return;

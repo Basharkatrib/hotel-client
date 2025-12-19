@@ -18,7 +18,7 @@ import BookingCard from './components/BookingCard/BookingCard';
 const RoomDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   
   const [checkIn, setCheckIn] = useState(addDays(new Date(), 1));
   const [checkOut, setCheckOut] = useState(addDays(new Date(), 6));
@@ -35,7 +35,7 @@ const RoomDetails = () => {
   // Check if room is favorited
   const { data: favoriteData } = useCheckFavoriteQuery(
     { favoritable_type: 'room', favoritable_id: room?.id },
-    { skip: !token || !room?.id }
+    { skip: !isAuthenticated || !room?.id }
   );
   
   const [isFavorited, setIsFavorited] = useState(false);
@@ -51,7 +51,7 @@ const RoomDetails = () => {
   }, [favoriteData]);
   
   const handleFavoriteToggle = async () => {
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to add to favorites');
       navigate('/auth/login', { state: { from: `/room/${id}` } });
       return;
@@ -119,7 +119,7 @@ const RoomDetails = () => {
   };
   
   const handleBookNow = () => {
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to continue with your booking.');
       navigate('/auth/login', { state: { from: `/room/${id}` } });
       return;

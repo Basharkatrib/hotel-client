@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const RoomReviews = ({ room }) => {
-  const { token, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [editingReview, setEditingReview] = useState(null); // Review being edited
@@ -36,7 +36,7 @@ const RoomReviews = ({ room }) => {
   // Check if user has already reviewed
   const { data: checkReviewData } = useCheckRoomReviewQuery(
     roomId || skipToken,
-    { skip: !token || !roomId }
+    { skip: !isAuthenticated || !roomId }
   );
 
   // Fetch reviews
@@ -63,10 +63,10 @@ const RoomReviews = ({ room }) => {
   const reviews = reviewsData?.data?.reviews || [];
   const pagination = reviewsData?.data?.pagination || {};
   const hasReviewed = checkReviewData?.data?.has_reviewed || false;
-  const canReview = token && !hasReviewed;
+  const canReview = isAuthenticated && !hasReviewed;
 
   const handleSubmitReview = async (reviewData) => {
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to submit a review');
       navigate('/auth/login');
       return;
@@ -278,8 +278,8 @@ const RoomReviews = ({ room }) => {
             <ReviewCard
               key={review.id}
               review={review}
-              canEdit={token && user?.id === review.user_id}
-              canDelete={token && user?.id === review.user_id}
+              canEdit={isAuthenticated && user?.id === review.user_id}
+              canDelete={isAuthenticated && user?.id === review.user_id}
               onEdit={handleEditReview}
               onDelete={handleDeleteReview}
             />

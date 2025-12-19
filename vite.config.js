@@ -17,4 +17,54 @@ export default defineConfig({
   build: {
     sourcemap: false,
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        configure: (proxy, _options) => {
+          proxy.on('proxyRes', (proxyRes, req, res) => {
+            // تعديل cookies لتكون متوافقة مع localhost
+            const setCookieHeaders = proxyRes.headers['set-cookie'];
+            if (setCookieHeaders) {
+              proxyRes.headers['set-cookie'] = setCookieHeaders.map(cookie => {
+                // إزالة Domain attribute أو تعديله إلى localhost
+                let modified = cookie.replace(/Domain=[^;]+/gi, '');
+                // التأكد من SameSite=Lax
+                if (!modified.includes('SameSite')) {
+                  modified += '; SameSite=Lax';
+                } else {
+                  modified = modified.replace(/SameSite=None/gi, 'SameSite=Lax');
+                }
+                return modified;
+              });
+            }
+          });
+        },
+      },
+      '/sanctum': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        secure: false,
+        configure: (proxy, _options) => {
+          proxy.on('proxyRes', (proxyRes, req, res) => {
+            const setCookieHeaders = proxyRes.headers['set-cookie'];
+            if (setCookieHeaders) {
+              proxyRes.headers['set-cookie'] = setCookieHeaders.map(cookie => {
+                let modified = cookie.replace(/Domain=[^;]+/gi, '');
+                if (!modified.includes('SameSite')) {
+                  modified += '; SameSite=Lax';
+                } else {
+                  modified = modified.replace(/SameSite=None/gi, 'SameSite=Lax');
+                }
+                return modified;
+              });
+            }
+          });
+        },
+      },
+    },
+  },
 })

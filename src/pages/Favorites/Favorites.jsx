@@ -8,7 +8,7 @@ import { getImageUrls } from '../../utils/imageHelper';
 
 const Favorites = () => {
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'hotels', 'rooms'
   
   const { data: favoritesData, isLoading, refetch } = useGetFavoritesQuery({});
@@ -32,7 +32,7 @@ const Favorites = () => {
     }
   };
 
-  if (!token) {
+  if (!isAuthenticated) {
     return (
       <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
         <FaHeart className="mx-auto text-gray-400 mb-4" size={48} />

@@ -3,12 +3,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const favoritesApi = createApi({
   reducerPath: 'favoritesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL + '/api',
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth?.token || localStorage.getItem('token');
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
+    baseUrl: '/api', // مع Vite proxy، نستخدم المسار النسبي
+    credentials: 'include', // إرسال cookies مع كل طلب
+    prepareHeaders: (headers) => {
       headers.set('Accept', 'application/json');
       headers.set('Content-Type', 'application/json');
       return headers;

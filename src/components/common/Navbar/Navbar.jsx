@@ -305,7 +305,7 @@ const Navbar = () => {
                   <button
                     onClick={() => {
                       setIsMobileMenuOpen(false);
-                      navigate('/profile');
+                      navigate('/my-profile');
                     }}
                     className="w-full flex items-center justify-center gap-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-3 text-sm font-semibold transition-all duration-200 active:scale-95"
                   >

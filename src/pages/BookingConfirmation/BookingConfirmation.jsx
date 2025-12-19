@@ -9,7 +9,7 @@ const BookingConfirmation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { hotel, room, checkIn, checkOut, guests, rooms, pricing } = location.state || {};
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   const [guestName, setGuestName] = useState(user?.name || '');
   const [guestEmail, setGuestEmail] = useState(user?.email || '');
@@ -53,7 +53,7 @@ const BookingConfirmation = () => {
     }
 
     // Check if user is logged in
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to continue with your booking.');
       navigate('/auth/login', { state: { from: location } });
       return;
@@ -79,7 +79,7 @@ const BookingConfirmation = () => {
     };
 
     verifyAvailability();
-  }, [hotel, room, checkIn, checkOut, token, navigate, location, checkAvailability]);
+  }, [hotel, room, checkIn, checkOut, isAuthenticated, navigate, location, checkAvailability]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

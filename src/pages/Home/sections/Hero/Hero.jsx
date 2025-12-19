@@ -76,7 +76,7 @@ const Hero = () => {
         />
 
         {/* Search Card - Mobile (stacked) */}
-        <div className="absolute top-188 left-1/2 -translate-x-1/2 w-[90%]  z-10  max-w-md mx-auto lg:hidden">
+        <div className="absolute -bottom-45 left-1/2 -translate-x-1/2 w-[90%]  z-10  max-w-md mx-auto lg:hidden">
           <SearchForm
             location={location}
             checkIn={checkIn}

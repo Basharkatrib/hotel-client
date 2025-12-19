@@ -34,9 +34,9 @@ const SearchForm = ({
       className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-100 px-4 py-4 sm:px-6 sm:py-4"
       onSubmit={handleSubmit}
     >
-      <div className="lg:flex gap-4 sm:items-end sm:gap-4 lg:gap-5">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-4 lg:gap-5">
         {/* Location */}
-        <div className="grid col-span-1 gap-4">
+        <div className="grid col-span-1">
           <label className="block text-xs sm:text-sm font-bold text-gray-900 mb-2">
             Location
           </label>

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../common/Sidebar';
 import { IoMenu, IoClose } from 'react-icons/io5';
+import { useGetUserQuery } from '@/services/api';
 
 const AccountLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const { data: user } = useGetUserQuery();
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -13,6 +14,10 @@ const AccountLayout = () => {
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
@@ -48,7 +53,7 @@ const AccountLayout = () => {
               lg:shrink-0
             `}
           >
-            <Sidebar onClose={closeSidebar} />
+            <Sidebar onClose={closeSidebar} user={user} />
           </div>
 
           {/* Main Content */}

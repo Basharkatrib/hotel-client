@@ -3,7 +3,6 @@ import { api } from '../../services/api';
 
 const initialState = {
   user: null,
-  token: null,
   isAuthenticated: false,
 };
 
@@ -14,7 +13,6 @@ const authSlice = createSlice({
     // تسجيل الخروج يدوياً
     logout: (state) => {
       state.user = null;
-      state.token = null;
       state.isAuthenticated = false;
     },
     // تحديث معلومات المستخدم يدوياً
@@ -29,7 +27,6 @@ const authSlice = createSlice({
       (state, { payload }) => {
         if (payload.status && payload.data) {
           state.user = payload.data.user;
-          state.token = payload.data.token;
           state.isAuthenticated = true;
         }
       }
@@ -41,7 +38,6 @@ const authSlice = createSlice({
       (state, { payload }) => {
         if (payload.status && payload.data) {
           state.user = payload.data.user;
-          state.token = payload.data.token;
           state.isAuthenticated = true;
         }
       }
@@ -53,6 +49,20 @@ const authSlice = createSlice({
       (state, { payload }) => {
         if (payload.status && payload.data) {
           state.user = payload.data.user;
+          // إذا تم استرجاع بيانات المستخدم بنجاح، يعني التوكن صالح
+          state.isAuthenticated = true;
+        }
+      }
+    );
+
+    // عند فشل Get User (401 - التوكن منتهي)
+    builder.addMatcher(
+      api.endpoints.getUser.matchRejected,
+      (state, { error }) => {
+        // إذا كان الخطأ 401، يعني التوكن منتهي
+        if (error?.status === 401) {
+          state.user = null;
+          state.isAuthenticated = false;
         }
       }
     );
@@ -60,7 +70,6 @@ const authSlice = createSlice({
     // عند نجاح Logout
     builder.addMatcher(api.endpoints.logout.matchFulfilled, (state) => {
       state.user = null;
-      state.token = null;
       state.isAuthenticated = false;
     });
   },
@@ -71,6 +80,5 @@ export default authSlice.reducer;
 
 // Selectors
 export const selectCurrentUser = (state) => state.auth.user;
-export const selectToken = (state) => state.auth.token;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 

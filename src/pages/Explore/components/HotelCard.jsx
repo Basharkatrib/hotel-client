@@ -15,7 +15,7 @@ import 'swiper/css/pagination';
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   
@@ -25,7 +25,7 @@ const HotelCard = ({ hotel }) => {
   // Check if hotel is favorited
   const { data: favoriteData } = useCheckFavoriteQuery(
     { favoritable_type: 'hotel', favoritable_id: hotel.id },
-    { skip: !token }
+    { skip: !isAuthenticated }
   );
   
   const [addToFavorites] = useAddToFavoritesMutation();
@@ -42,7 +42,7 @@ const HotelCard = ({ hotel }) => {
   const handleFavoriteToggle = async (e) => {
     e.stopPropagation();
     
-    if (!token) {
+    if (!isAuthenticated) {
       toast.info('Please login to add to favorites');
       navigate('/auth/login');
       return;

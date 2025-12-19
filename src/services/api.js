@@ -1,14 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL + '/api',
-    prepareHeaders: (headers, { getState, endpoint }) => {
-      const token = getState().auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
+// Base query مع interceptor للتعامل مع 401 errors
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  const baseQuery = fetchBaseQuery({
+    // مع Vite proxy، نستخدم المسار النسبي بدلاً من URL كامل
+    baseUrl: '/api',
+    credentials: 'include', // إرسال cookies مع كل طلب
+    prepareHeaders: (headers, { endpoint }) => {
       headers.set('Accept', 'application/json');
       // Avoid forcing JSON Content-Type for file uploads (e.g. avatar)
       if (endpoint !== 'uploadAvatar') {
@@ -16,7 +14,33 @@ export const api = createApi({
       }
       return headers;
     },
-  }),
+  });
+
+  let result = await baseQuery(args, api, extraOptions);
+
+  // إذا كان الخطأ 401 (Unauthorized)، يعني التوكن منتهي أو غير صالح
+  if (result.error && result.error.status === 401) {
+    // عمل logout تلقائياً
+    api.dispatch({ type: 'auth/logout' });
+    
+    // حذف البيانات من localStorage
+    try {
+      const { persistor } = await import('../store/store');
+      if (persistor) {
+        persistor.purge();
+      }
+    } catch (err) {
+      // إذا فشل استيراد persistor، احذف localStorage يدوياً
+      localStorage.removeItem('persist:root');
+    }
+  }
+
+  return result;
+};
+
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['User'],
   endpoints: (builder) => ({
     // Register
