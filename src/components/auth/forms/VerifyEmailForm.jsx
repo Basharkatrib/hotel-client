@@ -20,6 +20,13 @@ const VerifyEmailForm = () => {
       const result = await verifyEmail({ email, code }).unwrap();
 
       if (result.status) {
+        // طلب CSRF cookie جديد بعد verify email
+        // للتأكد من وجود CSRF token صالح عند تسجيل الدخول
+        await fetch('/sanctum/csrf-cookie', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
         toast.success('Email verified successfully. Please log in.', {
           toastId: 'verify-email-success',
         });

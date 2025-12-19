@@ -35,6 +35,13 @@ const ResetPasswordForm = () => {
       }).unwrap();
 
       if (result.status) {
+        // طلب CSRF cookie جديد بعد reset password
+        // لأن reset password يحذف session القديم بما فيه CSRF token
+        await fetch('/sanctum/csrf-cookie', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
         toast.success('Password has been reset successfully. You can now log in.', {
           toastId: 'reset-success',
         });

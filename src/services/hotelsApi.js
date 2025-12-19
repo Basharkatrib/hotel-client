@@ -4,6 +4,7 @@ export const hotelsApi = createApi({
   reducerPath: 'hotelsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api', // مع Vite proxy، نستخدم المسار النسبي
+    credentials: 'include', // إرسال cookies مع كل طلب
   }),
   tagTypes: ['Hotels'],
   endpoints: (builder) => ({
