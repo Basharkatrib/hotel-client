@@ -27,7 +27,7 @@ const RegisterForm = () => {
       }
     } catch (error) {
       console.log('Registration error:', error);
-      
+
       if (error.data && error.data.messages && Array.isArray(error.data.messages)) {
         const errors = {};
         error.data.messages.forEach((msg) => {
@@ -54,10 +54,10 @@ const RegisterForm = () => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Create your Tripto account
         </h3>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 font-medium">
           Sign up to save your favourites and manage bookings.
         </p>
       </div>
@@ -72,7 +72,7 @@ const RegisterForm = () => {
             <div className="space-y-1.5 text-left">
               <label
                 htmlFor="name"
-                className="text-sm font-medium text-gray-800"
+                className="text-sm font-semibold text-gray-800 dark:text-gray-200"
               >
                 Full name
               </label>
@@ -81,7 +81,7 @@ const RegisterForm = () => {
                 name="name"
                 type="text"
                 placeholder="Enter your full name"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
               />
               <ErrorMessage
                 name="name"
@@ -93,7 +93,7 @@ const RegisterForm = () => {
             <div className="space-y-1.5 text-left">
               <label
                 htmlFor="email"
-                className="text-sm font-medium text-gray-800"
+                className="text-sm font-semibold text-gray-800 dark:text-gray-200"
               >
                 Email address
               </label>
@@ -102,7 +102,7 @@ const RegisterForm = () => {
                 name="email"
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
               />
               <ErrorMessage
                 name="email"
@@ -114,7 +114,7 @@ const RegisterForm = () => {
             <div className="space-y-1.5 text-left">
               <label
                 htmlFor="password"
-                className="text-sm font-medium text-gray-800"
+                className="text-sm font-semibold text-gray-800 dark:text-gray-200"
               >
                 Password
               </label>
@@ -123,7 +123,7 @@ const RegisterForm = () => {
                 name="password"
                 type="password"
                 placeholder="Create a password"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
               />
               <ErrorMessage
                 name="password"
@@ -135,7 +135,7 @@ const RegisterForm = () => {
             <div className="space-y-1.5 text-left">
               <label
                 htmlFor="confirmPassword"
-                className="text-sm font-medium text-gray-800"
+                className="text-sm font-semibold text-gray-800 dark:text-gray-200"
               >
                 Confirm password
               </label>
@@ -144,7 +144,7 @@ const RegisterForm = () => {
                 name="confirmPassword"
                 type="password"
                 placeholder="Repeat your password"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
               />
               <ErrorMessage
                 name="confirmPassword"
@@ -156,11 +156,10 @@ const RegisterForm = () => {
             <button
               type="submit"
               disabled={!isValid || !dirty || isLoading}
-              className={`w-full rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                !isValid || !dirty || isLoading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || !dirty || isLoading
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700'
                   : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]'
-              }`}
+                }`}
             >
               {isLoading ? 'Creating account...' : 'Create account'}
             </button>
@@ -168,7 +167,7 @@ const RegisterForm = () => {
         )}
       </Formik>
 
-      <div className="text-center text-sm text-gray-600 mt-6">
+      <div className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6 font-medium">
         Already have an account?{' '}
         <button
           type="button"

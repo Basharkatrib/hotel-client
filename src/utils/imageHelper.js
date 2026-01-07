@@ -18,7 +18,7 @@ export const getImageUrl = (imagePath, options = {}) => {
   }
   
   // Construct the full URL
-  const baseUrl = `http://localhost:8000${imagePath}`;
+  const baseUrl = `http://localhost:8000/storage/${imagePath}`;
   
   // Add optimization parameters if backend supports them
   // Note: This requires backend support for image optimization

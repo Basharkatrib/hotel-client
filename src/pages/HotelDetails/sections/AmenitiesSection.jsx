@@ -1,11 +1,11 @@
 import React from 'react';
-import { 
-  FaWifi, 
-  FaSwimmingPool, 
-  FaUtensils, 
-  FaSpa, 
+import {
+  FaWifi,
+  FaSwimmingPool,
+  FaUtensils,
+  FaSpa,
   FaParking,
-  FaCheckCircle 
+  FaCheckCircle
 } from 'react-icons/fa';
 import { MdRestaurant, MdFitnessCenter, MdLocalBar } from 'react-icons/md';
 
@@ -16,15 +16,15 @@ const AmenitiesSection = ({ hotel }) => {
   if (hotel.has_breakfast_included) {
     amenities.push({ icon: FaUtensils, label: 'Breakfast', available: true });
   }
-  
+
   if (hotel.has_spa_access) {
     amenities.push({ icon: FaSpa, label: 'Spa', available: true });
   }
-  
+
   if (hotel.has_free_cancellation) {
     amenities.push({ icon: FaCheckCircle, label: 'Free Cancellation', available: true });
   }
-  
+
   if (hotel.has_metro_access) {
     amenities.push({ icon: FaCheckCircle, label: 'Metro Access', available: true });
   }
@@ -40,7 +40,7 @@ const AmenitiesSection = ({ hotel }) => {
         'Bar': MdLocalBar,
         'Parking': FaParking,
       };
-      
+
       amenities.push({
         icon: iconMap[amenity] || FaCheckCircle,
         label: amenity,
@@ -51,8 +51,8 @@ const AmenitiesSection = ({ hotel }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Amenities</h2>
-      
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Amenities</h2>
+
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         {amenities.length === 0 ? (
           <div className="text-center text-gray-500 py-8">
@@ -65,12 +65,12 @@ const AmenitiesSection = ({ hotel }) => {
               return (
                 <div
                   key={index}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-                    <Icon className="text-blue-600" size={20} />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
+                    <Icon className="text-blue-600 dark:text-blue-400" size={20} />
                   </div>
-                  <span className="font-medium text-gray-900">{amenity.label}</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-200">{amenity.label}</span>
                 </div>
               );
             })}
@@ -80,8 +80,8 @@ const AmenitiesSection = ({ hotel }) => {
 
       {/* Popular Section */}
       <div className="mt-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">Popular</h3>
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Popular</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {[
               { icon: FaWifi, label: 'Wi-Fi', available: hotel.amenities?.includes('WiFi') },
@@ -91,9 +91,8 @@ const AmenitiesSection = ({ hotel }) => {
             ].map((item, index) => (
               <div
                 key={index}
-                className={`flex items-center gap-2 p-2 rounded-lg ${
-                  item.available ? 'text-gray-900' : 'text-gray-400'
-                }`}
+                className={`flex items-center gap-2 p-2 rounded-lg ${item.available ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-600'
+                  }`}
               >
                 <item.icon size={18} />
                 <span className="text-sm font-medium">{item.label}</span>

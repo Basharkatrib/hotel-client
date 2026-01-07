@@ -12,25 +12,26 @@ import { toast } from 'react-toastify';
 import HotelLocationModal from './HotelLocationModal';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import RatingBadge from '../../../components/common/RatingBadge';
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-  
+
   // Handle images - API returns array of paths, we need to construct full URLs
   const images = getImageUrls(hotel.images);
-  
+
   // Check if hotel is favorited
   const { data: favoriteData } = useCheckFavoriteQuery(
     { favoritable_type: 'hotel', favoritable_id: hotel.id },
     { skip: !isAuthenticated }
   );
-  
+
   const [addToFavorites] = useAddToFavoritesMutation();
   const [removeFromFavorites] = useRemoveFromFavoritesMutation();
-  
+
   useEffect(() => {
     if (favoriteData?.data?.is_favorited) {
       setIsFavorited(true);
@@ -38,16 +39,16 @@ const HotelCard = ({ hotel }) => {
       setIsFavorited(false);
     }
   }, [favoriteData]);
-  
+
   const handleFavoriteToggle = async (e) => {
     e.stopPropagation();
-    
+
     if (!isAuthenticated) {
       toast.info('Please login to add to favorites');
       navigate('/auth/login');
       return;
     }
-    
+
     try {
       if (isFavorited) {
         await removeFromFavorites({
@@ -74,14 +75,6 @@ const HotelCard = ({ hotel }) => {
     ? `${hotel.discount_percentage}% off`
     : null;
 
-  // Map rating to text
-  const getRatingText = (rating) => {
-    if (rating >= 4.5) return 'Excellent';
-    if (rating >= 4.0) return 'Very Good';
-    if (rating >= 3.0) return 'Good';
-    if (rating >= 2.0) return 'Fair';
-    return 'Poor';
-  };
 
   // Build tags from hotel features
   const tags = [];
@@ -104,7 +97,7 @@ const HotelCard = ({ hotel }) => {
   const meta = metaParts.join(' • ');
 
   return (
-    <article className="group rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+    <article className="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
       <div className="flex flex-col md:flex-row">
         {/* Image slider */}
         <div className="relative md:w-64 lg:w-72">
@@ -143,9 +136,8 @@ const HotelCard = ({ hotel }) => {
           <button
             type="button"
             onClick={handleFavoriteToggle}
-            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition-transform ${
-              isFavorited ? 'text-red-500' : 'text-gray-700'
-            }`}
+            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-md hover:scale-110 transition-transform ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'
+              }`}
             aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
           >
             {isFavorited ? (
@@ -161,17 +153,17 @@ const HotelCard = ({ hotel }) => {
           {/* Top row: title + rating */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
             <div>
-              <h2 
+              <h2
                 onClick={() => navigate(`/hotel/${hotel.slug}`)}
-                className="text-lg sm:text-xl font-semibold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors"
+                className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors"
               >
                 {hotel.name}
               </h2>
-              <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-gray-500">
+              <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
                 <button
                   type="button"
                   onClick={() => setIsLocationModalOpen(true)}
-                  className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+                  className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline"
                 >
                   <MdOutlineLocationOn className="text-sm" />
                   <span>{hotel.city || 'Barcelona'}</span>
@@ -195,42 +187,27 @@ const HotelCard = ({ hotel }) => {
             </div>
 
             {/* Rating */}
-            {Number(hotel.rating) > 0 && (
-              <div className="flex items-center gap-3 self-start sm:self-auto">
-                <div className="flex flex-col items-end">
-                  <button
-                    type="button"
-                    className="text-xs font-semibold text-blue-600 hover:underline"
-                  >
-                    {/* عرض التقييم الحقيقي كنص رقمي */}
-                    {Number(hotel.rating).toFixed(1)} / 5
-                  </button>
-                  <span className="text-[11px] text-gray-500">
-                    {hotel.reviews_count.toLocaleString()} reviews
-                  </span>
-                </div>
-                <div className="flex items-center justify-center rounded-xl bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white">
-                  <FaStar className="mr-1 text-[10px]" />
-                  <span>{Number(hotel.rating).toFixed(1)}</span>
-                </div>
-              </div>
-            )}
+            <RatingBadge
+              rating={hotel.rating}
+              reviewsCount={hotel.reviews_count}
+              size="md"
+            />
           </div>
 
           {/* Meta */}
           {meta && (
-            <p className="text-xs sm:text-sm text-gray-700">
+            <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
               {meta}
             </p>
           )}
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 text-[11px] text-gray-700">
+            <div className="flex flex-wrap gap-2 text-[11px] text-gray-700 dark:text-gray-300">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-gray-200 bg-gray-50 px-3 py-1"
+                  className="inline-flex items-center rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-3 py-1"
                 >
                   {tag}
                 </span>
@@ -239,7 +216,7 @@ const HotelCard = ({ hotel }) => {
           )}
 
           {/* Bottom row: notice + price */}
-          <div className="flex items-end justify-between gap-3 pt-3 border-t border-gray-100 mt-auto">
+          <div className="flex items-end justify-between gap-3 pt-3 border-t border-gray-100 dark:border-gray-800 mt-auto">
             <div className="text-[11px] text-rose-600 font-medium">
               {hotel.available_rooms === 1 && 'Only 1 left at this price'}
               {hotel.available_rooms === 2 && 'Only 2 left at this price'}
@@ -254,15 +231,15 @@ const HotelCard = ({ hotel }) => {
               <div className="text-right">
                 <div className="flex items-center justify-end gap-2">
                   {hasDiscount && (
-                    <span className="text-xs text-gray-400 line-through">
+                    <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
                       ${Number(hotel.original_price).toLocaleString()}
                     </span>
                   )}
-                  <span className="text-xl font-bold text-gray-900">
+                  <span className="text-xl font-bold text-gray-900 dark:text-white">
                     ${Number(hotel.price_per_night).toLocaleString()}
                   </span>
                 </div>
-                <p className="text-[11px] text-gray-500">
+                <p className="text-[11px] text-gray-500 dark:text-gray-400">
                   per night
                 </p>
               </div>
@@ -272,7 +249,7 @@ const HotelCard = ({ hotel }) => {
       </div>
 
       {/* Location Modal */}
-      <HotelLocationModal 
+      <HotelLocationModal
         hotel={hotel}
         isOpen={isLocationModalOpen}
         onClose={() => setIsLocationModalOpen(false)}

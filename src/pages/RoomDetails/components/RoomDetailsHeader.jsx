@@ -8,7 +8,7 @@ const RoomDetailsHeader = () => {
   return (
     <button
       onClick={() => navigate('/rooms')}
-      className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+      className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6 transition-colors"
     >
       <FaArrowLeft />
       <span>Back to Rooms</span>
@@ -17,6 +17,7 @@ const RoomDetailsHeader = () => {
 };
 
 export default RoomDetailsHeader;
+
 
 
 

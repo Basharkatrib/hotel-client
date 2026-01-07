@@ -23,8 +23,8 @@ const MapSection = ({ hotels = [] }) => {
 
     // Filter hotels with valid coordinates
     const hotelsWithCoords = hotels.filter(
-      h => h.latitude && h.longitude && 
-      h.latitude !== 0 && h.longitude !== 0
+      h => h.latitude && h.longitude &&
+        h.latitude !== 0 && h.longitude !== 0
     );
 
     if (hotelsWithCoords.length === 0) {
@@ -39,7 +39,7 @@ const MapSection = ({ hotels = [] }) => {
   }, [hotels]);
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm h-64 relative z-0">
+    <div className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm h-64 relative z-0">
       <MapContainer
         center={mapCenter}
         zoom={hotels.length > 0 ? 12 : 13}
@@ -51,12 +51,12 @@ const MapSection = ({ hotels = [] }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        
+
         {/* Show markers for all hotels with valid coordinates */}
         {hotels.map((hotel) => {
           // Skip hotels without valid coordinates
-          if (!hotel.latitude || !hotel.longitude || 
-              hotel.latitude === 0 || hotel.longitude === 0) {
+          if (!hotel.latitude || !hotel.longitude ||
+            hotel.latitude === 0 || hotel.longitude === 0) {
             return null;
           }
 
@@ -65,25 +65,25 @@ const MapSection = ({ hotels = [] }) => {
           return (
             <Marker key={hotel.id} position={position}>
               <Popup>
-                <div className="min-w-[200px]">
-                  <div className="font-semibold text-gray-900 mb-1">
+                <div className="min-w-[200px] bg-white dark:bg-gray-900">
+                  <div className="font-semibold text-gray-900 dark:text-white mb-1">
                     {hotel.name}
                   </div>
-                  <div className="text-xs text-gray-600 mb-2">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">
                     {hotel.city || 'Barcelona'}
                   </div>
                   {hotel.price_per_night && (
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500">Price:</span>
-                      <span className="text-sm font-bold text-blue-600">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">Price:</span>
+                      <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
                         ${Number(hotel.price_per_night).toFixed(0)}/night
                       </span>
                     </div>
                   )}
                   {hotel.rating > 0 && (
                     <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-gray-500">Rating:</span>
-                      <span className="text-xs font-semibold text-gray-700">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">Rating:</span>
+                      <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                         ⭐ {Number(hotel.rating).toFixed(1)}
                       </span>
                     </div>

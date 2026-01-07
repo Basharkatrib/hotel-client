@@ -3,10 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { getImageUrls } from '../../../utils/imageHelper';
-import { 
-  FaBed, 
-  FaUsers, 
-  FaWifi, 
+import {
+  FaBed,
+  FaUsers,
+  FaWifi,
   FaSnowflake,
   FaTv,
   FaConciergeBell,
@@ -22,46 +22,47 @@ import { differenceInDays } from 'date-fns';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import RatingBadge from '../../../components/common/RatingBadge';
 
 const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
   const navigate = useNavigate();
   const images = getImageUrls(room.images);
-  
+
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
-  
+
   // Check if room is available for selected dates
-  const isAvailableForDates = room.is_available_for_dates !== undefined 
-    ? room.is_available_for_dates 
+  const isAvailableForDates = room.is_available_for_dates !== undefined
+    ? room.is_available_for_dates
     : room.is_available;
-  
+
   const handleBookNow = () => {
     // Check general availability first
     if (!room.is_available) {
       toast.error('This room is not available at the moment.');
       return;
     }
-    
+
     // Validate dates
     if (!checkIn || !checkOut) {
       toast.warning('Please select check-in and check-out dates.');
       return;
     }
-    
+
     // Check if available for selected dates
     if (!isAvailableForDates) {
       toast.error('This room is already booked for the selected dates. Please choose different dates.');
       return;
     }
-    
+
     // Validate guest capacity
     const guestCount = guests || 2;
     if (guestCount > room.max_guests) {
       toast.error(`This room can accommodate a maximum of ${room.max_guests} guests. Please select fewer guests.`);
       return;
     }
-    
+
     // Calculate pricing
-    const nights = checkIn && checkOut 
+    const nights = checkIn && checkOut
       ? Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24))
       : 5;
     const pricePerNight = Number(room.price_per_night);
@@ -69,7 +70,7 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
     const serviceFee = subtotal * 0.028;
     const taxes = subtotal * 0.0164;
     const total = subtotal + serviceFee + taxes;
-    
+
     // Navigate to booking confirmation
     navigate('/booking/confirm', {
       state: {
@@ -90,16 +91,16 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
       },
     });
   };
-  
+
   // Build bed description
   const beds = [];
   if (room.single_beds > 0) beds.push(`${room.single_beds} Single`);
   if (room.double_beds > 0) beds.push(`${room.double_beds} Double`);
   if (room.king_beds > 0) beds.push(`${room.king_beds} King`);
   if (room.queen_beds > 0) beds.push(`${room.queen_beds} Queen`);
-  
+
   const totalBeds = room.single_beds + room.double_beds + room.king_beds + room.queen_beds;
-  
+
   // Room features icons
   const features = [];
   if (room.has_breakfast) features.push({ icon: FaUtensils, label: 'Breakfast', color: 'text-orange-600' });
@@ -113,7 +114,7 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
   if (room.no_smoking) features.push({ icon: FaSmokingBan, label: 'No Smoking', color: 'text-red-600' });
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col lg:flex-row">
         {/* Image Slider */}
         <div className="lg:w-64 relative">
@@ -136,7 +137,7 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-          
+
           {/* Availability Badge */}
           {!room.is_available ? (
             <div className="absolute top-2 left-2 z-10 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
@@ -147,7 +148,7 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
               Booked for Selected Dates
             </div>
           ) : null}
-          
+
           {/* Discount Badge */}
           {hasDiscount && (
             <div className="absolute top-2 right-2 z-10 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
@@ -162,24 +163,24 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
           <div className="flex justify-between items-start mb-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-lg font-bold text-gray-900">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                   {room.name}
                 </h3>
                 {room.is_featured && (
-                  <span className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full text-xs font-semibold">
+                  <span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 px-2 py-0.5 rounded-full text-xs font-semibold">
                     Featured
                   </span>
                 )}
               </div>
-              
+
               {/* Type & View */}
-              <div className="flex items-center gap-2 text-xs text-gray-600 mb-2">
-                <span className="bg-gray-100 px-2 py-0.5 rounded-full font-medium capitalize">
+              <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 mb-2">
+                <span className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full font-medium capitalize">
                   {room.type}
                 </span>
                 {room.view && room.view !== 'none' && (
                   <span className="flex items-center gap-1">
-                    <FaDoorOpen className="text-blue-600" size={12} />
+                    <FaDoorOpen className="text-blue-600 dark:text-blue-400" size={12} />
                     {room.view.charAt(0).toUpperCase() + room.view.slice(1)} View
                   </span>
                 )}
@@ -187,43 +188,33 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
                   <span>{room.size} m²</span>
                 )}
               </div>
-              
+
               {/* Beds & Guests */}
               <div className="flex items-center gap-4 text-xs">
-                <div className="flex items-center gap-1.5 text-gray-700">
-                  <FaBed className="text-gray-600" size={14} />
+                <div className="flex items-center gap-1.5 text-gray-700 dark:text-gray-300">
+                  <FaBed className="text-gray-600 dark:text-gray-400" size={14} />
                   <span className="font-medium">
                     {totalBeds > 0 ? beds.join(', ') : 'Bed info not available'}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-gray-700">
-                  <FaUsers className="text-gray-600" size={14} />
+                <div className="flex items-center gap-1.5 text-gray-700 dark:text-gray-300">
+                  <FaUsers className="text-gray-600 dark:text-gray-400" size={14} />
                   <span className="font-medium">Up to {room.max_guests} guests</span>
                 </div>
               </div>
             </div>
 
             {/* Rating */}
-            {room.rating > 0 && (
-              <div className="text-right ml-3">
-                <div className="flex items-center gap-1.5 justify-end mb-0.5">
-                  <div className="text-right">
-                    <div className="text-xs text-gray-500">Excellent</div>
-                  </div>
-                  <div className="bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-bold">
-                    {Number(room.rating).toFixed(1)}
-                  </div>
-                </div>
-                <div className="text-xs text-gray-500">
-                  {room.reviews_count.toLocaleString()} reviews
-                </div>
-              </div>
-            )}
+            <RatingBadge
+              rating={room.rating}
+              reviewsCount={room.reviews_count}
+              size="sm"
+            />
           </div>
 
           {/* Description */}
           {room.description && (
-            <p className="text-gray-600 text-xs leading-relaxed mb-3 line-clamp-2">
+            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">
               {room.description}
             </p>
           )}
@@ -231,12 +222,12 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
           {/* Features Grid */}
           {features.length > 0 && (
             <div className="mb-3">
-              <h4 className="text-xs font-semibold text-gray-900 mb-2">Amenities</h4>
+              <h4 className="text-xs font-semibold text-gray-900 dark:text-white mb-2">Amenities</h4>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                 {features.slice(0, 10).map((feature, index) => (
                   <div key={index} className="flex items-center gap-1.5 text-xs">
                     <feature.icon className={feature.color} size={14} />
-                    <span className="text-gray-700">{feature.label}</span>
+                    <span className="text-gray-700 dark:text-gray-400">{feature.label}</span>
                   </div>
                 ))}
               </div>
@@ -265,25 +256,25 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
           )}
 
           {/* Price & CTA */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 pt-3 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
             <div>
               {hasDiscount && (
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm text-gray-400 line-through">
                     ${Number(room.original_price).toFixed(0)}
                   </span>
-                  <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs font-bold">
+                  <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full text-xs font-bold">
                     Save {room.discount_percentage}%
                   </span>
                 </div>
               )}
               <div className="flex items-baseline gap-1.5 mb-0.5">
-                <span className="text-3xl font-bold text-gray-900">
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">
                   ${Number(room.price_per_night).toFixed(0)}
                 </span>
-                <span className="text-sm text-gray-500 font-medium">/ night</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">/ night</span>
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-gray-500 dark:text-gray-400">
                 Taxes and fees not included
               </div>
             </div>
@@ -292,17 +283,16 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
               type="button"
               onClick={handleBookNow}
               disabled={!room.is_available || !isAvailableForDates}
-              className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                !room.is_available || !isAvailableForDates
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5'
-              }`}
+              className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${!room.is_available || !isAvailableForDates
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5'
+                }`}
             >
-              {!room.is_available 
-                ? 'Not Available' 
-                : !isAvailableForDates 
-                ? 'Booked for Selected Dates' 
-                : 'Book Now'}
+              {!room.is_available
+                ? 'Not Available'
+                : !isAvailableForDates
+                  ? 'Booked for Selected Dates'
+                  : 'Book Now'}
             </button>
           </div>
         </div>

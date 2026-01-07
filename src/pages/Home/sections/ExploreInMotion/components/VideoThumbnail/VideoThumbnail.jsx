@@ -18,23 +18,24 @@ const VideoThumbnail = ({ image, location, rating }) => {
   };
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+    <div className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-transparent dark:border-gray-700">
       {/* Image */}
       <div className="relative h-40 sm:h-36 overflow-hidden">
         <img
-          src={image} 
+          src={image}
           alt={location}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
-        
+
         {/* Play Button */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:bg-white group-hover:scale-110 transition-all duration-300">
-            <FaPlay className="text-blue-600 text-lg sm:text-xl ml-1" />
+          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/90 dark:bg-gray-700/90 rounded-full flex items-center justify-center shadow-lg group-hover:bg-white dark:group-hover:bg-gray-600 group-hover:scale-110 transition-all duration-300">
+            <FaPlay className="text-blue-600 dark:text-blue-400 text-lg sm:text-xl ml-1" />
           </div>
         </div>
+
 
         {/* Location and Rating */}
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">

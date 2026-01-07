@@ -45,7 +45,7 @@ const Rooms = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20 pb-10">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center min-h-[60vh]">
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
@@ -57,10 +57,10 @@ const Rooms = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20 pb-10">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-            <p className="text-red-800">Failed to load rooms. Please try again later.</p>
+          <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
+            <p className="text-red-800 dark:text-red-400">Failed to load rooms. Please try again later.</p>
           </div>
         </div>
       </div>
@@ -68,10 +68,10 @@ const Rooms = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-10">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RoomsHeader totalRooms={pagination.total} />
-        
+
         <RoomsFilters
           filters={filters}
           onFilterChange={handleFilterChange}
@@ -81,8 +81,8 @@ const Rooms = () => {
 
         {/* Rooms Grid */}
         {rooms.length === 0 ? (
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-            <p className="text-gray-600 text-lg">No rooms found matching your criteria.</p>
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-12 text-center transition-colors duration-300">
+            <p className="text-gray-600 dark:text-gray-400 text-lg">No rooms found matching your criteria.</p>
           </div>
         ) : (
           <>

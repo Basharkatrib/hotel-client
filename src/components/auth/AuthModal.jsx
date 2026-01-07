@@ -58,24 +58,24 @@ const AuthModal = ({ variant }) => {
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="relative mx-4 w-full max-w-lg rounded-3xl bg-white shadow-2xl flex flex-col max-h-[90vh]"
+          className="relative mx-4 w-full max-w-lg rounded-3xl bg-white dark:bg-gray-900 shadow-2xl flex flex-col max-h-[90vh] transition-colors duration-300 border border-transparent dark:border-gray-800"
           initial={{ opacity: 0, scale: 0.96, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 12 }}
           transition={{ duration: 0.2 }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
-            <h2 className="w-full text-center text-sm font-semibold text-gray-900">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800 shrink-0">
+            <h2 className="w-full text-center text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">
               {title}
             </h2>
             <button
               type="button"
               onClick={handleClose}
-              className="absolute right-4 top-4 rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+              className="absolute right-4 top-3.5 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               aria-label="Close"
             >
-              <span className="text-xl">&times;</span>
+              <span className="text-2xl leading-none">&times;</span>
             </button>
           </div>
 

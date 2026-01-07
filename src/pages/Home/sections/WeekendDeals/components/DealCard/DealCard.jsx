@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-const DealCard = ({ 
-  image, 
-  title, 
-  location, 
-  rating, 
-  ratingText, 
-  reviews, 
-  originalPrice, 
-  discountPrice, 
-  badge 
+const DealCard = ({
+  image,
+  title,
+  location,
+  rating,
+  ratingText,
+  reviews,
+  originalPrice,
+  discountPrice,
+  badge
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+    <div className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-transparent dark:border-gray-700">
       {/* Image */}
       <div className="relative h-64 overflow-hidden">
         <img
-          src={image} 
+          src={image}
           alt={title}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        
+
         {/* Favorite Button */}
-        <button 
+        <button
           onClick={(e) => {
             e.stopPropagation();
             setIsFavorite(!isFavorite);
           }}
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-          className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-200 z-10"
+          className="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 z-10"
         >
           {isFavorite ? (
             <FaHeart className="text-red-500 text-lg" />
           ) : (
-            <FaRegHeart className="text-gray-700 text-lg" />
+            <FaRegHeart className="text-gray-700 dark:text-gray-300 text-lg" />
           )}
         </button>
       </div>
@@ -49,17 +49,17 @@ const DealCard = ({
           <div className="flex items-center gap-1 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-bold">
             <span>{rating}</span>
           </div>
-          <span className="text-sm font-semibold text-gray-900">{ratingText}</span>
-          <span className="text-sm text-gray-500">({reviews} reviews)</span>
+          <span className="text-sm font-semibold text-gray-900 dark:text-white">{ratingText}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">({reviews} reviews)</span>
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-1">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors">
           {title}
         </h3>
 
         {/* Location */}
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           {location}
         </p>
 
@@ -72,12 +72,13 @@ const DealCard = ({
 
         {/* Price */}
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">per night</span>
-          <span className="text-sm text-gray-400 line-through">${originalPrice}</span>
-          <span className="text-xl font-bold text-gray-900">${discountPrice}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">per night</span>
+          <span className="text-sm text-gray-400 dark:text-gray-500 line-through">${originalPrice}</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">${discountPrice}</span>
         </div>
       </div>
     </div>
+
   );
 };
 

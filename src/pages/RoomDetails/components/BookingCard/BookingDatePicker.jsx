@@ -13,8 +13,8 @@ const BookingDatePicker = ({ checkIn, checkOut, onCheckInChange, onCheckOutChang
   return (
     <div className="mb-6 space-y-4">
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-          <FaCalendar size={14} />
+        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
+          <FaCalendar size={14} className="text-blue-600 dark:text-blue-400" />
           Check-in
         </label>
         <DatePicker
@@ -29,8 +29,8 @@ const BookingDatePicker = ({ checkIn, checkOut, onCheckInChange, onCheckOutChang
         />
       </div>
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-          <FaCalendar size={14} />
+        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
+          <FaCalendar size={14} className="text-blue-600 dark:text-blue-400" />
           Check-out
         </label>
         <DatePicker
@@ -44,7 +44,7 @@ const BookingDatePicker = ({ checkIn, checkOut, onCheckInChange, onCheckOutChang
           dateFormat="MM/dd/yyyy"
         />
       </div>
-      <div className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-gray-600 dark:text-gray-400 font-medium transition-colors">
         {nights} {nights === 1 ? 'night' : 'nights'}
       </div>
     </div>

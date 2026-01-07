@@ -71,7 +71,7 @@ const ImageGallery = ({ images, hotelName }) => {
       <button
         type="button"
         onClick={() => setShowAll(true)}
-        className="absolute bottom-4 right-4 flex items-center gap-2 bg-white px-4 py-2.5 rounded-lg shadow-lg hover:bg-gray-50 transition-colors border border-gray-200"
+        className="absolute bottom-4 right-4 flex items-center gap-2 bg-white px-4 py-2.5 rounded-lg shadow-lg hover:bg-gray-50 transition-colors border border-gray-200 dark:border-gray-800 dark:bg-gray-800"
       >
         <MdPhotoLibrary size={20} />
         <span className="text-sm font-medium">

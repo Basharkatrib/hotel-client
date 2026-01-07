@@ -43,7 +43,7 @@ function renderField(field, value, onChange) {
   if (field.type === "select") {
     return (
       <select
-        className="w-full border border-gray-300 rounded-lg py-2.5 px-4 text-gray-900 bg-white"
+        className="w-full border border-gray-300 dark:border-gray-700 rounded-lg py-2.5 px-4 text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 outline-none transition-colors"
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
       >
@@ -59,7 +59,7 @@ function renderField(field, value, onChange) {
     <input
       type={field.type}
       placeholder={field.placeholder}
-      className="w-full border border-gray-300 rounded-lg py-2.5 px-4 text-gray-900 bg-white"
+      className="w-full border border-gray-300 dark:border-gray-700 rounded-lg py-2.5 px-4 text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 outline-none transition-colors"
       value={value ?? ""}
       onChange={(e) => onChange(e.target.value)}
       readOnly={field.readOnly}
@@ -147,11 +147,11 @@ function MyProfile() {
 
   return (
     <div className="w-full">
-      <form className="bg-white rounded-xl" onSubmit={handleSubmit}>
+      <form className="bg-white dark:bg-gray-900 rounded-xl transition-colors duration-300" onSubmit={handleSubmit}>
         {/* Avatar + Edit button row */}
         <div className="flex w-full items-center justify-between px-6 pt-6 pb-4">
           {/* Left: avatar with small camera icon */}
-          <div className="relative w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center text-2xl font-semibold text-gray-600">
+          <div className="relative w-25 h-25 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold text-gray-600 dark:text-gray-400">
             {formData.avatar ? (
               <img
                 src={`${import.meta.env.VITE_API_URL}${formData.avatar}`}
@@ -168,11 +168,11 @@ function MyProfile() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="absolute -bottom-1 -right-1 z-40 flex h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-300 shadow hover:bg-gray-100"
+              className="absolute -bottom-1 -right-1 z-40 flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               title="Upload profile photo"
               disabled={isUploading}
             >
-              <Camera className="w-4 h-4 text-gray-700" />
+              <Camera className="w-4 h-4 text-gray-700 dark:text-gray-300" />
             </button>
             <input
               type="file"
@@ -187,7 +187,7 @@ function MyProfile() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 hover:text-gray-900 shadow-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white shadow-sm transition-all duration-300"
             title="Change profile photo"
             disabled={isUploading}
           >
@@ -205,7 +205,7 @@ function MyProfile() {
                 return (
                   <div key={idx} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
                     <div className="flex flex-col space-y-1">
-                      <label className="text-[16px] font-medium text-gray-700">{field.label}</label>
+                      <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{field.label}</label>
                       {renderField(
                         field,
                         formData[field.name],
@@ -213,7 +213,7 @@ function MyProfile() {
                       )}
                     </div>
                     <div className="flex flex-col space-y-1">
-                      <label className="text-[16px] font-medium text-gray-700">{birthdayField.label}</label>
+                      <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{birthdayField.label}</label>
                       {renderField(
                         birthdayField,
                         formData[birthdayField.name],
@@ -226,7 +226,7 @@ function MyProfile() {
               if (field.label === "Birthday") return null;
               return (
                 <div key={idx} className="flex flex-col space-y-1 mb-12">
-                  <label className="text-[16px] font-medium text-gray-700">{field.label}</label>
+                  <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{field.label}</label>
                   {renderField(
                     field,
                     formData[field.name],
@@ -241,7 +241,7 @@ function MyProfile() {
           <div className="flex flex-col space-y-4">
             {column2Fields.map((field, idx) => (
               <div key={idx} className="flex flex-col space-y-1 mb-12">
-                <label className="text-[16px] font-medium text-gray-700">{field.label}</label>
+                <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{field.label}</label>
                 {renderField(
                   field,
                   formData[field.name],
@@ -253,15 +253,15 @@ function MyProfile() {
         </div>
 
         {/* Divider */}
-        <hr className="border-t border-gray-200" />
+        <hr className="border-t border-gray-200 dark:border-gray-800" />
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 pb-3">
-          <button className="flex items-center justify-center px-6 py-2.5 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 rounded-lg shadow-sm font-semibold w-full sm:w-auto">
+          <button className="flex items-center justify-center px-6 py-2.5 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg shadow-sm font-semibold w-full sm:w-auto transition-all duration-300">
             <X className="w-5 h-5 mr-2" />
             Discard
           </button>
-          <button className="flex items-center justify-center px-6 py-2.5 border text-blue-700 border-blue-600 hover:bg-blue-700 hover:text-white rounded-lg shadow-md font-semibold w-full sm:w-auto">
+          <button className="flex items-center justify-center px-6 py-2.5 border text-blue-700 dark:text-blue-400 border-blue-600 dark:border-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white rounded-lg shadow-md font-semibold w-full sm:w-auto transition-all duration-300">
             <Save className="w-5 h-5 mr-2" />
             {isSaving ? "Saving..." : "Save changes"}
           </button>

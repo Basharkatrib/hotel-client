@@ -14,15 +14,15 @@ L.Icon.Default.mergeOptions({
 const LocationSection = ({ hotel }) => {
   const lat = Number(hotel.latitude);
   const lng = Number(hotel.longitude);
-  
+
   const hasValidCoordinates = lat && lng && lat !== 0 && lng !== 0;
   const position = hasValidCoordinates ? [lat, lng] : [41.3851, 2.1734];
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
-      
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Location</h2>
+
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm transition-colors duration-300">
         {/* Map */}
         <div className="h-96 relative z-0">
           <MapContainer
@@ -38,9 +38,9 @@ const LocationSection = ({ hotel }) => {
             />
             <Marker position={position}>
               <Popup>
-                <div className="text-center p-1">
-                  <div className="font-semibold text-gray-900">{hotel.name}</div>
-                  <div className="text-xs text-gray-600 mt-1">{hotel.address}</div>
+                <div className="text-center p-1 bg-white dark:bg-gray-800">
+                  <div className="font-semibold text-gray-900 dark:text-white">{hotel.name}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{hotel.address}</div>
                 </div>
               </Popup>
             </Marker>
@@ -48,47 +48,47 @@ const LocationSection = ({ hotel }) => {
         </div>
 
         {/* Address Info */}
-        <div className="p-6 border-t border-gray-200">
+        <div className="p-6 border-t border-gray-200 dark:border-gray-700">
           <div className="space-y-3">
             <div>
-              <div className="text-sm text-gray-500 mb-1">Address</div>
-              <div className="font-medium text-gray-900">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Address</div>
+              <div className="font-medium text-gray-900 dark:text-white">
                 {hotel.address}, {hotel.city}, {hotel.country}
               </div>
             </div>
-            
+
             {hasValidCoordinates && (
               <div className="flex gap-6">
                 <div>
-                  <div className="text-sm text-gray-500 mb-1">Latitude</div>
-                  <div className="font-mono text-sm text-gray-900">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Latitude</div>
+                  <div className="font-mono text-sm text-gray-900 dark:text-gray-200">
                     {lat.toFixed(6)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 mb-1">Longitude</div>
-                  <div className="font-mono text-sm text-gray-900">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Longitude</div>
+                  <div className="font-mono text-sm text-gray-900 dark:text-gray-200">
                     {lng.toFixed(6)}
                   </div>
                 </div>
               </div>
             )}
-            
+
             {/* Distances */}
-            <div className="flex gap-6 pt-3 border-t border-gray-100">
+            <div className="flex gap-6 pt-3 border-t border-gray-100 dark:border-gray-700">
               {hotel.distance_from_center && (
                 <div>
-                  <div className="text-sm text-gray-500 mb-1">From city centre</div>
-                  <div className="font-semibold text-gray-900">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">From city centre</div>
+                  <div className="font-semibold text-gray-900 dark:text-white">
                     {hotel.distance_from_center} km
                   </div>
                 </div>
               )}
-              
+
               {hotel.distance_from_beach && (
                 <div>
-                  <div className="text-sm text-gray-500 mb-1">From beach</div>
-                  <div className="font-semibold text-gray-900">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">From beach</div>
+                  <div className="font-semibold text-gray-900 dark:text-white">
                     {hotel.distance_from_beach} m
                   </div>
                 </div>

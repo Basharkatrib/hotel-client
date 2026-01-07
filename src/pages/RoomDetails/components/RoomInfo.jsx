@@ -12,14 +12,14 @@ const RoomInfo = ({ room, isFavorited, onFavoriteToggle }) => {
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
+    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{room.name}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{room.name}</h1>
           {room.hotel && (
-            <div className="flex items-center gap-2 text-gray-600">
-              <FaMapMarkerAlt className="text-blue-600" size={14} />
-              <span className="font-semibold text-blue-600">{room.hotel.name}</span>
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <FaMapMarkerAlt className="text-blue-600 dark:text-blue-400" size={14} />
+              <span className="font-semibold text-blue-600 dark:text-blue-400">{room.hotel.name}</span>
               <span>•</span>
               <span>{room.hotel.city || room.hotel.address}</span>
             </div>
@@ -29,9 +29,8 @@ const RoomInfo = ({ room, isFavorited, onFavoriteToggle }) => {
           {onFavoriteToggle && (
             <button
               onClick={onFavoriteToggle}
-              className={`p-2 rounded-full transition-colors ${
-                isFavorited ? 'text-red-500 bg-red-50' : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
-              }`}
+              className={`p-2 rounded-full transition-colors ${isFavorited ? 'text-red-500 bg-red-50 dark:bg-red-900/20' : 'text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
+                }`}
               aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
             >
               {isFavorited ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
@@ -47,31 +46,31 @@ const RoomInfo = ({ room, isFavorited, onFavoriteToggle }) => {
 
       {/* Room Type & Size */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
-        <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium capitalize">
+        <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium capitalize">
           {room.type}
         </span>
         {room.size && (
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+          <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium">
             {room.size} m²
           </span>
         )}
         {room.view && room.view !== 'none' && (
-          <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium capitalize">
+          <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium capitalize">
             {room.view} View
           </span>
         )}
       </div>
 
       {/* Beds & Guests */}
-      <div className="flex items-center gap-6 mb-4 text-gray-600">
+      <div className="flex items-center gap-6 mb-4 text-gray-600 dark:text-gray-400">
         {beds.length > 0 && (
           <div className="flex items-center gap-2">
-            <FaBed className="text-gray-400" size={16} />
+            <FaBed className="text-gray-400 dark:text-gray-500" size={16} />
             <span>{beds.join(', ')}</span>
           </div>
         )}
         <div className="flex items-center gap-2">
-          <FaUsers className="text-gray-400" size={16} />
+          <FaUsers className="text-gray-400 dark:text-gray-500" size={16} />
           <span>Up to {room.max_guests} guests</span>
         </div>
       </div>

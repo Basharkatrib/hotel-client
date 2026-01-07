@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
+import {
   useGetHotelReviewsQuery,
   useGetHotelReviewStatsQuery,
   useCreateHotelReviewMutation,
@@ -45,15 +45,15 @@ const ReviewsSection = ({ hotel }) => {
   const { data: reviewsData, isLoading: reviewsLoading } = useGetHotelReviewsQuery(
     hotelSlug
       ? {
-          hotelSlug,
-          params: {
-            page: currentPage,
-            per_page: 10,
-            rating: filterRating || undefined,
-            sort_by: sortBy === 'latest' || sortBy === 'oldest' ? 'created_at' : 'rating',
-            sort_order: sortBy === 'latest' || sortBy === 'highest' ? 'desc' : 'asc',
-          },
-        }
+        hotelSlug,
+        params: {
+          page: currentPage,
+          per_page: 10,
+          rating: filterRating || undefined,
+          sort_by: sortBy === 'latest' || sortBy === 'oldest' ? 'created_at' : 'rating',
+          sort_order: sortBy === 'latest' || sortBy === 'highest' ? 'desc' : 'asc',
+        },
+      }
       : skipToken
   );
 
@@ -152,7 +152,7 @@ const ReviewsSection = ({ hotel }) => {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-gray-900">Guest Reviews</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Guest Reviews</h2>
         {canReview && !showReviewForm && (
           <button
             onClick={() => setShowReviewForm(true)}
@@ -163,7 +163,7 @@ const ReviewsSection = ({ hotel }) => {
         )}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors duration-300">
         {/* Review Form */}
         {showReviewForm && (
           <div className="mb-8">
@@ -183,15 +183,15 @@ const ReviewsSection = ({ hotel }) => {
 
         {/* Overall Rating & Stats */}
         {!statsLoading && (
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-6 border-b border-gray-200">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-6 border-b border-gray-200 dark:border-gray-700">
             <div className="text-center md:text-left">
-           
-              <RatingStars 
-                rating={stats.average_rating || 0} 
+
+              <RatingStars
+                rating={stats.average_rating || 0}
                 size={20}
                 showNumber={false}
               />
-              <div className="text-sm text-gray-600 mt-2">
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
                 Based on {stats.total_reviews || 0} {stats.total_reviews === 1 ? 'review' : 'reviews'}
               </div>
             </div>
@@ -202,14 +202,14 @@ const ReviewsSection = ({ hotel }) => {
                 const percentage = calculateRatingPercentage(star);
                 return (
                   <div key={star} className="flex items-center gap-3">
-                    <span className="text-sm text-gray-600 w-16">{star} star</span>
-                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 w-16">{star} star</span>
+                    <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-yellow-400 transition-all duration-300"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
-                    <span className="text-sm text-gray-600 w-12 text-right">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 w-12 text-right">
                       {percentage}%
                     </span>
                   </div>
@@ -220,7 +220,7 @@ const ReviewsSection = ({ hotel }) => {
         )}
 
         {/* Filters and Sort */}
-     
+
 
         {/* Reviews List */}
         {reviewsLoading ? (
@@ -229,7 +229,7 @@ const ReviewsSection = ({ hotel }) => {
           </div>
         ) : reviews.length === 0 ? (
           <div className="mt-6 text-center py-12">
-            <p className="text-gray-500">No reviews yet. Be the first to review!</p>
+            <p className="text-gray-500 dark:text-gray-400">No reviews yet. Be the first to review!</p>
           </div>
         ) : (
           <div className="mt-6 space-y-6">
@@ -252,17 +252,17 @@ const ReviewsSection = ({ hotel }) => {
             <button
               onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 transition-colors"
             >
               Previous
             </button>
-            <span className="px-4 py-2 text-sm text-gray-700">
+            <span className="px-4 py-2 text-sm text-gray-700 dark:text-gray-400">
               Page {pagination.current_page} of {pagination.last_page}
             </span>
             <button
               onClick={() => setCurrentPage((prev) => Math.min(pagination.last_page, prev + 1))}
               disabled={currentPage === pagination.last_page}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 transition-colors"
             >
               Next
             </button>

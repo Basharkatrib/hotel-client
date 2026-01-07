@@ -25,15 +25,16 @@ const Trust = () => {
   ];
 
   return (
-    <section className="mt-44 sm:mt-0 py-12 sm:py-16 lg:py-24 bg-white" aria-labelledby="trust-heading">
+    <section className="mt-44 sm:mt-0 py-12 sm:py-16 lg:py-24 bg-white dark:bg-black transition-colors duration-300" aria-labelledby="trust-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <div className="w-12 sm:w-16 h-0.5 bg-blue-400 mx-auto mb-3 sm:mb-4" aria-hidden="true"></div>
-          <h2 id="trust-heading" className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 px-4">
+          <h2 id="trust-heading" className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 dark:text-white px-4">
             Why Travellers Trust Tripto
           </h2>
         </div>
+
 
         {/* Features Grid */}
         <div className="relative">
@@ -48,8 +49,8 @@ const Trust = () => {
                 {/* Connection Line between cards - Desktop Only */}
                 {index < features.length - 1 && (
                   <div className="hidden md:flex shrink-0 w-32 lg:w-68 items-center">
-                    <img 
-                      src={vector} 
+                    <img
+                      src={vector}
                       alt="connection line"
                       className="w-full h-auto"
                     />

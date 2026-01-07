@@ -6,26 +6,27 @@ import { MdBalcony } from 'react-icons/md';
 import { getImageUrls } from '../../../utils/imageHelper';
 import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
 import { toast } from 'react-toastify';
+import RatingBadge from '../../../components/common/RatingBadge';
 
 const RoomCard = ({ room }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isFavorited, setIsFavorited] = useState(false);
-  
+
   const images = getImageUrls(room.images);
   const mainImage = images[0] || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
-  
+
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
-  
+
   // Check if room is favorited
   const { data: favoriteData } = useCheckFavoriteQuery(
     { favoritable_type: 'room', favoritable_id: room.id },
     { skip: !isAuthenticated }
   );
-  
+
   const [addToFavorites] = useAddToFavoritesMutation();
   const [removeFromFavorites] = useRemoveFromFavoritesMutation();
-  
+
   useEffect(() => {
     if (favoriteData?.data?.is_favorited) {
       setIsFavorited(true);
@@ -33,7 +34,7 @@ const RoomCard = ({ room }) => {
       setIsFavorited(false);
     }
   }, [favoriteData]);
-  
+
   // Build bed description
   const beds = [];
   if (room.single_beds > 0) beds.push(`${room.single_beds} Single`);
@@ -45,16 +46,16 @@ const RoomCard = ({ room }) => {
     e.stopPropagation();
     navigate(`/room/${room.id}`);
   };
-  
+
   const handleFavoriteToggle = async (e) => {
     e.stopPropagation();
-    
+
     if (!isAuthenticated) {
       toast.info('Please login to add to favorites');
       navigate('/auth/login');
       return;
     }
-    
+
     try {
       if (isFavorited) {
         await removeFromFavorites({
@@ -77,7 +78,7 @@ const RoomCard = ({ room }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300">
       {/* Image */}
       <div className="relative h-48 w-full">
         <img
@@ -88,28 +89,27 @@ const RoomCard = ({ room }) => {
             e.target.src = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
           }}
         />
-        
+
         {/* Discount Badge */}
         {hasDiscount && (
           <div className="absolute top-2 left-2 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
             {room.discount_percentage}% OFF
           </div>
         )}
-        
+
         {/* Availability Badge */}
         {!room.is_available && (
           <div className="absolute top-2 left-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
             Not Available
           </div>
         )}
-        
+
         {/* Favorite Button */}
         <button
           type="button"
           onClick={handleFavoriteToggle}
-          className={`absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-lg hover:scale-110 transition-transform ${
-            isFavorited ? 'text-red-500' : 'text-gray-700'
-          }`}
+          className={`absolute top-2 right-2 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:scale-110 transition-transform ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'
+            }`}
           aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
         >
           {isFavorited ? (
@@ -125,51 +125,56 @@ const RoomCard = ({ room }) => {
         {/* Hotel Info */}
         {room.hotel && (
           <div className="mb-3">
-            <h3 className="text-sm font-semibold text-blue-600 mb-1">{room.hotel.name}</h3>
-            <p className="text-xs text-gray-600 flex items-center gap-1">
-              <FaMapMarkerAlt className="text-gray-400" size={10} />
+            <h3 className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-1">{room.hotel.name}</h3>
+            <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-1">
+              <FaMapMarkerAlt className="text-gray-400 dark:text-gray-500" size={10} />
               {room.hotel.city || room.hotel.address}
             </p>
           </div>
         )}
 
-        {/* Room Title */}
-        <h2 className="text-xl font-bold text-gray-900 mb-2">{room.name}</h2>
+        {/* Room Title & Rating */}
+        <div className="flex justify-between items-start mb-2 gap-2">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
+            {room.name}
+          </h2>
+          <RatingBadge rating={room.rating} reviewsCount={room.reviews_count} size="sm" />
+        </div>
 
         {/* Room Type & Size */}
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium capitalize">
+          <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium capitalize">
             {room.type}
           </span>
           {room.size && (
-            <span className="px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
+            <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
               {room.size} m²
             </span>
           )}
           {room.view && room.view !== 'none' && (
-            <span className="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium capitalize">
+            <span className="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium capitalize">
               {room.view} View
             </span>
           )}
         </div>
 
         {/* Beds & Guests */}
-        <div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
+        <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
           {beds.length > 0 && (
             <div className="flex items-center gap-1.5">
-              <FaBed className="text-gray-400" size={14} />
+              <FaBed className="text-gray-400 dark:text-gray-500" size={14} />
               <span>{beds.join(', ')}</span>
             </div>
           )}
           <div className="flex items-center gap-1.5">
-            <FaUsers className="text-gray-400" size={14} />
+            <FaUsers className="text-gray-400 dark:text-gray-500" size={14} />
             <span>Up to {room.max_guests} guests</span>
           </div>
         </div>
 
         {/* Description */}
         {room.description && (
-          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
             {room.description}
           </p>
         )}
@@ -227,23 +232,23 @@ const RoomCard = ({ room }) => {
         </div>
 
         {/* Price */}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+        <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
           <div>
             {hasDiscount && (
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm text-gray-400 line-through">
+                <span className="text-sm text-gray-400 dark:text-gray-500 line-through">
                   ${Number(room.original_price).toFixed(0)}
                 </span>
-                <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs font-bold">
+                <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full text-xs font-bold">
                   Save {room.discount_percentage}%
                 </span>
               </div>
             )}
             <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-bold text-gray-900">
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 ${Number(room.price_per_night).toFixed(0)}
               </span>
-              <span className="text-sm text-gray-500 font-medium">/ night</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">/ night</span>
             </div>
           </div>
           <button

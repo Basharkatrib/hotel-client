@@ -18,7 +18,7 @@ const BookingCard = ({
 }) => {
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
   const pricePerNight = Number(room.price_per_night);
-  
+
   // Calculate pricing
   const checkInDate = checkIn instanceof Date ? checkIn : new Date(checkIn);
   const checkOutDate = checkOut instanceof Date ? checkOut : new Date(checkOut);
@@ -31,26 +31,26 @@ const BookingCard = ({
   const isDisabled = !availabilityStatus || guests > room.max_guests || isCheckingAvailability;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 sticky top-24">
-      <h2 className="text-xl font-semibold text-gray-900 mb-6">Book This Room</h2>
+    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-lg p-6 sticky top-24 transition-colors duration-300">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Book This Room</h2>
 
       {/* Price */}
       <div className="mb-6">
         {hasDiscount && (
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-lg text-gray-400 line-through">
+            <span className="text-lg text-gray-400 dark:text-gray-500 line-through">
               ${Number(room.original_price).toFixed(0)}
             </span>
-            <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs font-bold">
+            <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full text-xs font-bold transition-colors">
               Save {room.discount_percentage}%
             </span>
           </div>
         )}
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold text-gray-900">
+          <span className="text-3xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
             ${pricePerNight.toFixed(0)}
           </span>
-          <span className="text-gray-500">/ night</span>
+          <span className="text-gray-500 dark:text-gray-400 font-medium">/ night</span>
         </div>
       </div>
 
@@ -89,20 +89,19 @@ const BookingCard = ({
       <button
         onClick={onBookNow}
         disabled={isDisabled}
-        className={`w-full py-3 rounded-lg font-semibold transition-colors ${
-          isDisabled
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700'
-        }`}
+        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${isDisabled
+            ? 'bg-gray-300 dark:bg-gray-800 text-gray-500 dark:text-gray-600 cursor-not-allowed'
+            : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl'
+          }`}
       >
-        {guests > room.max_guests 
-          ? `Max ${room.max_guests} Guests` 
-          : !availabilityStatus 
-          ? 'Not Available' 
-          : 'Book Now'}
+        {guests > room.max_guests
+          ? `Max ${room.max_guests} Guests`
+          : !availabilityStatus
+            ? 'Not Available'
+            : 'Book Now'}
       </button>
 
-      <p className="text-xs text-gray-500 text-center mt-4">
+      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-4 font-medium">
         You won't be charged yet
       </p>
     </div>

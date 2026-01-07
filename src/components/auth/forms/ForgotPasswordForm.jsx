@@ -31,10 +31,10 @@ const ForgotPasswordForm = () => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Forgot your password?
         </h3>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 font-medium">
           Enter your email address and we&apos;ll send you a reset code.
         </p>
       </div>
@@ -49,7 +49,7 @@ const ForgotPasswordForm = () => {
             <div className="space-y-1.5 text-left">
               <label
                 htmlFor="email"
-                className="text-sm font-medium text-gray-800"
+                className="text-sm font-semibold text-gray-800 dark:text-gray-200"
               >
                 Email address
               </label>
@@ -58,7 +58,7 @@ const ForgotPasswordForm = () => {
                 name="email"
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
               />
               <ErrorMessage
                 name="email"
@@ -70,11 +70,10 @@ const ForgotPasswordForm = () => {
             <button
               type="submit"
               disabled={!isValid || !dirty || isLoading}
-              className={`w-full rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
-                !isValid || !dirty || isLoading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
-              }`}
+              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || !dirty || isLoading
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700'
+                  : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]'
+                }`}
             >
               {isLoading ? 'Sending...' : 'Send reset code'}
             </button>

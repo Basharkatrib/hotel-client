@@ -9,11 +9,11 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
         >
           Previous
         </button>
-        
+
         <div className="flex items-center gap-1">
           {Array.from({ length: Math.min(5, pagination.last_page) }, (_, i) => {
             let pageNum;
@@ -26,16 +26,15 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
             } else {
               pageNum = currentPage - 2 + i;
             }
-            
+
             return (
               <button
                 key={pageNum}
                 onClick={() => onPageChange(pageNum)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  currentPage === pageNum
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${currentPage === pageNum
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
               >
                 {pageNum}
               </button>
@@ -46,7 +45,7 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === pagination.last_page}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
         >
           Next
         </button>
@@ -54,7 +53,7 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
 
       {/* Pagination Info */}
       {pagination.total > 0 && (
-        <div className="text-center mt-4 text-sm text-gray-600">
+        <div className="text-center mt-4 text-sm text-gray-600 dark:text-gray-400 font-medium">
           Showing {pagination.from} to {pagination.to} of {pagination.total} rooms
         </div>
       )}
@@ -63,6 +62,7 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
 };
 
 export default RoomsPagination;
+
 
 
 

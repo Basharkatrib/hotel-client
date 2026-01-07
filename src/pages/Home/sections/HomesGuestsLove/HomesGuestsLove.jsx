@@ -71,26 +71,26 @@ const HomesGuestsLove = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
             Homes Guests Love
           </h2>
-          
+
           {/* Navigation Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <button 
-              className="homes-guests-love-prev w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-200"
+            <button
+              className="homes-guests-love-prev w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center hover:border-gray-900 dark:hover:border-blue-500 hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white text-gray-700 dark:text-gray-300 transition-all duration-200 shadow-sm"
               aria-label="Previous homes"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button 
-              className="homes-guests-love-next w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-200"
+            <button
+              className="homes-guests-love-next w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center hover:border-gray-900 dark:hover:border-blue-500 hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white text-gray-700 dark:text-gray-300 transition-all duration-200 shadow-sm"
               aria-label="Next homes"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -99,6 +99,7 @@ const HomesGuestsLove = () => {
             </button>
           </div>
         </div>
+
 
         {/* Swiper Slider */}
         <Swiper

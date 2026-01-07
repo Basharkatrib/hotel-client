@@ -15,7 +15,7 @@ const LoginCodeForm = () => {
     try {
       const code = `${values.d1}${values.d2}${values.d3}${values.d4}`;
       const result = await verifyOtp({ email, code }).unwrap();
-      
+
       if (result.status && result.data.user) {
         navigate(location.state?.backgroundLocation || '/');
       }
@@ -33,19 +33,19 @@ const LoginCodeForm = () => {
       <button
         type="button"
         onClick={() => navigate('/auth/login')}
-        className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700"
+        className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-bold transition-colors"
       >
         <span className="text-lg">&larr;</span>
         <span>Back</span>
       </button>
 
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Log in or sign up
         </h3>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
           Enter verification code has sent{' '}
-          <span className="font-medium text-gray-900">{email}</span>
+          <span className="font-bold text-gray-900 dark:text-white">{email}</span>
         </p>
       </div>
 
@@ -63,7 +63,7 @@ const LoginCodeForm = () => {
                   name={name}
                   maxLength={1}
                   autoComplete="one-time-code"
-                  className="h-12 w-12 rounded-xl border border-gray-200 text-center text-lg font-semibold text-gray-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="h-12 w-12 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-center text-lg font-bold text-gray-900 dark:text-white outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
                   onChange={(e) => {
                     const { value } = e.target;
                     if (/^[0-9]?$/.test(value)) {
@@ -77,11 +77,10 @@ const LoginCodeForm = () => {
             <button
               type="submit"
               disabled={!isValid || Object.values(values).some((v) => !v) || isLoading}
-              className={`w-full rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
-                !isValid || Object.values(values).some((v) => !v) || isLoading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
-              }`}
+              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || Object.values(values).some((v) => !v) || isLoading
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700'
+                  : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]'
+                }`}
             >
               {isLoading ? 'Verifying...' : 'Verify email'}
             </button>
