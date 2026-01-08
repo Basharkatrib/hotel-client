@@ -22,7 +22,7 @@ const PersonalDataForm = lazy(() => import('./pages/personalDataForm/PersonalDat
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/react">
         <ToastContainer
           position="top-center"
           autoClose={3000}
