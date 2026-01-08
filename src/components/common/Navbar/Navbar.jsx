@@ -104,7 +104,7 @@ const Navbar = () => {
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-6 lg:gap-8">
-              {/* {navLinks.map((link) => {
+              {navLinks.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
                   <Link
@@ -118,7 +118,7 @@ const Navbar = () => {
                     {link.label}
                   </Link>
                 );
-              })} */}
+              })}
             </div>
           </div>
 
