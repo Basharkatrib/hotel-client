@@ -24,5 +24,6 @@ jobs:
             git pull origin main
             npm install
             npm run build
-            sudo cp -r build/* /var/www/html/
+            sudo chown -R www-data:www-data dist
+            sudo chmod -R 755 dist
             sudo systemctl reload nginx
