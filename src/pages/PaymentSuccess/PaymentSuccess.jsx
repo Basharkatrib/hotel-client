@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useGetBookingDetailsQuery } from '../../services/bookingsApi';
-import { FaCheckCircle, FaCalendar, FaMapMarkerAlt, FaUsers, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaCheckCircle, FaCalendar, FaMapMarkerAlt, FaUsers, FaEnvelope, FaPhone, FaDownload } from 'react-icons/fa';
 
 const PaymentSuccess = () => {
   const { bookingId } = useParams();
@@ -14,6 +14,11 @@ const PaymentSuccess = () => {
   });
 
   const booking = locationBooking || bookingData?.data?.booking;
+
+  const handleDownloadReceipt = () => {
+    const token = localStorage.getItem('token'); // assuming token is stored here
+    window.open(`http://localhost:8000/api/bookings/${booking.id}/receipt/download?token=${token}`, '_blank');
+  };
 
   if (isLoading) {
     return (
@@ -170,6 +175,12 @@ const PaymentSuccess = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
+          <button
+            onClick={handleDownloadReceipt}
+            className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+          >
+            <FaDownload /> Download Receipt
+          </button>
           <button
             onClick={() => navigate('/my-bookings')}
             className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"

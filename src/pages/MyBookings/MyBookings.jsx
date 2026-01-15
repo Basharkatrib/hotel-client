@@ -26,8 +26,8 @@ const MyBookings = () => {
     }
 
     try {
-      await cancelBooking(bookingId).unwrap();
-      toast.success('Booking cancelled successfully. Refund will be processed within 5-7 business days.');
+      const response = await cancelBooking(bookingId).unwrap();
+      toast.success(response.messages?.[0] || 'Booking cancelled successfully.');
       refetch();
     } catch (error) {
       toast.error(error.data?.messages?.[0] || 'Failed to cancel booking. Please try again or contact support.');

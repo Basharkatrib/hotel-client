@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetHotelQuery, useGetRoomsQuery } from '../../services/hotelsApi';
 import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../services/favoritesApi';
-import { FaStar, FaMapMarkerAlt, FaShare } from 'react-icons/fa';
+import { FaStar, FaMapMarkerAlt, FaShare, FaWhatsapp } from 'react-icons/fa';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import ImageGallery from './components/ImageGallery';
@@ -151,6 +151,14 @@ const HotelDetails = () => {
     }
   };
 
+  const handleWhatsAppShare = () => {
+    const hotelName = hotel.name;
+    const hotelUrl = window.location.href;
+    const message = `Check out this amazing hotel: ${hotelName}\n${hotelUrl}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   if (hotelLoading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-14 flex items-center justify-center">
@@ -229,9 +237,12 @@ const HotelDetails = () => {
               </button>
               <button
                 type="button"
-                className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                onClick={handleWhatsAppShare}
+                className="flex items-center gap-2 px-4 py-2 border border-green-500/30 dark:border-green-500/30 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 text-green-600 dark:text-green-400 transition-colors"
+                title="Share on WhatsApp"
               >
-                <FaShare size={16} />
+                <FaWhatsapp size={20} />
+                <span className="hidden sm:inline font-semibold">Share</span>
               </button>
             </div>
           </div>

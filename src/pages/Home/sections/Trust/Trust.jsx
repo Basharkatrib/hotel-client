@@ -5,6 +5,7 @@ import vector from '../../../../assets/Home/trust/vector.svg';
 import fileList from '../../../../assets/Home/trust/file-list-edit.svg';
 import TrustCard from './components/TrustCard';
 
+
 const Trust = () => {
   const features = [
     {
