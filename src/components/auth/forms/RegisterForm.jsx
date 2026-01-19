@@ -1,9 +1,9 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useRegisterMutation } from '../../../services/api';
-import { registerSchema } from '../../../validation/authSchemas';
-import { toast } from 'react-toastify';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useRegisterMutation } from "../../../services/api";
+import { registerSchema } from "../../../validation/authSchemas";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -20,23 +20,32 @@ const RegisterForm = () => {
       }).unwrap();
 
       if (result.status) {
-        toast.success('Registration successful. Please check your email for the verification code.', {
-          toastId: 'register-success',
-        });
-        navigate(`/auth/verify-email?email=${encodeURIComponent(values.email)}`);
+        toast.success(
+          "Registration successful. Please check your email for the verification code.",
+          {
+            toastId: "register-success",
+          }
+        );
+        navigate(
+          `/auth/verify-email?email=${encodeURIComponent(values.email)}`
+        );
       }
     } catch (error) {
-      console.log('Registration error:', error);
+      console.log("Registration error:", error);
 
-      if (error.data && error.data.messages && Array.isArray(error.data.messages)) {
+      if (
+        error.data &&
+        error.data.messages &&
+        Array.isArray(error.data.messages)
+      ) {
         const errors = {};
         error.data.messages.forEach((msg) => {
           const lowerMsg = msg.toLowerCase();
-          if (lowerMsg.includes('email')) {
+          if (lowerMsg.includes("email")) {
             errors.email = msg;
-          } else if (lowerMsg.includes('password')) {
+          } else if (lowerMsg.includes("password")) {
             errors.password = msg;
-          } else if (lowerMsg.includes('name')) {
+          } else if (lowerMsg.includes("name")) {
             errors.name = msg;
           } else {
             errors.email = msg;
@@ -44,9 +53,9 @@ const RegisterForm = () => {
         });
         setErrors(errors);
       } else if (error.message) {
-        setFieldError('email', error.message);
+        setFieldError("email", error.message);
       } else {
-        setFieldError('email', 'An error occurred. Please try again.');
+        setFieldError("email", "An error occurred. Please try again.");
       }
     }
   };
@@ -55,7 +64,7 @@ const RegisterForm = () => {
     <div className="space-y-6">
       <div className="text-center">
         <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-          Create your Tripto account
+          Create your Vayka account
         </h3>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 font-medium">
           Sign up to save your favourites and manage bookings.
@@ -63,7 +72,12 @@ const RegisterForm = () => {
       </div>
 
       <Formik
-        initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        }}
         validationSchema={registerSchema}
         onSubmit={handleSubmit}
       >
@@ -156,22 +170,23 @@ const RegisterForm = () => {
             <button
               type="submit"
               disabled={!isValid || !dirty || isLoading}
-              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || !dirty || isLoading
-                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]'
-                }`}
+              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${
+                !isValid || !dirty || isLoading
+                  ? "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700"
+                  : "bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]"
+              }`}
             >
-              {isLoading ? 'Creating account...' : 'Create account'}
+              {isLoading ? "Creating account..." : "Create account"}
             </button>
           </Form>
         )}
       </Formik>
 
       <div className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6 font-medium">
-        Already have an account?{' '}
+        Already have an account?{" "}
         <button
           type="button"
-          onClick={() => navigate('/auth/login', { state: location.state })}
+          onClick={() => navigate("/auth/login", { state: location.state })}
           className="font-semibold text-blue-600 hover:text-blue-700 hover:underline transition-colors"
         >
           Sign in
@@ -182,5 +197,3 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
-
-

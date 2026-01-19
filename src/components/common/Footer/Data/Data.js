@@ -22,7 +22,7 @@ const Data = [
   },
   {
     title: "Get In Touch",
-    links: ["+1 (800) 123-456", "support@tripto.com"],
+    links: ["+1 (800) 123-456", "support@Vayka.com"],
     socialIcons: [FaFacebookF, AiFillInstagram, FaYoutube, FaTwitter],
   },
 ];

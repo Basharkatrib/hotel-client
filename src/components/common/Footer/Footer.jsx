@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../../assets/Home/footer/Logo.png";
+import logoHotel from "../../../assets/Home/footer/Logo-hotel.svg";
 import vector from "../../../assets/Home/footer/Vector.png";
 import googlePlay from "../../../assets/Home/footer/googlePlay.png";
 import payment from "../../../assets/Home/footer/Payment Method.png";
@@ -27,7 +28,7 @@ const Footer = () => {
           <div className="flex flex-col gap-8 w-full lg:w-1/3 items-start text-left">
             {/* Logo + Text */}
             <div className="flex flex-col gap-3">
-              <img src={logo} alt="logo" className="w-28 md:w-32 mb-[10px]" />
+              <img src={logoHotel} alt="logo" className="w-28 md:w-32 mb-[10px]" />
               <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
                 We help you find and book the perfect stay from cozy guesthouses
                 to top hotels—with ease, trust, and the best deals.
@@ -108,7 +109,7 @@ const Footer = () => {
         <div className="py-5">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <h6 className="text-white text-center sm:text-left">
-              © 2025 Tripto. All rights reserved.
+              © 2025 VAYKA. All rights reserved.
             </h6>
 
             <div className="flex gap-2 flex-wrap justify-center">
