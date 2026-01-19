@@ -71,7 +71,7 @@ const HomesGuestsLove = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-[#2c4860] transition-colors duration-300">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-[#1e293b] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 sm:mb-12">
