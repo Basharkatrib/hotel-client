@@ -7,7 +7,7 @@ const TrustCard = ({ icon, title, description }) => {
         {/* Icon */}
         <div className="flex justify-center mb-4 sm:mb-5 md:mb-6">
           <div className="relative">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 dark:bg-[color-mix(in_oklab,_theme(colors.gray.900)_95%,_transparent)] rounded-2xl flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300">
               <img
                 src={icon}
                 alt={title}
