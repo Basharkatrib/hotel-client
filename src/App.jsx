@@ -1,23 +1,26 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import AuthOverlay from './components/auth/AuthOverlay'
-import AuthChecker from './components/auth/AuthChecker'
-import { AccountLayout, MainLayout } from './components/layout'
-import { ThemeProvider } from './context/ThemeContext'
-import SmartSearchWizard from './components/common/SmartSearch/SmartSearchWizard'
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import AuthOverlay from "./components/auth/AuthOverlay";
+import AuthChecker from "./components/auth/AuthChecker";
+import { AccountLayout, MainLayout } from "./components/layout";
+import { ThemeProvider } from "./context/ThemeContext";
+import SmartSearchWizard from "./components/common/SmartSearch/SmartSearchWizard";
+import ContactUs from "./pages/Home/sections/ContactUs/ContactUs";
 // Lazy load pages for better performance
-const Home = lazy(() => import('./pages/Home/index'))
-const Explore = lazy(() => import('./pages/Explore/Explore.jsx'))
-const Rooms = lazy(() => import('./pages/Rooms/index'))
-const RoomDetails = lazy(() => import('./pages/RoomDetails/index'))
-const HotelDetails = lazy(() => import('./pages/HotelDetails'))
-const Favorites = lazy(() => import('./pages/Favorites/Favorites'))
-const BookingConfirmation = lazy(() => import('./pages/BookingConfirmation'))
-const Payment = lazy(() => import('./pages/Payment'))
-const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
-const MyBookings = lazy(() => import('./pages/MyBookings'))
-const PersonalDataForm = lazy(() => import('./pages/personalDataForm/PersonalDataForm'))
+const Home = lazy(() => import("./pages/Home/index"));
+const Explore = lazy(() => import("./pages/Explore/Explore.jsx"));
+const Rooms = lazy(() => import("./pages/Rooms/index"));
+const RoomDetails = lazy(() => import("./pages/RoomDetails/index"));
+const HotelDetails = lazy(() => import("./pages/HotelDetails"));
+const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
+const BookingConfirmation = lazy(() => import("./pages/BookingConfirmation"));
+const Payment = lazy(() => import("./pages/Payment"));
+const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
+const MyBookings = lazy(() => import("./pages/MyBookings"));
+const PersonalDataForm = lazy(() =>
+  import("./pages/personalDataForm/PersonalDataForm")
+);
 
 function App() {
   return (
@@ -49,10 +52,18 @@ function App() {
               <Route path="/room/:id" element={<RoomDetails />} />
               <Route path="/hotel/:slug" element={<HotelDetails />} />
 
+              <Route path="/contact-us" element={<ContactUs />} />
+
               {/* Booking routes */}
-              <Route path="/booking/confirm" element={<BookingConfirmation />} />
+              <Route
+                path="/booking/confirm"
+                element={<BookingConfirmation />}
+              />
               <Route path="/payment/:bookingId" element={<Payment />} />
-              <Route path="/payment/success/:bookingId" element={<PaymentSuccess />} />
+              <Route
+                path="/payment/success/:bookingId"
+                element={<PaymentSuccess />}
+              />
 
               {/* Auth routes are handled as overlay */}
               <Route path="/auth/login" element={<Home />} />
@@ -77,7 +88,7 @@ function App() {
         </Suspense>
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;
