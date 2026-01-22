@@ -6,8 +6,8 @@ import AuthChecker from "./components/auth/AuthChecker";
 import { AccountLayout, MainLayout } from "./components/layout";
 import { ThemeProvider } from "./context/ThemeContext";
 import SmartSearchWizard from "./components/common/SmartSearch/SmartSearchWizard";
-import ContactUs from "./pages/Home/sections/ContactUs/ContactUs";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ContactUs from "./pages/ContactUs/ContactUs";
 // Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home/index"));
 const Explore = lazy(() => import("./pages/Explore/Explore.jsx"));

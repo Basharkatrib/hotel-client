@@ -84,6 +84,7 @@ const Navbar = () => {
     { label: "Home", to: "/" },
     { label: "Explore", to: "/explore" },
     { label: "Rooms", to: "/rooms" },
+    { label: "ContactUs", to: "/contact-us" },
   ];
 
   return (
