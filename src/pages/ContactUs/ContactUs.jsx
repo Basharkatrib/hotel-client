@@ -13,7 +13,7 @@ import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
-import background from "../../../../../src/assets/ContactUs/background.png";
+import background from "../../../src/assets/ContactUs/background.png";
 
 // إعداد أيقونة الماركر الافتراضية
 let DefaultIcon = L.icon({
@@ -64,18 +64,23 @@ const contactCards = [
 
 const ContactUs = () => {
   return (
-    <div className="bg-gray-50 dark:bg-[#1e293b] flex items-center justify-center p-4 font-sans pt-[96px]">
-      <div className="relative w-full max-w-5xl bg-[#d8e4ff] rounded-[15px] shadow-[1px_2px_35px_blue] overflow-hidden flex flex-col md:flex-row p-6 md:p-12 gap-8">
-        
+    <div className="bg-gray-50 dark:bg-[#1e293b] flex items-center justify-center p-4 font-sans pt-[85px] md:pt-[96px]">
+      <div className="relative w-full max-w-5xl bg-[#d8e4ff] dark:bg-gray-900 rounded-[15px] shadow-[1px_2px_25px_blue] overflow-hidden flex flex-col md:flex-row p-6 md:p-12 gap-8">
         {/* نصوص العنوان للموبايل فقط - تظهر أول شيء */}
         <div className="block md:hidden order-1 text-center">
-          <h2 className="text-3xl font-bold text-[#4a4e69] mb-1">Get in Touch</h2>
+          <h2 className="text-3xl font-bold text-[#4a4e69] dark:text-white mb-1">
+            Get in Touch
+          </h2>
           <p className="text-[#2563EB] mb-4">We'd love to hear from you!</p>
         </div>
 
         {/* صورة الموبايل */}
         <div className="w-full md:hidden flex items-center justify-center z-10 order-2">
-          <img src={background} alt="Contact Illustration" className="max-h-48 object-contain w-[270px]" />
+          <img
+            src={background}
+            alt="Contact Illustration"
+            className="max-h-48 object-contain w-[270px]"
+          />
         </div>
 
         {/* الفورم */}
@@ -89,7 +94,7 @@ const ContactUs = () => {
                 key={index}
                 type={field.type}
                 placeholder={field.placeholder}
-                className="w-full px-5 py-3 rounded-xl bg-gray-50 border border-black focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all placeholder:text-gray-500"
+                className="w-full px-5 py-3 rounded-xl bg-gray-50 text-black border border-black focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all placeholder:text-gray-500"
               />
             ))}
 
@@ -108,9 +113,14 @@ const ContactUs = () => {
             {quickActions.map((item, index) => {
               const Icon = item.icon;
               return (
-                <div key={index} className="flex flex-col items-center gap-1 cursor-pointer hover:text-indigo-600 transition-colors">
+                <div
+                  key={index}
+                  className="flex flex-col items-center gap-1 cursor-pointer hover:text-indigo-600 transition-colors"
+                >
                   <Icon size={30} className={item.color} />
-                  <span className="text-xs md:text-base font-bold">{item.label}</span>
+                  <span className="text-xs md:text-base font-bold">
+                    {item.label}
+                  </span>
                 </div>
               );
             })}
@@ -120,12 +130,18 @@ const ContactUs = () => {
         {/* القسم الأيسر (يصبح تحت في الموبايل وبجانب الفورم في الديسكتوب) */}
         <div className="flex-1 z-10 flex flex-col order-4 md:order-1">
           <div className="hidden md:flex relative w-full h-48 mb-8 items-center justify-center">
-            <img src={background} alt="Contact Illustration" className="max-h-full max-w-full object-contain w-[270px]" />
+            <img
+              src={background}
+              alt="Contact Illustration"
+              className="max-h-full max-w-full object-contain w-[270px]"
+            />
           </div>
 
           {/* نصوص العنوان للديسكتوب فقط */}
           <div className="hidden md:block">
-            <h2 className="text-4xl font-bold text-[#4a4e69] mb-2">Get in Touch</h2>
+            <h2 className="text-4xl font-bold text-[#4a4e69] dark:text-white mb-2">
+              Get in Touch
+            </h2>
             <p className="text-[#2563EB] mb-8">We'd love to hear from you!</p>
           </div>
 
@@ -140,8 +156,12 @@ const ContactUs = () => {
                   <div className={`${card.bg} p-2 rounded-full mb-2`}>
                     <Icon size={25} className={card.color} />
                   </div>
-                  <p className="font-bold text-sm text-gray-800">{card.title}</p>
-                  <p className="text-[10px] text-gray-500 break-all">{card.value}</p>
+                  <p className="font-bold text-sm text-gray-800">
+                    {card.title}
+                  </p>
+                  <p className="text-[10px] text-gray-500 break-all">
+                    {card.value}
+                  </p>
                 </div>
               );
             })}
@@ -155,11 +175,13 @@ const ContactUs = () => {
               style={{ height: "100%", width: "100%", borderRadius: "1.5rem" }}
             >
               <TileLayer
-                attribution='&copy; OpenStreetMap contributors'
+                attribution="&copy; OpenStreetMap contributors"
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Marker position={position}>
-                <Popup>Our Office <br /> 123 Main Street.</Popup>
+                <Popup>
+                  Our Office <br /> 123 Main Street.
+                </Popup>
               </Marker>
             </MapContainer>
           </div>
