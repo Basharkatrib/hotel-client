@@ -263,6 +263,52 @@ img {
   display: none;
 }
 
+/* ==========================================
+   Custom Blue Scrollbar - Global Styles
+   ========================================== */
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 20px;
+  height: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 2px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #1e40af;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: 30px;
+  scrollbar-color: #3b82f6 #f1f5f9;
+}
+
+.dark * {
+  scrollbar-color: #3b82f6 #1e293b;
+}
+
+/* Keep custom-scrollbar class for specific elements */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
@@ -272,14 +318,14 @@ img {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+  background: #3b82f6;
+  border-radius: 2px;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #2563eb;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #1d4ed8;
 }

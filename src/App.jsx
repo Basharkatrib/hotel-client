@@ -7,6 +7,7 @@ import { AccountLayout, MainLayout } from "./components/layout";
 import { ThemeProvider } from "./context/ThemeContext";
 import SmartSearchWizard from "./components/common/SmartSearch/SmartSearchWizard";
 import ContactUs from "./pages/Home/sections/ContactUs/ContactUs";
+import ScrollToTop from "./components/common/ScrollToTop";
 // Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home/index"));
 const Explore = lazy(() => import("./pages/Explore/Explore.jsx"));
@@ -26,6 +27,7 @@ function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <ToastContainer
           position="top-center"
           autoClose={3000}
