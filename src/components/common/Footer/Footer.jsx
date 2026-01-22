@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer
       className="
-        bg-white dark:bg-gray-900/95
+        bg-white dark:bg-card/95
         text-black dark:text-white
         pt-12
         backdrop-blur-xl
@@ -49,16 +49,16 @@ const Footer = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 w-full">
                 <button className="flex items-center gap-3 bg-black/5 dark:bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-md hover:bg-black/10 dark:hover:bg-white/20 transition w-full sm:w-auto">
- <img
-      src={appleBlack} // الصورة الافتراضية النهارية
-      alt="App Store"
-      className="w-7 h-7 dark:hidden" // تظهر بالنهار فقط
-    />
-    <img
-      src={vector} // الصورة الليلي
-      alt="App Store"
-      className="w-7 h-7 hidden dark:inline-block" // تظهر بالليل فقط
-    />                  <div className="flex flex-col text-left">
+                  <img
+                    src={appleBlack} // الصورة الافتراضية النهارية
+                    alt="App Store"
+                    className="w-7 h-7 dark:hidden" // تظهر بالنهار فقط
+                  />
+                  <img
+                    src={vector} // الصورة الليلي
+                    alt="App Store"
+                    className="w-7 h-7 hidden dark:inline-block" // تظهر بالليل فقط
+                  />                  <div className="flex flex-col text-left">
                     <p className="text-[10px] text-gray-600 dark:text-gray-300">
                       Download in the
                     </p>

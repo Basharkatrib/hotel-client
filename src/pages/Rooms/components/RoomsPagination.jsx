@@ -9,7 +9,7 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+          className="px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-800 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
         >
           Previous
         </button>
@@ -32,8 +32,8 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
                 key={pageNum}
                 onClick={() => onPageChange(pageNum)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${currentPage === pageNum
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-white dark:bg-card text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
               >
                 {pageNum}
@@ -45,7 +45,7 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === pagination.last_page}
-          className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+          className="px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-800 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
         >
           Next
         </button>
@@ -62,6 +62,7 @@ const RoomsPagination = ({ pagination, currentPage, onPageChange }) => {
 };
 
 export default RoomsPagination;
+
 
 
 

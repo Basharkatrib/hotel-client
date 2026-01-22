@@ -2,7 +2,7 @@ import React from 'react';
 
 const SightCard = ({ image, location, country, flag, isLarge = false }) => {
   return (
-    <div className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full border border-transparent dark:border-gray-700">
+    <div className="group relative bg-white dark:bg-card rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full border border-transparent dark:border-gray-700">
       {/* Image */}
       <div className={`relative overflow-hidden ${isLarge ? 'h-64 sm:h-80 lg:h-80' : 'h-64 sm:h-72 lg:h-80'}`}>
         <img

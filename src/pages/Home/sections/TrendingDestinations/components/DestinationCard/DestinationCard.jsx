@@ -2,7 +2,7 @@ import React from 'react';
 
 const DestinationCard = ({ image, city, country, price, description }) => {
   return (
-    <div className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-transparent dark:border-gray-700">
+    <div className="group relative bg-white dark:bg-card rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-transparent dark:border-gray-700">
       {/* Image */}
       <div className="relative h-88 overflow-hidden">
         <img

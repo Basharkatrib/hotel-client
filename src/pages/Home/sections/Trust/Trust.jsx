@@ -26,7 +26,7 @@ const Trust = () => {
 
   return (
     <section
-      className="mt-44 sm:mt-0 py-12 sm:py-16 lg:py-24 bg-white dark:bg-[#1e293b] transition-colors duration-300"
+      className="mt-44 sm:mt-0 py-12 sm:py-16 lg:py-24 bg-white dark:bg-background transition-colors duration-300"
       aria-labelledby="trust-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

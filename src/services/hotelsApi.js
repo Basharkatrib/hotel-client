@@ -59,6 +59,9 @@ export const hotelsApi = createApi({
         if (params.is_featured) {
           searchParams.append('is_featured', '1');
         }
+        if (params.is_getaway_deal) {
+          searchParams.append('is_getaway_deal', '1');
+        }
 
         // Sorting
         if (params.sort_by) {

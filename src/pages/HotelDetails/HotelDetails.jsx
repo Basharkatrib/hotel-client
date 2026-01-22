@@ -161,7 +161,7 @@ const HotelDetails = () => {
 
   if (hotelLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-14 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-14 flex items-center justify-center">
         <div className="animate-pulse text-center">
           <div className="text-6xl mb-4">🏨</div>
           <div className="text-gray-600 dark:text-gray-400">Loading hotel details...</div>
@@ -172,7 +172,7 @@ const HotelDetails = () => {
 
   if (hotelError || !hotelData?.data?.hotel) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-14 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-14 flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">😕</div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Hotel Not Found</h2>
@@ -194,7 +194,7 @@ const HotelDetails = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-24 lg:pb-10 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 pb-24 lg:pb-10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
         <div className="mb-4">
@@ -249,7 +249,7 @@ const HotelDetails = () => {
         </div>
 
         {/* Sticky Tabs */}
-        <div className="sticky top-16 md:top-20 z-30 bg-white dark:bg-gray-900 mt-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-transparent dark:border-gray-800 transition-colors duration-300">
+        <div className="sticky top-16 md:top-20 z-30 bg-white dark:bg-card mt-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-transparent dark:border-gray-800 transition-colors duration-300">
           <nav className="flex gap-6 overflow-x-scroll hide-scrollbar">
             {tabs.map((tab) => (
               <button
@@ -317,7 +317,7 @@ const HotelDetails = () => {
       </div>
 
       {/* Mobile Booking Bottom Bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 bg-white dark:bg-card border-t border-gray-200 dark:border-gray-800 shadow-lg lg:hidden">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
           <div>
             <div className="text-[11px] uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -348,7 +348,7 @@ const HotelDetails = () => {
           />
 
           {/* Sheet */}
-          <div className="relative w-full max-h-[80vh] rounded-t-3xl bg-white dark:bg-gray-900 shadow-2xl">
+          <div className="relative w-full max-h-[80vh] rounded-t-3xl bg-white dark:bg-card shadow-2xl">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800">
               <span className="text-base font-semibold text-gray-900 dark:text-white">
                 Booking details

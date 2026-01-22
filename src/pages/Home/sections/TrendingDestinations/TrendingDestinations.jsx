@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import DestinationCard from './components/DestinationCard';
 import CategoryFilter from './components/CategoryFilter';
+import { useGetHotelsQuery } from '../../../../services/hotelsApi';
+import { getImageUrl } from '../../../../utils/imageHelper';
 
 const TrendingDestinations = () => {
   const [activeFilter, setActiveFilter] = useState('Spring Picks');
+
+  // Fetch trending hotels (sorted by rating for now)
+  const { data, isLoading, error } = useGetHotelsQuery({
+    sort_by: 'rating',
+    sort_order: 'desc',
+    per_page: 4
+  });
 
   const categories = [
     { name: 'Spring Picks', icon: '🌸' },
@@ -12,43 +21,20 @@ const TrendingDestinations = () => {
     { name: 'Winter Getaway', icon: '❄️' },
   ];
 
-  const destinations = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80',
-      city: 'Paris',
-      country: 'France',
-      price: 128,
-      description: 'Romantic escapes, art, and cafés.',
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=80',
-      city: 'Santorini',
-      country: 'Greece',
-      price: 225,
-      description: 'Sunsets, sea views, and serenity.',
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80',
-      city: 'Bali',
-      country: 'Indonesia',
-      price: 26,
-      description: 'Beaches, nature, and calm vibes.',
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80',
-      city: 'Kyoto',
-      country: 'Japan',
-      price: 190,
-      description: 'Cherry blossoms and temples.',
-    },
-  ];
+  if (isLoading) return <div className="text-center py-20">Loading trending destinations...</div>;
+  if (error) return <div className="text-center py-20 text-red-500">Error loading destinations</div>;
+
+  const destinations = data?.data?.hotels?.map(hotel => ({
+    id: hotel.id,
+    image: getImageUrl(hotel.images?.[0]),
+    city: hotel.city,
+    country: hotel.country,
+    price: hotel.price_per_night,
+    description: hotel.name, // Using hotel name as description for now
+  })) || [];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-[#1e293b] transition-colors duration-300">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-background transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="sm:mb-12">

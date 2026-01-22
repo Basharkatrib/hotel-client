@@ -25,7 +25,7 @@ const AccountLayout = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleSidebar}
-          className="lg:hidden fixed top-4 right-4 z-50 p-2 bg-white dark:bg-gray-900 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border border-transparent dark:border-gray-800"
+          className="lg:hidden fixed top-4 right-4 z-50 p-2 bg-white dark:bg-card rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border border-transparent dark:border-gray-800"
           aria-label="Toggle menu"
         >
           {isSidebarOpen ? (
@@ -57,7 +57,7 @@ const AccountLayout = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 w-full bg-white dark:bg-gray-950 transition-colors duration-300">
+          <div className="flex-1 w-full bg-white dark:bg-background transition-colors duration-300">
             <Outlet />
           </div>
         </div>

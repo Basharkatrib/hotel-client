@@ -50,10 +50,10 @@ const PaymentSuccess = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black pt-20 pb-10 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 pb-10 transition-colors duration-300">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Success Message */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-transparent dark:border-gray-800 p-8 mb-6 text-center transition-colors duration-300">
+        <div className="bg-white dark:bg-card rounded-xl shadow-sm border border-transparent dark:border-gray-800 p-8 mb-6 text-center transition-colors duration-300">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full mb-4">
             <FaCheckCircle className="text-green-600 dark:text-green-400 text-5xl" />
           </div>
@@ -68,7 +68,7 @@ const PaymentSuccess = () => {
         </div>
 
         {/* Booking Details */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-transparent dark:border-gray-800 p-6 mb-6 transition-colors duration-300">
+        <div className="bg-white dark:bg-card rounded-xl shadow-sm border border-transparent dark:border-gray-800 p-6 mb-6 transition-colors duration-300">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Booking Details</h2>
 
           {/* Hotel & Room */}

@@ -144,7 +144,7 @@ const BookingConfirmation = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 pb-10 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <BookingStepper currentStep={2} />
 
@@ -157,7 +157,7 @@ const BookingConfirmation = () => {
           {/* Left Column - Guest Information Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800 transition-colors duration-300">
+              <div className="bg-white dark:bg-card rounded-2xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800 transition-colors duration-300">
                 <div className="bg-blue-600 px-6 py-4">
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
                     <HiOutlineIdentification className="w-6 h-6" />
@@ -225,7 +225,7 @@ const BookingConfirmation = () => {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-gray-800 transition-colors duration-300">
+              <div className="bg-white dark:bg-card rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-gray-800 transition-colors duration-300">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <FaBed className="text-blue-600 dark:text-blue-400" />
                   Special Requests (Optional)
@@ -266,7 +266,7 @@ const BookingConfirmation = () => {
 
           {/* Right Column - Booking Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden sticky top-24 transition-colors duration-300">
+            <div className="bg-white dark:bg-card rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden sticky top-24 transition-colors duration-300">
               <div className="p-6 bg-gray-50 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-800">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white">Booking Summary</h2>
               </div>

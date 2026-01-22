@@ -58,7 +58,7 @@ const AuthModal = ({ variant }) => {
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="relative mx-4 w-full max-w-lg rounded-3xl bg-white dark:bg-gray-900 shadow-2xl flex flex-col max-h-[90vh] transition-colors duration-300 border border-transparent dark:border-gray-800"
+          className="relative mx-4 w-full max-w-lg rounded-3xl bg-white dark:bg-card shadow-2xl flex flex-col max-h-[90vh] transition-colors duration-300 border border-transparent dark:border-gray-800"
           initial={{ opacity: 0, scale: 0.96, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 12 }}

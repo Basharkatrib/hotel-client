@@ -50,9 +50,9 @@ const HotelLocationModal = ({ hotel, isOpen, onClose }) => {
       />
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-4xl h-[80vh] overflow-hidden flex flex-col transition-colors duration-300">
+      <div className="relative bg-white dark:bg-card rounded-2xl shadow-2xl w-full max-w-4xl h-[80vh] overflow-hidden flex flex-col transition-colors duration-300">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-card transition-colors duration-300">
           <div className="flex-1 pr-4">
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
               {hotel.name}
@@ -89,7 +89,7 @@ const HotelLocationModal = ({ hotel, isOpen, onClose }) => {
               />
               <Marker position={position}>
                 <Popup>
-                  <div className="text-center p-1 bg-white dark:bg-gray-900">
+                  <div className="text-center p-1 bg-white dark:bg-card">
                     <div className="font-semibold text-gray-900 dark:text-white text-sm">
                       {hotel.name}
                     </div>
@@ -106,7 +106,7 @@ const HotelLocationModal = ({ hotel, isOpen, onClose }) => {
               </Marker>
             </MapContainer>
           ) : (
-            <div className="h-full w-full flex items-center justify-center bg-gray-50 dark:bg-gray-950/50 transition-colors duration-300">
+            <div className="h-full w-full flex items-center justify-center bg-gray-50 dark:bg-background/50 transition-colors duration-300">
               <div className="text-center p-8">
                 <div className="text-4xl mb-4">📍</div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">

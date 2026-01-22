@@ -6,7 +6,7 @@ const LoadingSkeleton = () => {
       {[...Array(5)].map((_, index) => (
         <div
           key={index}
-          className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden animate-pulse transition-colors duration-300"
+          className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card overflow-hidden animate-pulse transition-colors duration-300"
         >
           <div className="flex flex-col md:flex-row">
             {/* Image skeleton */}

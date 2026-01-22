@@ -149,7 +149,7 @@ const RoomReviews = ({ room }) => {
 
   return (
     <>
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Room Reviews</h2>
           {canReview && !showReviewForm && (
@@ -226,8 +226,8 @@ const RoomReviews = ({ room }) => {
             <button
               onClick={() => setFilterRating(null)}
               className={`px-3 py-1 text-sm rounded-lg transition-colors ${filterRating === null
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'bg-blue-600 text-white shadow-lg'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
             >
               All
@@ -237,8 +237,8 @@ const RoomReviews = ({ room }) => {
                 key={rating}
                 onClick={() => setFilterRating(filterRating === rating ? null : rating)}
                 className={`px-3 py-1 text-sm rounded-lg transition-colors ${filterRating === rating
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                   }`}
               >
                 {rating} Star{rating > 1 ? 's' : ''}

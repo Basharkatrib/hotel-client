@@ -173,7 +173,7 @@ const BookingCard = ({ hotel, selectedRoom = null, onDatesChange }) => {
 
       {/* Price Summary */}
       {selectedRoom && (
-        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg space-y-2 border border-transparent dark:border-gray-700">
+        <div className="mb-6 p-4 bg-gray-50 dark:bg-card/50 rounded-lg space-y-2 border border-transparent dark:border-gray-700">
           <div className="flex justify-between text-sm">
             <span className="text-gray-600 dark:text-gray-400">${pricePerNight} × {nights} nights</span>
             <span className="text-gray-900 dark:text-white font-medium">${subtotal.toFixed(2)}</span>

@@ -34,7 +34,7 @@ const Favorites = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-12 text-center transition-colors">
+      <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 p-12 text-center transition-colors">
         <FaHeart className="mx-auto text-gray-400 dark:text-gray-500 mb-4" size={48} />
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Please Login</h2>
         <p className="text-gray-600 dark:text-gray-400 mb-6">You need to be logged in to view your favorites.</p>
@@ -50,7 +50,7 @@ const Favorites = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-12 transition-colors">
+      <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 p-12 transition-colors">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
         </div>
@@ -63,7 +63,7 @@ const Favorites = () => {
   const hasItems = filteredHotels.length > 0 || filteredRooms.length > 0;
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-4 sm:p-6 transition-colors duration-300">
+    <div className="bg-white dark:bg-background border border-gray-200 dark:border-gray-800 p-4 sm:p-6 transition-colors duration-300">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">My Favorites</h1>
@@ -77,8 +77,8 @@ const Favorites = () => {
         <button
           onClick={() => setActiveTab('all')}
           className={`px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'all'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+            ? 'text-blue-600 border-b-2 border-blue-600'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
         >
           All ({hotels.length + rooms.length})
@@ -86,8 +86,8 @@ const Favorites = () => {
         <button
           onClick={() => setActiveTab('hotels')}
           className={`px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'hotels'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+            ? 'text-blue-600 border-b-2 border-blue-600'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
         >
           Hotels ({hotels.length})
@@ -95,8 +95,8 @@ const Favorites = () => {
         <button
           onClick={() => setActiveTab('rooms')}
           className={`px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'rooms'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+            ? 'text-blue-600 border-b-2 border-blue-600'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
         >
           Rooms ({rooms.length})
@@ -105,7 +105,7 @@ const Favorites = () => {
 
       {/* Content */}
       {!hasItems ? (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-12 text-center transition-colors">
+        <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 p-12 text-center transition-colors">
           <FaHeart className="mx-auto text-gray-300 dark:text-gray-700 mb-4" size={64} />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">No Favorites Yet</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium">
@@ -143,7 +143,7 @@ const Favorites = () => {
                   return (
                     <div
                       key={hotel.id}
-                      className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300"
+                      className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300"
                     >
                       <div className="relative h-48">
                         <img
@@ -160,7 +160,7 @@ const Favorites = () => {
                             e.stopPropagation();
                             handleRemoveFavorite(hotel.favorite_id, hotel.name);
                           }}
-                          className="absolute top-3 right-3 p-2 bg-white dark:bg-gray-900 rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
+                          className="absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                           aria-label="Remove from favorites"
                         >
                           <FaHeart className="text-red-500" size={20} />
@@ -214,7 +214,7 @@ const Favorites = () => {
                   return (
                     <div
                       key={room.id}
-                      className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300"
+                      className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300"
                     >
                       <div className="relative h-48">
                         <img
@@ -231,7 +231,7 @@ const Favorites = () => {
                             e.stopPropagation();
                             handleRemoveFavorite(room.favorite_id, room.name);
                           }}
-                          className="absolute top-3 right-3 p-2 bg-white dark:bg-gray-900 rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
+                          className="absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                           aria-label="Remove from favorites"
                         >
                           <FaHeart className="text-red-500" size={20} />

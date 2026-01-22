@@ -189,7 +189,7 @@ const RoomDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 pb-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center min-h-[60vh]">
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
@@ -201,7 +201,7 @@ const RoomDetails = () => {
 
   if (error || !room) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 pb-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
             <p className="text-red-800 dark:text-red-400">Failed to load rooms. Please try again later.</p>
@@ -218,7 +218,7 @@ const RoomDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 pb-10 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 pb-10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RoomDetailsHeader />
 

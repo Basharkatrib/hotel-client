@@ -39,7 +39,7 @@ const MapSection = ({ hotels = [] }) => {
   }, [hotels]);
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm h-64 relative z-0">
+    <div className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-card shadow-sm h-64 relative z-0">
       <MapContainer
         center={mapCenter}
         zoom={hotels.length > 0 ? 12 : 13}
@@ -65,7 +65,7 @@ const MapSection = ({ hotels = [] }) => {
           return (
             <Marker key={hotel.id} position={position}>
               <Popup>
-                <div className="min-w-[200px] bg-white dark:bg-gray-900">
+                <div className="min-w-[200px] bg-white dark:bg-card">
                   <div className="font-semibold text-gray-900 dark:text-white mb-1">
                     {hotel.name}
                   </div>

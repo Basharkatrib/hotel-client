@@ -9,7 +9,7 @@ const RoomImageGallery = ({ images, roomName }) => {
   const defaultImage = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden transition-colors duration-300">
+    <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden transition-colors duration-300">
       <Swiper
         modules={[Navigation, Pagination]}
         navigation
@@ -44,6 +44,7 @@ const RoomImageGallery = ({ images, roomName }) => {
 };
 
 export default RoomImageGallery;
+
 
 
 

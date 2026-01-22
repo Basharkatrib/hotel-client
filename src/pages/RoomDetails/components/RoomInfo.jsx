@@ -12,7 +12,7 @@ const RoomInfo = ({ room, isFavorited, onFavoriteToggle }) => {
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
+    <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
       <div className="flex items-start justify-between mb-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{room.name}</h1>

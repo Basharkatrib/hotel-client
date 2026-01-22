@@ -31,7 +31,7 @@ const SearchForm = ({
 
   return (
     <form
-      className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 px-4 py-4 sm:px-6 sm:py-4 transition-all duration-300"
+      className="bg-white/95 dark:bg-card backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 px-4 py-4 sm:px-6 sm:py-4 transition-all duration-300"
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-4 lg:gap-5">
@@ -54,7 +54,7 @@ const SearchForm = ({
           <label className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2">
             Check In
           </label>
-          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5 bg-white dark:bg-gray-800 focus-within:ring-1 focus-within:ring-blue-500 transition-colors">
+          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5 bg-white dark:bg-card focus-within:ring-1 focus-within:ring-blue-500 transition-colors">
             <IoCalendarOutline className="text-gray-400 dark:text-gray-500 text-lg" />
             <input
               type="date"
@@ -70,7 +70,7 @@ const SearchForm = ({
           <label className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2">
             Check Out
           </label>
-          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5 bg-white dark:bg-gray-800 focus-within:ring-1 focus-within:ring-blue-500 transition-colors">
+          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5 bg-white dark:bg-card focus-within:ring-1 focus-within:ring-blue-500 transition-colors">
             <IoCalendarOutline className="text-gray-400 dark:text-gray-500 text-lg" />
             <input
               type="date"
@@ -86,7 +86,7 @@ const SearchForm = ({
           <label className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2">
             Guests
           </label>
-          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5 bg-white dark:bg-gray-800 focus-within:ring-1 focus-within:ring-blue-500 transition-colors">
+          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5 bg-white dark:bg-card focus-within:ring-1 focus-within:ring-blue-500 transition-colors">
             <IoPeople className="text-gray-400 dark:text-gray-500 text-lg" />
             <input
               type="number"

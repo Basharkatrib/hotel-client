@@ -48,7 +48,7 @@ const Explore = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-14 transition-colors duration-300">
+    <main className="min-h-screen bg-gray-50 dark:bg-background pt-14 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
@@ -90,7 +90,7 @@ const Explore = () => {
           {/* Results */}
           <section className="flex-1">
             {/* Sorting bar */}
-            <div className="mb-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-3 py-2 shadow-sm sm:rounded-xl sm:px-4 sm:py-3 transition-colors duration-300">
+            <div className="mb-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card px-3 py-2 shadow-sm sm:rounded-xl sm:px-4 sm:py-3 transition-colors duration-300">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-400 sm:text-sm">
                   Sort by:
@@ -147,7 +147,7 @@ const Explore = () => {
           />
 
           {/* Panel */}
-          <div className="absolute inset-y-0 right-0 w-full max-w-xs bg-white dark:bg-gray-900 shadow-xl flex flex-col pt-18 slide-in-right overflow-hidden">
+          <div className="absolute inset-y-0 right-0 w-full max-w-xs bg-white dark:bg-card shadow-xl flex flex-col pt-18 slide-in-right overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800">
               <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Filters</h2>
               <button

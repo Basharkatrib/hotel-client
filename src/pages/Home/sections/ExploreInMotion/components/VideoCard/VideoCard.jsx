@@ -3,7 +3,7 @@ import { FaPlay } from 'react-icons/fa';
 
 const VideoCard = ({ image, title, subtitle, description, buttonText }) => {
   return (
-    <div className="group relative bg-white dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-900/30 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+    <div className="group relative bg-white dark:bg-card border-2 border-blue-200 dark:border-blue-900/30 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
       {/* Image */}
       <div className="relative h-64 sm:h-80 lg:h-116 overflow-hidden">
         <img

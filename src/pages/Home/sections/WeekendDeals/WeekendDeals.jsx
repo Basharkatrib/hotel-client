@@ -7,72 +7,41 @@ import 'swiper/css/pagination';
 import DealCard from './components/DealCard';
 import '../../../../index.css';
 
+import { useGetHotelsQuery } from '../../../../services/hotelsApi';
+import { getImageUrl } from '../../../../utils/imageHelper';
+
 const WeekendDeals = () => {
-  const deals = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
-      title: 'Seaside Serenity Villa',
-      location: 'Amalfi Coast, Italy',
-      rating: 4.0,
-      ratingText: 'Very Good',
-      reviews: 101,
-      originalPrice: 250,
-      discountPrice: 175,
-      badge: 'Getaway Deal',
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80',
-      title: 'Tropical Bungalow',
-      location: 'Phuket, Thailand',
-      rating: 3.8,
-      ratingText: 'Good',
-      reviews: 210,
-      originalPrice: 210,
-      discountPrice: 160,
-      badge: 'Getaway Deal',
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=80',
-      title: 'Santorini Sunset Suites',
-      location: 'Santorini, Greece',
-      rating: 4.9,
-      ratingText: 'Very Good',
-      reviews: 185,
-      originalPrice: 300,
-      discountPrice: 255,
-      badge: 'Getaway Deal',
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80',
-      title: 'Marbella Resort',
-      location: 'Marbella, Spain',
-      rating: 4.6,
-      ratingText: 'Very Good',
-      reviews: 149,
-      originalPrice: 280,
-      discountPrice: 190,
-      badge: 'Getaway Deal',
-    },
-    {
-      id: 5,
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
-      title: 'Dubai Luxury Hotel',
-      location: 'Dubai, UAE',
-      rating: 4.8,
-      ratingText: 'Excellent',
-      reviews: 320,
-      originalPrice: 400,
-      discountPrice: 299,
-      badge: 'Getaway Deal',
-    },
-  ];
+  const { data, isLoading, error } = useGetHotelsQuery({
+    is_getaway_deal: true,
+    per_page: 8
+  });
+
+  const getRatingText = (rating) => {
+    if (rating >= 9) return 'Exceptional'; // If 10-scale
+    if (rating >= 4.5) return 'Excellent';
+    if (rating >= 4.0) return 'Very Good';
+    if (rating >= 3.5) return 'Good';
+    return 'Average';
+  };
+
+  if (isLoading) return <div className="text-center py-20">Loading deals...</div>;
+  if (error) return <div className="text-center py-20 text-red-500">Error loading deals</div>;
+
+  const deals = data?.data?.hotels?.map(hotel => ({
+    id: hotel.id,
+    image: getImageUrl(hotel.images?.[0]),
+    title: hotel.name,
+    location: `${hotel.city}, ${hotel.country}`,
+    rating: parseFloat(hotel.rating),
+    ratingText: getRatingText(parseFloat(hotel.rating)),
+    reviews: hotel.reviews_count,
+    originalPrice: parseFloat(hotel.original_price || hotel.price_per_night * 1.2), // Fallback if no original price
+    discountPrice: parseFloat(hotel.price_per_night),
+    badge: 'Getaway Deal',
+  })) || [];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-[#1e293b] transition-colors duration-300">
+    <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-background transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 sm:mb-12">

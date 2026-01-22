@@ -34,8 +34,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors ${currentPage === 1
-            ? 'opacity-40 cursor-default'
-            : 'hover:border-gray-900 dark:hover:border-blue-500'
+          ? 'opacity-40 cursor-default'
+          : 'hover:border-gray-900 dark:hover:border-blue-500'
           }`}
         aria-label="Previous page"
         aria-disabled={currentPage === 1}
@@ -60,8 +60,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             type="button"
             onClick={() => onPageChange(item.page)}
             className={`inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm transition-colors ${item.page === currentPage
-                ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
-                : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
+              ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
+              : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
               }`}
           >
             {item.page}
@@ -76,8 +76,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         }
         disabled={currentPage === totalPages}
         className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors ${currentPage === totalPages
-            ? 'opacity-40 cursor-default'
-            : 'hover:border-gray-900 dark:hover:border-blue-500'
+          ? 'opacity-40 cursor-default'
+          : 'hover:border-gray-900 dark:hover:border-blue-500'
           }`}
         aria-label="Next page"
         aria-disabled={currentPage === totalPages}
@@ -180,7 +180,7 @@ const HotelList = ({
 
   if (hotels.length === 0) {
     return (
-      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-12 text-center transition-colors duration-300">
+      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card p-12 text-center transition-colors duration-300">
         <div className="text-gray-400 dark:text-gray-600 text-6xl mb-4">🏨</div>
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
           No hotels found

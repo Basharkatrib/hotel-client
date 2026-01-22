@@ -8,7 +8,7 @@ const RoomsFilters = ({ filters, onFilterChange, showFilters, setShowFilters }) 
       <div className="mb-6 flex items-center justify-between">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
         >
           <FaFilter size={16} />
           <span>Filters</span>
@@ -24,7 +24,7 @@ const RoomsFilters = ({ filters, onFilterChange, showFilters, setShowFilters }) 
               onFilterChange('sort_by', sortBy);
               onFilterChange('sort_order', sortOrder);
             }}
-            className="px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            className="px-3 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
           >
             <option value="created_at_desc">Newest First</option>
             <option value="created_at_asc">Oldest First</option>
@@ -38,7 +38,7 @@ const RoomsFilters = ({ filters, onFilterChange, showFilters, setShowFilters }) 
 
       {/* Filters Panel */}
       {showFilters && (
-        <div className="mb-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
+        <div className="mb-6 bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors duration-300">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Room Type */}
             <div>
@@ -148,6 +148,7 @@ const RoomsFilters = ({ filters, onFilterChange, showFilters, setShowFilters }) 
 };
 
 export default RoomsFilters;
+
 
 
 

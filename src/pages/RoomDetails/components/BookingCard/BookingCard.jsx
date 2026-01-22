@@ -31,7 +31,7 @@ const BookingCard = ({
   const isDisabled = !availabilityStatus || guests > room.max_guests || isCheckingAvailability;
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-lg p-6 sticky top-24 transition-colors duration-300">
+    <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 shadow-lg p-6 sticky top-24 transition-colors duration-300">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Book This Room</h2>
 
       {/* Price */}
@@ -90,8 +90,8 @@ const BookingCard = ({
         onClick={onBookNow}
         disabled={isDisabled}
         className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${isDisabled
-            ? 'bg-gray-300 dark:bg-gray-800 text-gray-500 dark:text-gray-600 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl'
+          ? 'bg-gray-300 dark:bg-gray-800 text-gray-500 dark:text-gray-600 cursor-not-allowed'
+          : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl'
           }`}
       >
         {guests > room.max_guests

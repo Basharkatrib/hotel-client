@@ -78,7 +78,7 @@ const RoomCard = ({ room }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300">
       {/* Image */}
       <div className="relative h-48 w-full">
         <img

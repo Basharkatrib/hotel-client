@@ -298,7 +298,7 @@ const SmartSearchWizard = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-[24px] shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800"
+                            className="relative w-full max-w-md bg-white dark:bg-card rounded-[24px] shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800"
                         >
                             {/* Progress Bar */}
                             <div className="absolute top-0 left-0 right-0 h-1 bg-gray-100 dark:bg-gray-800">
@@ -353,7 +353,7 @@ const SmartSearchWizard = () => {
                             </div>
 
                             {/* Footer */}
-                            <div className="px-6 py-4 bg-gray-50/50 dark:bg-gray-950/50 flex justify-between items-center border-t dark:border-gray-800">
+                            <div className="px-6 py-4 bg-gray-50/50 dark:bg-background/50 flex justify-between items-center border-t dark:border-gray-800">
                                 <button
                                     onClick={prevStep}
                                     disabled={step === 1}

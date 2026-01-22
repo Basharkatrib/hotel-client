@@ -25,7 +25,7 @@ const Payment = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 flex items-center justify-center transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 flex items-center justify-center transition-colors duration-300">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-400">Loading booking details...</p>
@@ -36,7 +36,7 @@ const Payment = () => {
 
   if (isError || !booking) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 flex items-center justify-center transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 flex items-center justify-center transition-colors duration-300">
         <div className="text-center">
           <div className="text-6xl mb-4">😕</div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Booking Not Found</h2>
@@ -53,7 +53,7 @@ const Payment = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-10 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-background pt-24 pb-10 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <BookingStepper currentStep={3} />
 
@@ -68,7 +68,7 @@ const Payment = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
           {/* Payment Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors duration-300">
+            <div className="bg-white dark:bg-card rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors duration-300">
               <div className="bg-emerald-600 dark:bg-emerald-700 px-6 py-4 flex items-center justify-between transition-all">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                   <HiOutlineCreditCard className="w-6 h-6" />
@@ -109,7 +109,7 @@ const Payment = () => {
 
           {/* Booking Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden sticky top-24 transition-colors duration-300">
+            <div className="bg-white dark:bg-card rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden sticky top-24 transition-colors duration-300">
               <div className="p-6 bg-gray-50 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-800">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white">Booking Summary</h2>
               </div>

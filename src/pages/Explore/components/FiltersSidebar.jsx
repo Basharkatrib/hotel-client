@@ -61,7 +61,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
       {/* Map above filters */}
       <MapSection hotels={hotels} />
 
-      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 sm:p-5 shadow-sm transition-colors duration-300">
+      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card p-4 sm:p-5 shadow-sm transition-colors duration-300">
         <div className="flex items-center justify-between mb-2">
           <p className="text-sm font-semibold text-gray-900 dark:text-white">Filter by:</p>
           <button
@@ -91,8 +91,8 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                     type="button"
                     onClick={() => setTypeOfPlace(label)}
                     className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${typeOfPlace === label
-                        ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
-                        : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
+                      ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
+                      : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
                       }`}
                   >
                     {label}
@@ -211,8 +211,8 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                             type="button"
                             onClick={() => toggleAmenity(label)}
                             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${active
-                                ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
-                                : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
+                              ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
+                              : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
                               }`}
                           >
                             {label}

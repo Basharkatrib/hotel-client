@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetMyBookingsQuery, useCancelBookingMutation } from '../../services/bookingsApi';
 import { FaCalendar, FaMapMarkerAlt, FaUsers, FaBed } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../../utils/imageHelper';
 
 const MyBookings = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const MyBookings = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20 flex items-center justify-center transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-background pt-20 flex items-center justify-center transition-colors duration-300">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-400">Loading booking details...</p>
@@ -70,7 +71,7 @@ const MyBookings = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-4 sm:p-6 transition-colors duration-300">
+    <div className="bg-white dark:bg-background border border-gray-200 dark:border-gray-800 p-4 sm:p-6 transition-colors duration-300">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">My Bookings</h1>
 
       {/* Tabs */}
@@ -116,18 +117,17 @@ const MyBookings = () => {
           {bookings.map((booking) => (
             <div
               key={booking.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border border-transparent dark:border-gray-700"
+              className="bg-white dark:bg-card rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border border-transparent dark:border-gray-700"
             >
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Hotel Image */}
                 <div className="flex-shrink-0">
                   <img
-                    src={`http://localhost:8000/storage/${booking.hotel?.images?.[0]}` || 'https://via.placeholder.com/200x150'}
+                    src={getImageUrl(booking.hotel?.images?.[0])}
                     alt={booking.hotel?.name}
                     className="w-full lg:w-48 h-32 object-cover rounded-lg border border-gray-100 dark:border-gray-700"
                   />
                 </div>
-
                 {/* Booking Details */}
                 <div className="flex-1">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3">

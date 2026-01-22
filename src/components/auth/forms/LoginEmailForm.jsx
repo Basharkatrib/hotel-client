@@ -120,11 +120,10 @@ const LoginEmailForm = () => {
             <button
               type="submit"
               disabled={!isValid || !dirty || isLoading}
-              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${
-                !isValid || !dirty || isLoading
+              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || !dirty || isLoading
                   ? "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700"
                   : "bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]"
-              }`}
+                }`}
             >
               {isLoading ? "Logging in..." : "Log in"}
             </button>
@@ -141,7 +140,7 @@ const LoginEmailForm = () => {
       <div className="space-y-3">
         <button
           type="button"
-          className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-md active:scale-[0.98]"
+          className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-card px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-md active:scale-[0.98]"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path

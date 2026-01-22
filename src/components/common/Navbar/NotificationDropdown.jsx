@@ -77,15 +77,6 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
                                             <div className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-blue-600 rounded-full" />
                                         )}
 
-                                        {notification.data.image && (
-                                            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600">
-                                                <img
-                                                    src={notification.data.image}
-                                                    alt=""
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
-                                        )}
 
                                         <div className="flex-1 min-w-0">
                                             <p className="text-xs font-semibold text-gray-900 dark:text-white leading-tight mb-1">

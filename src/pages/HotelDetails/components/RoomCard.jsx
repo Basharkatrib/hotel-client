@@ -114,7 +114,7 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
   if (room.no_smoking) features.push({ icon: FaSmokingBan, label: 'No Smoking', color: 'text-red-600' });
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div className="bg-white dark:bg-card rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col lg:flex-row">
         {/* Image Slider */}
         <div className="lg:w-64 relative">

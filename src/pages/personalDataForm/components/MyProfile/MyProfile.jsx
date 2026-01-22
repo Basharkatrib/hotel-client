@@ -147,7 +147,7 @@ function MyProfile() {
 
   return (
     <div className="w-full">
-      <form className="bg-white dark:bg-gray-900 rounded-xl transition-colors duration-300" onSubmit={handleSubmit}>
+      <form className="bg-white dark:bg-card rounded-xl transition-colors duration-300" onSubmit={handleSubmit}>
         {/* Avatar + Edit button row */}
         <div className="flex w-full items-center justify-between px-6 pt-6 pb-4">
           {/* Left: avatar with small camera icon */}

@@ -97,7 +97,7 @@ const HotelCard = ({ hotel }) => {
   const meta = metaParts.join(' • ');
 
   return (
-    <article className="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+    <article className="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card shadow-sm hover:shadow-md transition-shadow overflow-hidden">
       <div className="flex flex-col md:flex-row">
         {/* Image slider */}
         <div className="relative md:w-64 lg:w-72">
@@ -136,7 +136,7 @@ const HotelCard = ({ hotel }) => {
           <button
             type="button"
             onClick={handleFavoriteToggle}
-            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-md hover:scale-110 transition-transform ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'
+            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-card shadow-md hover:scale-110 transition-transform ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'
               }`}
             aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
           >
@@ -207,7 +207,7 @@ const HotelCard = ({ hotel }) => {
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-3 py-1"
+                  className="inline-flex items-center rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-card px-3 py-1"
                 >
                   {tag}
                 </span>
@@ -246,15 +246,15 @@ const HotelCard = ({ hotel }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
       {/* Location Modal */}
-      <HotelLocationModal
+      < HotelLocationModal
         hotel={hotel}
         isOpen={isLocationModalOpen}
         onClose={() => setIsLocationModalOpen(false)}
       />
-    </article>
+    </article >
   );
 };
 

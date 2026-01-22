@@ -80,7 +80,7 @@ function Sidebar({ onClose, user }) {
   };
 
   return (
-    <div className="w-full sticky top-0 h-screen bg-white dark:bg-gray-900 p-4 lg:p-8 mb-4 lg:mb-0 flex flex-col justify-between overflow-y-auto border-r border-transparent dark:border-gray-800 transition-colors duration-300">
+    <div className="w-full sticky top-0 h-screen bg-white dark:bg-card p-4 lg:p-8 mb-4 lg:mb-0 flex flex-col justify-between overflow-y-auto border-r border-transparent dark:border-gray-800 transition-colors duration-300">
       {/* TOP SECTION */}
       <div className="flex flex-col gap-4">
         {/* PROFILE */}
