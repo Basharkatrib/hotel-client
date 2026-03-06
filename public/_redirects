@@ -1,0 +1,4 @@
+/api/*  https://laravel-app-production-1164.up.railway.app/api/:splat  200
+/sanctum/*  https://laravel-app-production-1164.up.railway.app/sanctum/:splat  200
+/storage/*  https://laravel-app-production-1164.up.railway.app/storage/:splat  200
+/*    /index.html   200
