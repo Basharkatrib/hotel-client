@@ -17,8 +17,9 @@ export const getImageUrl = (imagePath, options = {}) => {
     return imagePath;
   }
   
-  // Construct the full URL
-  const baseUrl = `http://localhost:8000/storage/${imagePath}`;
+  // Construct the full URL using the environment variable
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const baseUrl = `${apiUrl}/storage/${imagePath}`;
   
   // Add optimization parameters if backend supports them
   // Note: This requires backend support for image optimization
