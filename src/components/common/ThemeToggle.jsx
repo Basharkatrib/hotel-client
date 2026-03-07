@@ -9,7 +9,7 @@ const ThemeToggle = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="relative p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-110 active:scale-95 border border-gray-200 dark:border-gray-700 shadow-sm"
+            className="relative p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 transition-colors duration-300  hover:scale-110 active:scale-95  shadow-sm"
             aria-label="Toggle Theme"
         >
             <div className="relative w-6 h-6 overflow-hidden">

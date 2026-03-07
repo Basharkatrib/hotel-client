@@ -16,30 +16,35 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
   const [maxPrice, setMaxPrice] = useState(filters?.maxPrice || 2000);
   const [selectedAmenities, setSelectedAmenities] = useState(filters?.selectedAmenities || []);
 
-  // Update parent component when filters change (with debounce for price)
+  // Notify parent of changes
+  const applyFilters = () => {
+    const typeValue =
+      typeOfPlace === 'Any type'
+        ? 'any'
+        : typeOfPlace === 'Room'
+          ? 'room'
+          : typeOfPlace === 'Entire home'
+            ? 'entire_home'
+            : 'any';
+
+    onFiltersChange({
+      ...filters,
+      type: typeValue,
+      minPrice,
+      maxPrice,
+      selectedAmenities,
+    });
+  };
+
+  // Sync from props only when filters change from outside (e.g. Clear or URL)
   React.useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const typeValue =
-        typeOfPlace === 'Any type'
-          ? 'any'
-          : typeOfPlace === 'Room'
-            ? 'room'
-            : typeOfPlace === 'Entire home'
-              ? 'entire_home'
-              : 'any';
-
-      // Preserve existing filters coming from URL (city, dates, guests, rooms, ...)
-      onFiltersChange({
-        ...filters,
-        type: typeValue,
-        minPrice,
-        maxPrice,
-        selectedAmenities,
-      });
-    }, 500); // Debounce for 500ms
-
-    return () => clearTimeout(timeoutId);
-  }, [typeOfPlace, minPrice, maxPrice, selectedAmenities, onFiltersChange, filters]);
+    if (filters) {
+      setTypeOfPlace(filters.type === 'any' ? 'Any type' : filters.type === 'room' ? 'Room' : filters.type === 'entire_home' ? 'Entire home' : 'Any type');
+      setMinPrice(filters.minPrice || 0);
+      setMaxPrice(filters.maxPrice || 2000);
+      setSelectedAmenities(filters.selectedAmenities || []);
+    }
+  }, [filters.type, filters.minPrice, filters.maxPrice, filters.selectedAmenities]);
 
   const toggleAmenity = (label) => {
     setSelectedAmenities((prev) =>
@@ -50,10 +55,13 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
   };
 
   const handleClear = () => {
-    setTypeOfPlace('Any type');
-    setMinPrice(0);
-    setMaxPrice(2000);
-    setSelectedAmenities([]);
+    onFiltersChange({
+      ...filters,
+      type: 'any',
+      minPrice: 0,
+      maxPrice: 2000,
+      selectedAmenities: [],
+    });
   };
 
   return (
@@ -61,7 +69,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
       {/* Map above filters */}
       <MapSection hotels={hotels} />
 
-      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card p-4 sm:p-5 shadow-sm transition-colors duration-300">
+      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card p-4 sm:p-5 shadow-sm transition-colors duration-300 relative">
         <div className="flex items-center justify-between mb-2">
           <p className="text-sm font-semibold text-gray-900 dark:text-white">Filter by:</p>
           <button
@@ -76,7 +84,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
         <Accordion
           type="multiple"
           defaultValue={['type-of-place', 'price-range', 'amenities']}
-          className="divide-y divide-gray-200 dark:divide-gray-800"
+          className="divide-y divide-gray-200 dark:divide-gray-800 pb-16"
         >
           {/* Type of place */}
           <AccordionItem value="type-of-place" className="border-gray-200 dark:border-gray-800">
@@ -114,7 +122,6 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
             </AccordionTrigger>
             <AccordionContent>
               <div className="space-y-3">
-                {/* Range bar + sliders */}
                 <div className="h-8 w-full rounded-full bg-gray-100 dark:bg-gray-800 flex items-center px-3">
                   <div className="relative flex-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700">
                     <div
@@ -124,7 +131,6 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                         right: `${100 - (Math.max(minPrice, maxPrice) / PRICE_MAX) * 100}%`,
                       }}
                     />
-                    {/* Min slider */}
                     <input
                       type="range"
                       min={PRICE_MIN}
@@ -137,7 +143,6 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                       }
                       className="absolute inset-0 w-full opacity-0 cursor-pointer"
                     />
-                    {/* Max slider */}
                     <input
                       type="range"
                       min={PRICE_MIN}
@@ -156,9 +161,6 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                   <div className="flex flex-col flex-1">
                     <span>Minimum</span>
                     <div className="mt-1 flex items-center gap-2">
-                      <span className="rounded-full border border-gray-200 dark:border-gray-700 px-2 py-1 text-gray-700 dark:text-gray-300 text-xs bg-white dark:bg-gray-800">
-                        ${minPrice}
-                      </span>
                       <input
                         type="number"
                         min={0}
@@ -173,9 +175,6 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                   <div className="flex flex-col flex-1 items-end">
                     <span>Maximum</span>
                     <div className="mt-1 flex items-center gap-2">
-                      <span className="rounded-full border border-gray-200 dark:border-gray-700 px-2 py-1 text-gray-700 dark:text-gray-300 text-xs bg-white dark:bg-gray-800">
-                        ${maxPrice}+
-                      </span>
                       <input
                         type="number"
                         min={0}
@@ -226,11 +225,20 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        {/* Floating Apply Button */}
+        <div className="absolute bottom-4 left-4 right-4">
+          <button
+            type="button"
+            onClick={applyFilters}
+            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all active:scale-95"
+          >
+            Show results
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default FiltersSidebar;
-
-

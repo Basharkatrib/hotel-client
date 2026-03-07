@@ -138,28 +138,23 @@ const Navbar = () => {
               <ThemeToggle />
             </div>
 
-            {/* Language/Currency */}
-            <button
-              className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full font-medium text-sm transition-all duration-200 bg-gray-100 dark:bg-card text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700"
-              aria-label="Change language and currency"
-            >
-              <FaGlobe className="text-base" />
-              <span className="hidden sm:inline">USD</span>
-            </button>
 
             {/* Notifications */}
             {isAuthenticated && (
               <div className="relative notification-container">
                 <button
                   onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                  className="p-2.5 rounded-full bg-gray-100 dark:bg-card text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 relative transition-all duration-200"
-                  aria-label="Notifications"
+                  className={`relative p-2.5 rounded-full transition-all duration-300 group ${isNotificationOpen
+                    ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
+                  aria-label="View notifications"
                 >
-                  <FaBell className="text-lg" />
+                  <FaBell className={`text-xl transition-transform duration-300 ${isNotificationOpen ? 'scale-110' : 'group-hover:scale-110'}`} />
                   {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 flex h-4 w-4">
+                    <span className="absolute top-2 right-2 flex h-4 w-4">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[10px] font-bold text-white items-center justify-center">
+                      <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[10px] font-bold text-white items-center justify-center border-2 border-white dark:border-gray-900">
                         {unreadCount > 9 ? "9+" : unreadCount}
                       </span>
                     </span>

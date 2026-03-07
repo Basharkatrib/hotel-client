@@ -215,35 +215,43 @@ const HotelCard = ({ hotel }) => {
             </div>
           )}
 
-          {/* Bottom row: notice + price */}
-          <div className="flex items-end justify-between gap-3 pt-3 border-t border-gray-100 dark:border-gray-800 mt-auto">
-            <div className="text-[11px] text-rose-600 font-medium">
-              {hotel.available_rooms === 1 && 'Only 1 left at this price'}
-              {hotel.available_rooms === 2 && 'Only 2 left at this price'}
+          {/* Bottom row: Price and Visit Button */}
+          <div className="flex items-center justify-between gap-4 pt-4 border-t border-gray-100 dark:border-gray-800 mt-auto">
+            <div className="flex flex-col">
+              {(hotel.available_rooms === 1 || hotel.available_rooms === 2) && (
+                <div className="text-[10px] text-rose-600 font-bold mb-0.5 uppercase tracking-wider">
+                  Only {hotel.available_rooms} left!
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                  ${Number(hotel.price_per_night).toLocaleString()}
+                </span>
+                {hasDiscount && (
+                  <span className="text-sm text-gray-400 dark:text-gray-500 line-through">
+                    ${Number(hotel.original_price).toLocaleString()}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                per night including taxes
+              </p>
             </div>
 
-            <div className="flex items-center gap-3">
-              {hasDiscount && (
-                <span className="rounded-full bg-emerald-100 px-3 py-1 text-[11px] font-semibold text-emerald-700">
-                  {discountPercent}
-                </span>
-              )}
-              <div className="text-right">
-                <div className="flex items-center justify-end gap-2">
-                  {hasDiscount && (
-                    <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
-                      ${Number(hotel.original_price).toLocaleString()}
-                    </span>
-                  )}
-                  <span className="text-xl font-bold text-gray-900 dark:text-white">
-                    ${Number(hotel.price_per_night).toLocaleString()}
-                  </span>
-                </div>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">
-                  per night
-                </p>
-              </div>
-            </div>
+            <button
+              onClick={() => navigate(`/hotel/${hotel.slug}`)}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/25 flex items-center gap-2 group/btn"
+            >
+              <span>Visit Hotel</span>
+              <svg
+                className="w-4 h-4 transition-transform group-hover/btn:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7M3 12h18" />
+              </svg>
+            </button>
           </div>
         </div>
       </div >

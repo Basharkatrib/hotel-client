@@ -32,81 +32,108 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
     return (
         <AnimatePresence>
             {isOpen && (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50"
-                >
-                    {/* Header */}
-                    <div className="px-5 py-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
-                        <div>
-                            <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                Notifications
-                                {unreadCount > 0 && (
-                                    <span className="bg-blue-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">
-                                        {unreadCount}
-                                    </span>
-                                )}
-                            </h3>
-                        </div>
-                        {unreadCount > 0 && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998] cursor-pointer"
+                    />
+
+                    {/* Notification Sidebar */}
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="fixed right-0 inset-y-0 h-screen w-[400px] max-w-[90vw] bg-white dark:bg-gray-800 shadow-2xl z-[9999] flex flex-col"
+                    >
+                        {/* Header */}
+                        <div className="px-6 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 text-white flex items-center justify-between shadow-lg">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-white/20 rounded-xl">
+                                    <FaBell className="text-xl" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold">Notifications</h3>
+                                    <p className="text-[11px] text-blue-100 font-medium">
+                                        {unreadCount > 0 ? `You have ${unreadCount} unread` : 'No new notifications'}
+                                    </p>
+                                </div>
+                            </div>
                             <button
-                                onClick={handleMarkAllRead}
-                                className="text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                                onClick={onClose}
+                                className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                             >
-                                <FaCheck size={10} />
-                                Mark all read
+                                <FaTimes size={18} />
                             </button>
+                        </div>
+
+                        {/* Mark all read button (if any unread) */}
+                        {unreadCount > 0 && (
+                            <div className="px-6 py-3 bg-blue-50 dark:bg-blue-900/10 border-b border-blue-100 dark:border-blue-900/30 flex justify-end">
+                                <button
+                                    onClick={handleMarkAllRead}
+                                    className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-white flex items-center gap-1.5 transition-colors"
+                                >
+                                    <FaCheck size={12} />
+                                    Mark all as read
+                                </button>
+                            </div>
                         )}
-                    </div>
 
-                    {/* List */}
-                    <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
-                        {notifications && notifications.length > 0 ? (
-                            <div className="divide-y divide-gray-50 dark:divide-gray-700">
-                                {notifications.map((notification) => (
-                                    <div
-                                        key={notification.id}
-                                        onClick={() => handleNotificationClick(notification)}
-                                        className={`px-5 py-4 flex gap-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative ${!notification.read_at ? 'bg-blue-50/30 dark:bg-blue-900/10' : ''
-                                            }`}
-                                    >
-                                        {!notification.read_at && (
-                                            <div className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-blue-600 rounded-full" />
-                                        )}
+                        {/* List */}
+                        <div className="flex-1 overflow-y-auto custom-scrollbar bg-gray-50/30 dark:bg-transparent">
+                            {notifications && notifications.length > 0 ? (
+                                <div className="divide-y divide-gray-100 dark:divide-gray-700/50">
+                                    {notifications.map((notification) => (
+                                        <div
+                                            key={notification.id}
+                                            onClick={() => handleNotificationClick(notification)}
+                                            className={`px-6 py-5 flex gap-4 cursor-pointer hover:bg-white dark:hover:bg-gray-700/50 transition-all relative group shadow-sm hover:shadow-md ${!notification.read_at ? 'bg-blue-50/40 dark:bg-blue-900/10' : ''
+                                                }`}
+                                        >
+                                            {!notification.read_at && (
+                                                <div className="absolute left-1.5 top-0 bottom-0 w-1 bg-blue-600 rounded-full my-4" />
+                                            )}
 
-
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-semibold text-gray-900 dark:text-white leading-tight mb-1">
-                                                {notification.data.hotel_name}
-                                            </p>
-                                            <p className="text-[12px] text-gray-600 dark:text-gray-400 line-clamp-2 leading-snug">
-                                                {notification.data.message}
-                                            </p>
-                                            <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-2">
-                                                {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
-                                            </p>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
+                                                        {notification.data.hotel_name || 'System Notification'}
+                                                    </p>
+                                                    <span className="text-[10px] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+                                                        {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
+                                                    </span>
+                                                </div>
+                                                <p className="text-[13px] text-gray-600 dark:text-gray-400 leading-snug group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">
+                                                    {notification.data.message}
+                                                </p>
+                                            </div>
                                         </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 px-6 text-center">
+                                    <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                                        <FaInbox size={28} className="opacity-30" />
                                     </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="py-12 flex flex-col items-center justify-center text-gray-400 dark:text-gray-500">
-                                <FaInbox size={40} className="mb-3 opacity-20" />
-                                <p className="text-sm font-medium">No notifications yet</p>
-                            </div>
-                        )}
-                    </div>
+                                    <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1">No notifications yet</h4>
+                                    <p className="text-xs">We'll notify you when something important happens.</p>
+                                </div>
+                            )}
+                        </div>
 
-                    {/* Footer */}
-                    <div className="px-5 py-3 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700">
-                        <button className="w-full text-center text-xs font-bold text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            View all notification history
-                        </button>
-                    </div>
-                </motion.div>
+                        {/* Footer */}
+                        <div className="p-6 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
+                            <button className="w-full py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-xs font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all active:scale-[0.98]">
+                                View All Notification History
+                            </button>
+                        </div>
+                    </motion.div>
+                </>
             )}
         </AnimatePresence>
     );

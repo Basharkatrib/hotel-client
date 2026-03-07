@@ -111,7 +111,7 @@ const Explore = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      setSortOrder(sortOrder === 'asc' ? 'asc' : 'desc');
+                      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
                       setCurrentPage(1);
                     }}
                     className="w-full sm:w-auto rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"

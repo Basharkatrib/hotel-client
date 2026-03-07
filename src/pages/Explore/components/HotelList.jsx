@@ -103,53 +103,28 @@ const HotelList = ({
   }, [currentPage]);
 
   // Build API query params from filters
-  const queryParams = {
-    page: currentPage,
-    per_page: perPage,
-    sort_by: sortBy,
-    sort_order: sortOrder,
-  };
+  const queryParams = React.useMemo(() => {
+    const params = {
+      page: currentPage,
+      per_page: perPage,
+      sort_by: sortBy,
+      sort_order: sortOrder,
+    };
 
-  // Add filter params
-  if (filters.type && filters.type !== 'any') {
-    queryParams.type = filters.type;
-  }
+    if (filters.type && filters.type !== 'any') params.type = filters.type;
+    if (filters.city) params.city = filters.city;
+    if (filters.checkInDate) params.check_in_date = filters.checkInDate;
+    if (filters.checkOutDate) params.check_out_date = filters.checkOutDate;
+    if (filters.guests) params.guests = filters.guests;
+    if (filters.rooms) params.rooms = filters.rooms;
+    if (filters.minPrice > 0) params.min_price = filters.minPrice;
+    if (filters.maxPrice < 2000) params.max_price = filters.maxPrice;
 
-  if (filters.city) {
-    queryParams.city = filters.city;
-  }
-
-  if (filters.checkInDate) {
-    queryParams.check_in_date = filters.checkInDate;
-  }
-
-  if (filters.checkOutDate) {
-    queryParams.check_out_date = filters.checkOutDate;
-  }
-
-  if (filters.guests) {
-    queryParams.guests = filters.guests;
-  }
-
-  if (filters.rooms) {
-    queryParams.rooms = filters.rooms;
-  }
-
-  if (filters.minPrice > 0) {
-    queryParams.min_price = filters.minPrice;
-  }
-
-  if (filters.maxPrice < 2000) {
-    queryParams.max_price = filters.maxPrice;
-  }
-
-  // Add amenity-based filters
-  if (filters.selectedAmenities.includes('Air Conditioning')) {
-    // Map to backend field if needed
-  }
+    return params;
+  }, [currentPage, perPage, sortBy, sortOrder, filters]);
 
   // Fetch hotels from API
-  const { data, isLoading, isError, error } = useGetHotelsQuery(queryParams);
+  const { data, isLoading, isFetching, isError, error } = useGetHotelsQuery(queryParams);
 
   // Update parent component with current hotels
   React.useEffect(() => {
@@ -193,13 +168,19 @@ const HotelList = ({
   }
 
   return (
-    <div className="space-y-4 sm:space-y-5">
+    <div className={`space-y-4 sm:space-y-5 transition-opacity duration-200 ${isFetching ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
       {/* Results count */}
       <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
         <span>
           Showing {pagination.from || 1} - {pagination.to || hotels.length} of{' '}
           {pagination.total || hotels.length} properties
         </span>
+        {isFetching && (
+          <span className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+            Updating...
+          </span>
+        )}
       </div>
 
       {/* Hotels - Using React.memo optimized cards */}
