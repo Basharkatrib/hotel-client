@@ -21,14 +21,21 @@ import { reviewsApi } from '../services/reviewsApi';
 import authReducer from './slices/authSlice';
 
 // إعدادات Redux Persist
+// إعدادات Redux Persist للـ auth slice لاستثناء التوكن
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  blacklist: ['token'], // لا نخزن التوكن في localStorage نهائياً
+};
+
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['auth'], // فقط auth slice سيتم حفظه
+  whitelist: ['auth'], 
 };
 
-// دمج الـ reducers
+// دمج الـ reducers مع حماية الـ auth
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
   [hotelsApi.reducerPath]: hotelsApi.reducer,
@@ -36,7 +43,7 @@ const rootReducer = combineReducers({
   [paymentsApi.reducerPath]: paymentsApi.reducer,
   [favoritesApi.reducerPath]: favoritesApi.reducer,
   [reviewsApi.reducerPath]: reviewsApi.reducer,
-  auth: authReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
 });
 
 // إنشاء persisted reducer

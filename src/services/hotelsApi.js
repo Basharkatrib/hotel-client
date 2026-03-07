@@ -3,8 +3,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const hotelsApi = createApi({
   reducerPath: 'hotelsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api', // مع Vite proxy، نستخدم المسار النسبي
-    credentials: 'include', // إرسال cookies مع كل طلب
+    baseUrl: '/api',
+    credentials: 'include',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ['Hotels', 'Notifications'],
   endpoints: (builder) => ({

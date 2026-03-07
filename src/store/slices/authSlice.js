@@ -3,6 +3,7 @@ import { api } from '../../services/api';
 
 const initialState = {
   user: null,
+  token: null, // التوكن يتم تخزينه في الذاكرة فقط
   isAuthenticated: false,
 };
 
@@ -10,9 +11,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // تسجيل الخروج يدوياً
+    // تحديث بيانات المستخدم والتوكن
+    setCredentials: (state, action) => {
+      const { user, access_token } = action.payload;
+      state.user = user;
+      state.token = access_token;
+      state.isAuthenticated = true;
+    },
+    // تسجيل الخروج
     logout: (state) => {
       state.user = null;
+      state.token = null;
       state.isAuthenticated = false;
     },
     // تحديث معلومات المستخدم يدوياً
@@ -27,6 +36,7 @@ const authSlice = createSlice({
       (state, { payload }) => {
         if (payload.status && payload.data) {
           state.user = payload.data.user;
+          state.token = payload.data.access_token;
           state.isAuthenticated = true;
         }
       }
@@ -38,6 +48,19 @@ const authSlice = createSlice({
       (state, { payload }) => {
         if (payload.status && payload.data) {
           state.user = payload.data.user;
+          state.token = payload.data.access_token;
+          state.isAuthenticated = true;
+        }
+      }
+    );
+
+    // عند نجاح Refresh
+    builder.addMatcher(
+      api.endpoints.refresh.matchFulfilled,
+      (state, { payload }) => {
+        if (payload.status && payload.data) {
+          state.user = payload.data.user;
+          state.token = payload.data.access_token;
           state.isAuthenticated = true;
         }
       }
@@ -49,7 +72,6 @@ const authSlice = createSlice({
       (state, { payload }) => {
         if (payload.status && payload.data) {
           state.user = payload.data.user;
-          // إذا تم استرجاع بيانات المستخدم بنجاح، يعني التوكن صالح
           state.isAuthenticated = true;
         }
       }
@@ -59,9 +81,9 @@ const authSlice = createSlice({
     builder.addMatcher(
       api.endpoints.getUser.matchRejected,
       (state, { error }) => {
-        // إذا كان الخطأ 401، يعني التوكن منتهي
         if (error?.status === 401) {
           state.user = null;
+          state.token = null;
           state.isAuthenticated = false;
         }
       }
@@ -70,15 +92,17 @@ const authSlice = createSlice({
     // عند نجاح Logout
     builder.addMatcher(api.endpoints.logout.matchFulfilled, (state) => {
       state.user = null;
+      state.token = null;
       state.isAuthenticated = false;
     });
   },
 });
 
-export const { logout, setUser } = authSlice.actions;
+export const { logout, setUser, setCredentials } = authSlice.actions;
 export default authSlice.reducer;
 
 // Selectors
 export const selectCurrentUser = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
+export const selectToken = (state) => state.auth.token;
 

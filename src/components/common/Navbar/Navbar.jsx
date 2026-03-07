@@ -69,14 +69,16 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
+      // محاولة إخبار السيرفر بتسجيل الخروج
       await logout().unwrap();
-      toast.error("You have been logged out.", {
-        toastId: "logout-success",
-      });
-      navigate("/");
+      toast.success("Logged out successfully.");
+    } catch (err) {
+      console.warn("Server logout failed, clearing local state anyway:", err);
+      // إذا فشل السيرفر (مثلاً 401)، نقوم بمسح البيانات محلياً على أي حال
+      dispatch({ type: "auth/logout" });
+    } finally {
       setIsUserMenuOpen(false);
-    } catch (error) {
-      console.error("Logout failed:", error);
+      navigate("/");
     }
   };
 
