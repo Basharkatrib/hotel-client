@@ -42,22 +42,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   let result = await baseQuery(args, api, extraOptions);
 
-  // إذا كان الخطأ 401 (Unauthorized)، يعني التوكن منتهي أو غير صالح
-  if (result.error && result.error.status === 401) {
-    // عمل logout تلقائياً
-    api.dispatch({ type: 'auth/logout' });
-    
-    // حذف البيانات من localStorage
-    try {
-      const { persistor } = await import('../store/store');
-      if (persistor) {
-        persistor.purge();
-      }
-    } catch (err) {
-      // إذا فشل استيراد persistor، احذف localStorage يدوياً
-      localStorage.removeItem('persist:root');
-    }
-  }
+  // لا نعمل logout تلقائي هنا من أي 401 عشوائي
+  // AuthChecker يتعامل مع التحقق من صلاحية الجلسة بشكل أفضل
+  // هذا يمنع حالة السباق (race condition) على الموبايل حيث
+  // طلبات الخلفية (مثل notifications) قد تعيد 401 قبل أن تستقر الجلسة
 
   return result;
 };
