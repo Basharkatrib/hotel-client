@@ -2,24 +2,15 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBell, FaCheck, FaTimes, FaInbox } from 'react-icons/fa';
 import { useMarkAsReadMutation, useMarkAllAsReadMutation } from '../../../services/hotelsApi';
-import { useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 
 const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) => {
     const [markAsRead] = useMarkAsReadMutation();
     const [markAllAsRead] = useMarkAllAsReadMutation();
-    const navigate = useNavigate();
 
     const handleNotificationClick = async (notification) => {
         if (!notification.read_at) {
             await markAsRead(notification.id);
-        }
-
-        // Navigate based on notification data
-        if (notification.data.room_id) {
-            // We might want to navigate to hotel details or a specific room
-            // Assuming we have a slug or ID path
-            navigate(`/hotel/${notification.data.hotel_id || 'details'}`);
         }
         onClose();
     };
@@ -71,7 +62,7 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
                             </button>
                         </div>
 
-                        {/* Mark all read button (if any unread) */}
+                        {/* Action Buttons */}
                         {unreadCount > 0 && (
                             <div className="px-6 py-3 bg-blue-50 dark:bg-blue-900/10 border-b border-blue-100 dark:border-blue-900/30 flex justify-end">
                                 <button
@@ -102,14 +93,14 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex justify-between items-start mb-1">
                                                     <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
-                                                        {notification.data.hotel_name || 'System Notification'}
+                                                        {notification.data?.hotel_name || 'System Notification'}
                                                     </p>
-                                                    <span className="text-[10px] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+                                                    <span className="text-[10px] text-gray-400 dark:text-gray-500 whitespace-nowrap ml-2">
                                                         {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
                                                     </span>
                                                 </div>
                                                 <p className="text-[13px] text-gray-600 dark:text-gray-400 leading-snug group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">
-                                                    {notification.data.message}
+                                                    {notification.data?.message || (typeof notification.data === 'string' ? notification.data : '')}
                                                 </p>
                                             </div>
                                         </div>
@@ -124,13 +115,6 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
                                     <p className="text-xs">We'll notify you when something important happens.</p>
                                 </div>
                             )}
-                        </div>
-
-                        {/* Footer */}
-                        <div className="p-6 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
-                            <button className="w-full py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-xs font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all active:scale-[0.98]">
-                                View All Notification History
-                            </button>
                         </div>
                     </motion.div>
                 </>

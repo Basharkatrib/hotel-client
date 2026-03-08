@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGlobe, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSelector } from "react-redux";
-import {
-  selectCurrentUser,
-  selectIsAuthenticated,
-} from "../../../store/slices/authSlice";
-import { useLogoutMutation } from "../../../services/api";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrentUser, selectIsAuthenticated, logout as logoutAction } from "../../../store/slices/authSlice";
+import { useLogoutMutation, api } from "../../../services/api";
+import { useGetNotificationsQuery } from "../../../services/hotelsApi";
 import { toast } from "react-toastify";
 import logo from "../../../assets/Home/navbar/Logo.svg";
 import logoHotel from "../../../assets/Home/navbar/Logo-hotel.svg";
 import ThemeToggle from "../ThemeToggle";
 import { FaBell } from "react-icons/fa";
 import NotificationDropdown from "./NotificationDropdown";
-import { useGetNotificationsQuery } from "../../../services/hotelsApi";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,13 +22,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const [logout] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const [logoutServer] = useLogoutMutation();
 
-  const { data: notificationData, isLoading: notificationsLoading } =
-    useGetNotificationsQuery(undefined, {
-      skip: !isAuthenticated,
-      pollingInterval: 60000, // Poll every 60 seconds
-    });
+  const { data: notificationData } = useGetNotificationsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
   const notifications = notificationData?.data?.notifications || [];
   const unreadCount = notificationData?.data?.unread_count || 0;
@@ -69,16 +65,23 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      // محاولة إخبار السيرفر بتسجيل الخروج
-      await logout().unwrap();
+      // 1. محاولة إخبار السيرفر بتسجيل الخروج (لمسح الكوكيز في المتصفح)
+      await logoutServer().unwrap();
       toast.success("Logged out successfully.");
     } catch (err) {
       console.warn("Server logout failed, clearing local state anyway:", err);
-      // إذا فشل السيرفر (مثلاً 401)، نقوم بمسح البيانات محلياً على أي حال
-      dispatch({ type: "auth/logout" });
     } finally {
+      // 2. مسح الحالة المحلية بالكامل (Redux Store)
+      // هذا سيؤدي لتفعيل الـ Root Reducer الذي قمنا بإنشائه ومسح الـ localStorage
+      dispatch(logoutAction());
+      
+      // 3. مسح كاش الـ API بالكامل لضمان عدم بقاء أي بيانات من المستخدم السابق
+      dispatch(api.util.resetApiState());
+      
       setIsUserMenuOpen(false);
       navigate("/");
+      // 4. إجبار الصفحة على التحديث لضمان نظافة البيئة تماماً (اختياري لكن آمن)
+      window.location.reload();
     }
   };
 
@@ -356,7 +359,6 @@ const Navbar = () => {
 
             {/* Mobile menu toggle */}
             <div className="flex items-center gap-2 md:hidden">
-              <ThemeToggle />
               <button
                 type="button"
                 className="flex items-center justify-center h-10 w-10 rounded-full bg-white/90 dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-md border border-gray-200 dark:border-gray-700 transition-colors"

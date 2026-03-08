@@ -146,12 +146,22 @@ export const api = createApi({
     }),
 
     // Logout
+    // Logout
     logout: builder.mutation({
       query: () => ({
         url: '/auth/logout',
         method: 'POST',
       }),
       invalidatesTags: ['User'],
+    }),
+
+    // Update FCM Token
+    updateFcmToken: builder.mutation({
+      query: (data) => ({
+        url: '/user/fcm-token',
+        method: 'POST',
+        body: data,
+      }),
     }),
   }),
 });
@@ -170,4 +180,5 @@ export const {
   useLogoutMutation,
   useUpdateProfileMutation,
   useUploadAvatarMutation,
+  useUpdateFcmTokenMutation,
 } = api;

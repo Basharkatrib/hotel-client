@@ -36,7 +36,7 @@ const persistConfig = {
 };
 
 // دمج الـ reducers مع حماية الـ auth
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   [api.reducerPath]: api.reducer,
   [hotelsApi.reducerPath]: hotelsApi.reducer,
   [bookingsApi.reducerPath]: bookingsApi.reducer,
@@ -45,6 +45,18 @@ const rootReducer = combineReducers({
   [reviewsApi.reducerPath]: reviewsApi.reducer,
   auth: persistReducer(authPersistConfig, authReducer),
 });
+
+// Root reducer with global reset functionality
+const rootReducer = (state, action) => {
+  // Clear all state on logout or purge
+  if (action.type === 'auth/logout' || action.type === 'PURGE') {
+    // We keep some specific parts if needed, but for hotel app, full reset is safer
+    storage.removeItem('persist:root'); // Clear main persistence
+    storage.removeItem('persist:auth'); // Clear auth persistence
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 // إنشاء persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
