@@ -8,20 +8,31 @@ import { ThemeProvider } from "./context/ThemeContext";
 import SmartSearchWizard from "./components/common/SmartSearch/SmartSearchWizard";
 import ScrollToTop from "./components/common/ScrollToTop";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import Explore from "./pages/Explore/Explore.jsx";
+import Home from "./pages/Home/index";
+import Rooms from "./pages/Rooms/index";
+import RoomDetails from "./pages/RoomDetails/index";
+import HotelDetails from "./pages/HotelDetails";
+import Favorites from "./pages/Favorites/Favorites";
+import BookingConfirmation from "./pages/BookingConfirmation";
+import Payment from "./pages/Payment";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import MyBookings from "./pages/MyBookings";
+import PersonalDataForm from "./pages/personalDataForm/PersonalDataForm";
 // Lazy load pages for better performance
-const Home = lazy(() => import("./pages/Home/index"));
-const Explore = lazy(() => import("./pages/Explore/Explore.jsx"));
-const Rooms = lazy(() => import("./pages/Rooms/index"));
-const RoomDetails = lazy(() => import("./pages/RoomDetails/index"));
-const HotelDetails = lazy(() => import("./pages/HotelDetails"));
-const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
-const BookingConfirmation = lazy(() => import("./pages/BookingConfirmation"));
-const Payment = lazy(() => import("./pages/Payment"));
-const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
-const MyBookings = lazy(() => import("./pages/MyBookings"));
-const PersonalDataForm = lazy(() =>
-  import("./pages/personalDataForm/PersonalDataForm")
-);
+// const Home = lazy(() => import("./pages/Home/index"));
+// const Explore = lazy(() => import("./pages/Explore/Explore.jsx"));
+// const Rooms = lazy(() => import("./pages/Rooms/index"));
+// const RoomDetails = lazy(() => import("./pages/RoomDetails/index"));
+// const HotelDetails = lazy(() => import("./pages/HotelDetails"));
+// const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
+// const BookingConfirmation = lazy(() => import("./pages/BookingConfirmation"));
+// const Payment = lazy(() => import("./pages/Payment"));
+// const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
+// const MyBookings = lazy(() => import("./pages/MyBookings"));
+// const PersonalDataForm = lazy(() =>
+//   import("./pages/personalDataForm/PersonalDataForm")
+// );
 
 function App() {
   return (

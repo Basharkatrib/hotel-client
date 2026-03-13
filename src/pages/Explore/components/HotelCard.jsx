@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart, FaStar, FaUmbrellaBeach } from 'react-icons/fa';
+import { CgSpinner } from 'react-icons/cg';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { PiTrainRegionalBold } from 'react-icons/pi';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -29,8 +30,10 @@ const HotelCard = ({ hotel }) => {
     { skip: !isAuthenticated }
   );
 
-  const [addToFavorites] = useAddToFavoritesMutation();
-  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
+  const [addToFavorites, { isLoading: isAdding }] = useAddToFavoritesMutation();
+  const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
+  
+  const isUpdating = isAdding || isRemoving;
 
   useEffect(() => {
     if (favoriteData?.data?.is_favorited) {
@@ -135,12 +138,16 @@ const HotelCard = ({ hotel }) => {
           {/* Favorite */}
           <button
             type="button"
+            disabled={isUpdating}
             onClick={handleFavoriteToggle}
-            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-card shadow-md hover:scale-110 transition-transform ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'
-              }`}
+            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-card shadow-md transition-all ${
+              isUpdating ? 'cursor-not-allowed opacity-80' : 'hover:scale-110 active:scale-95'
+            } ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'}`}
             aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
           >
-            {isFavorited ? (
+            {isUpdating ? (
+              <CgSpinner className="animate-spin w-5 h-5 text-blue-600" />
+            ) : isFavorited ? (
               <FaHeart className="text-red-500" />
             ) : (
               <FaRegHeart />

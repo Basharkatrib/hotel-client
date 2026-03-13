@@ -27,7 +27,14 @@ export const favoritesApi = createApi({
         }
         return `/favorites?${searchParams.toString()}`;
       },
-      providesTags: ['Favorites'],
+      providesTags: (result) => 
+        result 
+          ? [
+              ...result.data.hotels.map(h => ({ type: 'Favorites', id: `hotel-${h.id}` })),
+              ...result.data.rooms.map(r => ({ type: 'Favorites', id: `room-${r.id}` })),
+              { type: 'Favorites', id: 'LIST' }
+            ]
+          : [{ type: 'Favorites', id: 'LIST' }],
     }),
     
     checkFavorite: builder.query({
@@ -47,7 +54,10 @@ export const favoritesApi = createApi({
           favoritable_id,
         },
       }),
-      invalidatesTags: ['Favorites'],
+      invalidatesTags: (result, error, { favoritable_type, favoritable_id }) => [
+        { type: 'Favorites', id: `${favoritable_type}-${favoritable_id}` },
+        { type: 'Favorites', id: 'LIST' },
+      ],
     }),
     
     removeFromFavorites: builder.mutation({
@@ -59,7 +69,10 @@ export const favoritesApi = createApi({
           favoritable_id,
         },
       }),
-      invalidatesTags: ['Favorites'],
+      invalidatesTags: (result, error, { favoritable_type, favoritable_id }) => [
+        { type: 'Favorites', id: `${favoritable_type}-${favoritable_id}` },
+        { type: 'Favorites', id: 'LIST' },
+      ],
     }),
     
     removeFavoriteById: builder.mutation({

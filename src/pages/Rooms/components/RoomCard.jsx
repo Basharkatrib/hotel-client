@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaMapMarkerAlt, FaBed, FaUsers, FaWifi, FaSnowflake, FaTv, FaUtensils, FaBath, FaShower, FaSmokingBan, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { CgSpinner } from 'react-icons/cg';
 import { MdBalcony } from 'react-icons/md';
 import { getImageUrls } from '../../../utils/imageHelper';
 import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
@@ -24,8 +25,10 @@ const RoomCard = ({ room }) => {
     { skip: !isAuthenticated }
   );
 
-  const [addToFavorites] = useAddToFavoritesMutation();
-  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
+  const [addToFavorites, { isLoading: isAdding }] = useAddToFavoritesMutation();
+  const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
+  
+  const isUpdating = isAdding || isRemoving;
 
   useEffect(() => {
     if (favoriteData?.data?.is_favorited) {
@@ -107,12 +110,16 @@ const RoomCard = ({ room }) => {
         {/* Favorite Button */}
         <button
           type="button"
+          disabled={isUpdating}
           onClick={handleFavoriteToggle}
-          className={`absolute top-2 right-2 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:scale-110 transition-transform ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'
-            }`}
+          className={`absolute top-2 right-2 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg transition-all ${
+            isUpdating ? 'cursor-not-allowed opacity-80' : 'hover:scale-110 active:scale-95'
+          } ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'}`}
           aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
         >
-          {isFavorited ? (
+          {isUpdating ? (
+            <CgSpinner className="animate-spin" size={18} />
+          ) : isFavorited ? (
             <FaHeart size={18} />
           ) : (
             <FaRegHeart size={18} />
