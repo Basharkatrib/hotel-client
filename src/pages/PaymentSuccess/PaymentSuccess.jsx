@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useGetBookingDetailsQuery } from '../../services/bookingsApi';
+import { useSelector } from 'react-redux';
+import { selectToken } from '../../store/slices/authSlice';
 import { FaCheckCircle, FaCalendar, FaMapMarkerAlt, FaUsers, FaEnvelope, FaPhone, FaDownload } from 'react-icons/fa';
 
 const PaymentSuccess = () => {
@@ -15,9 +17,21 @@ const PaymentSuccess = () => {
 
   const booking = locationBooking || bookingData?.data?.booking;
 
+  const token = useSelector(selectToken);
+  
   const handleDownloadReceipt = () => {
-    const token = localStorage.getItem('token'); // assuming token is stored here
-    window.open(`http://localhost:8000/api/bookings/${booking.id}/receipt/download?token=${token}`, '_blank');
+    if (!token) {
+      alert('Please login to download the receipt.');
+      return;
+    }
+
+    // Create a temporary hidden link to trigger download without opening a new window
+    const link = document.createElement('a');
+    link.href = `${import.meta.env.VITE_API_URL}/api/bookings/${booking.id}/receipt/download?token=${token}`;
+    link.setAttribute('download', `receipt-booking-${booking.id}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (isLoading) {
