@@ -1,7 +1,8 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaBed, FaUsers, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { CgSpinner } from 'react-icons/cg';
 
-const RoomInfo = ({ room, isFavorited, onFavoriteToggle }) => {
+const RoomInfo = ({ room, isFavorited, onFavoriteToggle, isUpdating }) => {
   // Build bed description
   const beds = [];
   if (room.single_beds > 0) beds.push(`${room.single_beds} Single`);
@@ -29,11 +30,18 @@ const RoomInfo = ({ room, isFavorited, onFavoriteToggle }) => {
           {onFavoriteToggle && (
             <button
               onClick={onFavoriteToggle}
-              className={`p-2 rounded-full transition-colors ${isFavorited ? 'text-red-500 bg-red-50 dark:bg-red-900/20' : 'text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
-                }`}
+              disabled={isUpdating}
+              className={`p-2 rounded-full transition-all duration-300 ${isFavorited ? 'text-red-500 bg-red-50 dark:bg-red-900/20' : 'text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
+                } ${isUpdating ? 'opacity-50 cursor-not-allowed scale-90' : 'hover:scale-110 active:scale-95'}`}
               aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
             >
-              {isFavorited ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
+              {isUpdating ? (
+                <CgSpinner className="animate-spin" size={20} />
+              ) : isFavorited ? (
+                <FaHeart size={20} />
+              ) : (
+                <FaRegHeart size={20} />
+              )}
             </button>
           )}
           {hasDiscount && (

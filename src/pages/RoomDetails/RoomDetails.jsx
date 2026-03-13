@@ -5,6 +5,8 @@ import { useCheckAvailabilityMutation } from '../../services/bookingsApi';
 import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../services/favoritesApi';
 import { useSelector } from 'react-redux';
 import { differenceInDays, addDays } from 'date-fns';
+import { FaCube, FaTimes } from 'react-icons/fa';
+import { CgSpinner } from 'react-icons/cg';
 import { getImageUrls } from '../../utils/imageHelper';
 import { toast } from 'react-toastify';
 import RoomDetailsHeader from './components/RoomDetailsHeader';
@@ -28,6 +30,7 @@ const RoomDetails = () => {
 
   const { data: roomData, isLoading, error } = useGetRoomQuery(id);
   const [checkAvailability] = useCheckAvailabilityMutation();
+  const [show3DModal, setShow3DModal] = useState(false);
 
   const room = roomData?.data?.room;
   const images = room ? getImageUrls(room.images) : [];
@@ -39,8 +42,9 @@ const RoomDetails = () => {
   );
 
   const [isFavorited, setIsFavorited] = useState(false);
-  const [addToFavorites] = useAddToFavoritesMutation();
-  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
+  const [addToFavorites, { isLoading: isAdding }] = useAddToFavoritesMutation();
+  const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
+  const isUpdating = isAdding || isRemoving;
 
   useEffect(() => {
     if (favoriteData?.data?.is_favorited) {
@@ -225,11 +229,12 @@ const RoomDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Room Details */}
           <div className="lg:col-span-2 space-y-6">
-            <RoomImageGallery images={images} roomName={room.name} />
+            <RoomImageGallery images={images} roomName={room.name} onView3D={() => setShow3DModal(true)} />
             <RoomInfo
               room={room}
               isFavorited={isFavorited}
               onFavoriteToggle={handleFavoriteToggle}
+              isUpdating={isUpdating}
             />
             <RoomDescription description={room.description} />
             <RoomAmenities room={room} />
@@ -257,6 +262,36 @@ const RoomDetails = () => {
           <RoomReviews room={room} />
         </div>
       </div>
+
+      {/* 3D View Modal */}
+      {show3DModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="relative w-full max-w-6xl aspect-[1/2] sm:aspect-video max-h-[85vh] bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 border border-white/10">
+            {/* Modal Header */}
+            <div className="absolute top-5 right-5 z-20">
+              <button
+                onClick={() => setShow3DModal(false)}
+                className="p-2.5 bg-black/40 hover:bg-black/60 backdrop-blur-xl text-white rounded-full transition-all hover:scale-110 active:scale-95 border border-white/10"
+              >
+                <FaTimes size={22} />
+              </button>
+            </div>
+            
+            {/* Modal Content */}
+            <div className="w-full h-full">
+              <iframe 
+                src='https://my.spline.design/visionosiconsin3d-6VHWWIvlyyyyGESk8ijlpUXf/' 
+                frameBorder='0' 
+                width='100%' 
+                height='100%'
+                title="Room 3D View"
+                className="w-full h-full bg-slate-900"
+              ></iframe>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };

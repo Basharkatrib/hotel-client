@@ -281,18 +281,10 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
 
             <button
               type="button"
-              onClick={handleBookNow}
-              disabled={!room.is_available || !isAvailableForDates}
-              className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${!room.is_available || !isAvailableForDates
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5'
-                }`}
+              onClick={() => navigate(`/room/${room.id}`, { state: { checkIn, checkOut, guests } })}
+              className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
             >
-              {!room.is_available
-                ? 'Not Available'
-                : !isAvailableForDates
-                  ? 'Booked for Selected Dates'
-                  : 'Book Now'}
+              Visit Room
             </button>
           </div>
         </div>
