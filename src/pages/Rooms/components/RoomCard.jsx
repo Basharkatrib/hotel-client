@@ -12,7 +12,7 @@ import RatingBadge from '../../../components/common/RatingBadge';
 const RoomCard = ({ room }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const [isFavorited, setIsFavorited] = useState(room.is_favorited || false);
+  const [isFavorited, setIsFavorited] = useState(Boolean(room.is_favorited));
 
   const images = getImageUrls(room.images);
   const mainImage = images[0] || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
@@ -26,7 +26,7 @@ const RoomCard = ({ room }) => {
 
   // Sync with prop changes if needed
   useEffect(() => {
-    setIsFavorited(room.is_favorited || false);
+    setIsFavorited(Boolean(room.is_favorited));
   }, [room.is_favorited]);
 
   // Build bed description

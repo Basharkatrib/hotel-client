@@ -19,7 +19,7 @@ const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(hotel.is_favorited || false);
+  const [isFavorited, setIsFavorited] = useState(Boolean(hotel.is_favorited));
 
   // Handle images - API returns array of paths, we need to construct full URLs
   const images = getImageUrls(hotel.images);
@@ -31,7 +31,7 @@ const HotelCard = ({ hotel }) => {
 
   // Sync with prop changes if needed
   useEffect(() => {
-    setIsFavorited(hotel.is_favorited || false);
+    setIsFavorited(Boolean(hotel.is_favorited));
   }, [hotel.is_favorited]);
 
   const handleFavoriteToggle = async (e) => {
