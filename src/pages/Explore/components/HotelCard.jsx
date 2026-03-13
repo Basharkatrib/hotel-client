@@ -19,29 +19,20 @@ const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(hotel.is_favorited || false);
 
   // Handle images - API returns array of paths, we need to construct full URLs
   const images = getImageUrls(hotel.images);
-
-  // Check if hotel is favorited
-  const { data: favoriteData } = useCheckFavoriteQuery(
-    { favoritable_type: 'hotel', favoritable_id: hotel.id },
-    { skip: !isAuthenticated }
-  );
 
   const [addToFavorites, { isLoading: isAdding }] = useAddToFavoritesMutation();
   const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
   
   const isUpdating = isAdding || isRemoving;
 
+  // Sync with prop changes if needed
   useEffect(() => {
-    if (favoriteData?.data?.is_favorited) {
-      setIsFavorited(true);
-    } else {
-      setIsFavorited(false);
-    }
-  }, [favoriteData]);
+    setIsFavorited(hotel.is_favorited || false);
+  }, [hotel.is_favorited]);
 
   const handleFavoriteToggle = async (e) => {
     e.stopPropagation();

@@ -12,31 +12,22 @@ import RatingBadge from '../../../components/common/RatingBadge';
 const RoomCard = ({ room }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(room.is_favorited || false);
 
   const images = getImageUrls(room.images);
   const mainImage = images[0] || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
 
   const hasDiscount = room.original_price && room.original_price > room.price_per_night;
 
-  // Check if room is favorited
-  const { data: favoriteData } = useCheckFavoriteQuery(
-    { favoritable_type: 'room', favoritable_id: room.id },
-    { skip: !isAuthenticated }
-  );
-
   const [addToFavorites, { isLoading: isAdding }] = useAddToFavoritesMutation();
   const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
   
   const isUpdating = isAdding || isRemoving;
 
+  // Sync with prop changes if needed
   useEffect(() => {
-    if (favoriteData?.data?.is_favorited) {
-      setIsFavorited(true);
-    } else {
-      setIsFavorited(false);
-    }
-  }, [favoriteData]);
+    setIsFavorited(room.is_favorited || false);
+  }, [room.is_favorited]);
 
   // Build bed description
   const beds = [];

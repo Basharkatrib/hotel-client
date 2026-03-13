@@ -54,10 +54,6 @@ export const favoritesApi = createApi({
           favoritable_id,
         },
       }),
-      invalidatesTags: (result, error, { favoritable_type, favoritable_id }) => [
-        { type: 'Favorites', id: `${favoritable_type}-${favoritable_id}` },
-        { type: 'Favorites', id: 'LIST' },
-      ],
     }),
     
     removeFromFavorites: builder.mutation({
@@ -69,10 +65,6 @@ export const favoritesApi = createApi({
           favoritable_id,
         },
       }),
-      invalidatesTags: (result, error, { favoritable_type, favoritable_id }) => [
-        { type: 'Favorites', id: `${favoritable_type}-${favoritable_id}` },
-        { type: 'Favorites', id: 'LIST' },
-      ],
     }),
     
     removeFavoriteById: builder.mutation({
