@@ -119,7 +119,7 @@ function Sidebar({ onClose, user }) {
               >
                 <div className="flex items-center gap-3">
                   <Icon className="w-6 h-6" />
-                  <p className="text-[15px] font-bold">{item.label}</p>
+                  <p className="text-[12px] font-bold">{item.label}</p>
                 </div>
                 {item.hasArrow && <FaAngleDown />}
               </div>

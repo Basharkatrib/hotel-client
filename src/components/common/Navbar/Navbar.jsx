@@ -139,7 +139,7 @@ const Navbar = () => {
           {/* Right Side */}
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
             {/* Theme Toggle */}
-            <div className="hidden sm:block">
+            <div className="block  sm:block">
               <ThemeToggle />
             </div>
 
