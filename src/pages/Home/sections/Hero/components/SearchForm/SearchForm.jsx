@@ -1,5 +1,5 @@
-import React from 'react';
-import { IoSearch, IoCalendarOutline, IoPeople } from 'react-icons/io5';
+import React from "react";
+import { IoSearch, IoCalendarOutline, IoPeople } from "react-icons/io5";
 
 const SearchForm = ({
   location,
@@ -92,15 +92,22 @@ const SearchForm = ({
               type="number"
               min={1}
               value={adults}
-              onChange={(e) =>
-                onGuestsChange?.(Number.isNaN(Number(e.target.value)) ? 1 : Number(e.target.value))
-              }
+              onChange={(e) => {
+                const value = e.target.value;
+
+                if (value === "") {
+                  onGuestsChange?.("");
+                  return;
+                }
+
+                const num = Number(value);
+                onGuestsChange?.(Number.isNaN(num) || num < 1 ? 1 : num);
+              }}
               placeholder="Number of guests"
               className="w-full text-sm text-gray-700 dark:text-gray-200 border-0 focus:outline-none focus:ring-0 bg-transparent"
             />
           </div>
         </div>
-
 
         {/* Search Button */}
         <button
@@ -117,4 +124,3 @@ const SearchForm = ({
 };
 
 export default SearchForm;
-

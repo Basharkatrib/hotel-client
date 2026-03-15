@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import MapSection from './components/MapSection';
-import FiltersSidebar from './components/FiltersSidebar';
-import HotelList from './components/HotelList';
+import React, { useState, useCallback, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+import MapSection from "./components/MapSection";
+import FiltersSidebar from "./components/FiltersSidebar";
+import HotelList from "./components/HotelList";
 
 const Explore = () => {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
@@ -11,21 +11,21 @@ const Explore = () => {
 
   const initialFilters = useMemo(
     () => ({
-      type: 'any',
+      type: "any",
       minPrice: 0,
       maxPrice: 2000,
       selectedAmenities: [],
-      city: searchParams.get('city') || '',
-      checkInDate: searchParams.get('check_in_date') || '',
-      checkOutDate: searchParams.get('check_out_date') || '',
-      guests: searchParams.get('guests')
-        ? Number.parseInt(searchParams.get('guests'), 10) || null
+      city: searchParams.get("city") || "",
+      checkInDate: searchParams.get("check_in_date") || "",
+      checkOutDate: searchParams.get("check_out_date") || "",
+      guests: searchParams.get("guests")
+        ? Number.parseInt(searchParams.get("guests"), 10) || null
         : null,
-      rooms: searchParams.get('rooms')
-        ? Number.parseInt(searchParams.get('rooms'), 10) || null
+      rooms: searchParams.get("rooms")
+        ? Number.parseInt(searchParams.get("rooms"), 10) || null
         : null,
     }),
-    [searchParams],
+    [searchParams]
   );
 
   // Filters state
@@ -36,8 +36,8 @@ const Explore = () => {
   const [perPage] = useState(10);
 
   // Sorting state
-  const [sortBy, setSortBy] = useState('created_at');
-  const [sortOrder, setSortOrder] = useState('desc');
+  const [sortBy, setSortBy] = useState("created_at");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   // Hotels state (to pass to map)
   const [currentHotels, setCurrentHotels] = useState([]);
@@ -92,17 +92,20 @@ const Explore = () => {
             {/* Sorting bar */}
             <div className="mb-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card px-3 py-2 shadow-sm sm:rounded-xl sm:px-4 sm:py-3 transition-colors duration-300">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <span className="text-xs font-medium text-gray-600 dark:text-gray-400 sm:text-sm">
+                {/* Label */}
+                <span className="text-xs font-medium text-gray-600 dark:text-gray-400 sm:text-sm text-center sm:text-left">
                   Sort by:
                 </span>
-                <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+
+                {/* Controls */}
+                <div className="flex flex-row gap-2 w-full sm:w-auto justify-center sm:justify-start">
                   <select
                     value={sortBy}
                     onChange={(e) => {
                       setSortBy(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full sm:w-44 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                    className="w-full sm:w-44 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 text-center sm:text-left focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
                   >
                     <option value="created_at">Newest First</option>
                     <option value="price_per_night">Price</option>
@@ -111,12 +114,12 @@ const Explore = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+                      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
                       setCurrentPage(1);
                     }}
-                    className="w-full sm:w-auto rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    className="w-full sm:w-auto rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   >
-                    {sortOrder === 'asc' ? '↑ Ascending' : '↓ Descending'}
+                    {sortOrder === "asc" ? "↑ Ascending" : "↓ Descending"}
                   </button>
                 </div>
               </div>
@@ -149,7 +152,9 @@ const Explore = () => {
           {/* Panel */}
           <div className="absolute inset-y-0 right-0 w-full max-w-xs bg-white dark:bg-card shadow-xl flex flex-col pt-18 slide-in-right overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800">
-              <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Filters</h2>
+              <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+                Filters
+              </h2>
               <button
                 type="button"
                 onClick={() => setIsMobileFiltersOpen(false)}
@@ -173,5 +178,3 @@ const Explore = () => {
 };
 
 export default Explore;
-
-
