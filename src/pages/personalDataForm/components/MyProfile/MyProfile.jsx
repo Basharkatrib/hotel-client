@@ -2,11 +2,26 @@
 import React, { useEffect, useState, useRef } from "react";
 import { X, Save, Camera } from "lucide-react";
 import { toast } from "react-toastify";
-import { useGetUserQuery, useUpdateProfileMutation, useUploadAvatarMutation } from "@/services/api";
+import {
+  useGetUserQuery,
+  useUpdateProfileMutation,
+  useUploadAvatarMutation,
+} from "@/services/api";
 
 const column1Fields = [
-  { name: "first_name", label: "First Name", type: "text", placeholder: "Emmily" },
-  { name: "email", label: "Email Address", type: "email", placeholder: "em***an@gmail.com", readOnly: true },
+  {
+    name: "first_name",
+    label: "First Name",
+    type: "text",
+    placeholder: "Emmily",
+  },
+  {
+    name: "email",
+    label: "Email Address",
+    type: "email",
+    placeholder: "em***an@gmail.com",
+    readOnly: true,
+  },
   {
     name: "gender",
     label: "Gender",
@@ -18,13 +33,33 @@ const column1Fields = [
       { label: "Other", value: "other" },
     ],
   },
-  { name: "birthday", label: "Birthday", type: "date", placeholder: "1997-06-17" },
-  { name: "address", label: "Address", type: "text", placeholder: "123 Main Street, Spring" },
+  {
+    name: "birthday",
+    label: "Birthday",
+    type: "date",
+    placeholder: "1997-06-17",
+  },
+  {
+    name: "address",
+    label: "Address",
+    type: "text",
+    placeholder: "123 Main Street, Spring",
+  },
 ];
 
 const column2Fields = [
-  { name: "last_name", label: "Last Name", type: "text", placeholder: "Morgan" },
-  { name: "phone", label: "Phone Number", type: "text", placeholder: "(+34) 000 000 000" },
+  {
+    name: "last_name",
+    label: "Last Name",
+    type: "text",
+    placeholder: "Morgan",
+  },
+  {
+    name: "phone",
+    label: "Phone Number",
+    type: "text",
+    placeholder: "(+34) 000 000 000",
+  },
   {
     name: "country",
     label: "Country",
@@ -147,7 +182,10 @@ function MyProfile() {
 
   return (
     <div className="w-full">
-      <form className="bg-white dark:bg-card rounded-xl transition-colors duration-300" onSubmit={handleSubmit}>
+      <form
+        className="bg-white dark:bg-card rounded-xl transition-colors duration-300"
+        onSubmit={handleSubmit}
+      >
         {/* Avatar + Edit button row */}
         <div className="flex w-full items-center justify-between px-6 pt-6 pb-4">
           {/* Left: avatar with small camera icon */}
@@ -160,10 +198,10 @@ function MyProfile() {
               />
             ) : (
               <span>
-                {(formData.first_name?.[0] || "") + (formData.last_name?.[0] || "") || "U"}
+                {(formData.first_name?.[0] || "") +
+                  (formData.last_name?.[0] || "") || "U"}
               </span>
             )}
-
             {/* Small camera button on avatar */}
             <button
               type="button"
@@ -201,19 +239,26 @@ function MyProfile() {
           <div className="flex flex-col space-y-4">
             {column1Fields.map((field, idx) => {
               if (field.label === "Gender") {
-                const birthdayField = column1Fields.find(f => f.label === "Birthday");
+                const birthdayField = column1Fields.find(
+                  (f) => f.label === "Birthday"
+                );
                 return (
-                  <div key={idx} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+                  <div
+                    key={idx}
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12"
+                  >
                     <div className="flex flex-col space-y-1">
-                      <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{field.label}</label>
-                      {renderField(
-                        field,
-                        formData[field.name],
-                        (value) => handleChange(field.name, value)
+                      <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">
+                        {field.label}
+                      </label>
+                      {renderField(field, formData[field.name], (value) =>
+                        handleChange(field.name, value)
                       )}
                     </div>
                     <div className="flex flex-col space-y-1">
-                      <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{birthdayField.label}</label>
+                      <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">
+                        {birthdayField.label}
+                      </label>
                       {renderField(
                         birthdayField,
                         formData[birthdayField.name],
@@ -226,11 +271,11 @@ function MyProfile() {
               if (field.label === "Birthday") return null;
               return (
                 <div key={idx} className="flex flex-col space-y-1 mb-12">
-                  <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{field.label}</label>
-                  {renderField(
-                    field,
-                    formData[field.name],
-                    (value) => handleChange(field.name, value)
+                  <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">
+                    {field.label}
+                  </label>
+                  {renderField(field, formData[field.name], (value) =>
+                    handleChange(field.name, value)
                   )}
                 </div>
               );
@@ -241,11 +286,11 @@ function MyProfile() {
           <div className="flex flex-col space-y-4">
             {column2Fields.map((field, idx) => (
               <div key={idx} className="flex flex-col space-y-1 mb-12">
-                <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">{field.label}</label>
-                {renderField(
-                  field,
-                  formData[field.name],
-                  (value) => handleChange(field.name, value)
+                <label className="text-[16px] font-medium text-gray-700 dark:text-gray-300">
+                  {field.label}
+                </label>
+                {renderField(field, formData[field.name], (value) =>
+                  handleChange(field.name, value)
                 )}
               </div>
             ))}
