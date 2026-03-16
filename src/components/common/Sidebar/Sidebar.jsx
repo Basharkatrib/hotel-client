@@ -1,17 +1,13 @@
 // Sidebar.jsx
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import profileImg from "../../../assets/personalDataForm/myProfile.jpg";
+import { useDispatch } from "react-redux";
 import {
   IoPersonCircleOutline,
   IoHomeOutline,
-  IoSettingsOutline,
   IoLogOutOutline,
 } from "react-icons/io5";
-import { MdOutlinePayment } from "react-icons/md";
 import { FaSuitcaseRolling, FaRegHeart, FaAngleDown } from "react-icons/fa6";
-import { BiSupport, BiCommentDetail } from "react-icons/bi";
 import { logout as logoutAction } from "../../../store/slices/authSlice";
 import { useLogoutMutation } from "../../../services/api";
 import { toast } from "react-toastify";
@@ -53,7 +49,6 @@ function Sidebar({ onClose, user }) {
   const handleItemClick = (item) => {
     if (item.route) {
       navigate(item.route);
-      // Close sidebar on mobile after navigation
       if (onClose) {
         onClose();
       }
@@ -67,7 +62,6 @@ function Sidebar({ onClose, user }) {
       toast.success("Logged out successfully");
       navigate("/");
     } catch (error) {
-      // Even if API fails, logout locally
       dispatch(logoutAction());
       toast.error("Logout failed, but you have been logged out locally");
       navigate("/");
@@ -80,21 +74,27 @@ function Sidebar({ onClose, user }) {
     );
   };
 
+  const firstLetter =
+    user?.data?.user?.first_name?.charAt(0)?.toUpperCase() || "U";
+
   return (
     <div className="w-full sticky top-0 h-screen bg-white dark:bg-card p-4 lg:p-8 mb-4 lg:mb-0 flex flex-col justify-between overflow-y-auto border-r border-transparent dark:border-gray-800 transition-colors duration-300">
       {/* TOP SECTION */}
       <div className="flex flex-col gap-4">
         {/* PROFILE */}
         <div className="flex items-center gap-3">
-          <img
-            src={
-              user?.data?.user?.avatar
-                ? `${import.meta.env.VITE_API_URL}${user.data.user.avatar}`
-                : profileImg
-            }
-            alt="profile"
-            className="w-12 h-12 rounded-full object-cover ring-2 ring-blue-500/20"
-          />
+          {user?.data?.user?.avatar ? (
+            <img
+              src={`${import.meta.env.VITE_API_URL}${user.data.user.avatar}`}
+              alt="profile"
+              className="w-12 h-12 rounded-full object-cover ring-2 ring-blue-500/20"
+            />
+          ) : (
+            <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg ring-2 ring-blue-500/20">
+              {firstLetter}
+            </div>
+          )}
+
           <div>
             <h2 className="text-[16px] font-bold text-gray-900 dark:text-white">
               {user?.data?.user?.first_name || "User"}
