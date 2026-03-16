@@ -129,7 +129,7 @@ const RoomReviews = ({ room }) => {
           {canReview && !showReviewForm && (
             <button
               onClick={() => setShowReviewForm(true)}
-              className="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+              className="cursor-pointer px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
             >
               Write a Review
             </button>
@@ -190,7 +190,7 @@ const RoomReviews = ({ room }) => {
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Filter by rating:</span>
             <button
               onClick={() => setFilterRating(null)}
-              className={`px-3 py-1 text-sm rounded-lg transition-colors ${filterRating === null
+              className={`cursor-pointer px-3 py-1 text-sm rounded-lg transition-colors ${filterRating === null
                 ? 'bg-blue-600 text-white shadow-lg'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
@@ -199,7 +199,7 @@ const RoomReviews = ({ room }) => {
               <button
                 key={rating}
                 onClick={() => setFilterRating(filterRating === rating ? null : rating)}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filterRating === rating
+                className={`cursor-pointer px-3 py-1 text-sm rounded-lg transition-colors ${filterRating === rating
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
@@ -253,13 +253,13 @@ const RoomReviews = ({ room }) => {
             <button
               onClick={() => setCurrentPage(prev => Math.max(1, prev-1))}
               disabled={currentPage===1}
-              className="px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+              className="cursor-pointer px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
             >Previous</button>
             <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">Page {pagination.current_page} of {pagination.last_page}</span>
             <button
               onClick={() => setCurrentPage(prev => Math.min(pagination.last_page, prev+1))}
               disabled={currentPage===pagination.last_page}
-              className="px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+              className="cursor-pointer px-4 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
             >Next</button>
           </div>
         )}

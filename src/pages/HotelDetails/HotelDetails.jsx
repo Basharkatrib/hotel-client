@@ -226,7 +226,7 @@ const HotelDetails = () => {
               <button
                 type="button"
                 onClick={handleFavoriteToggle}
-                className={`flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${isFavorite ? 'bg-red-50 dark:bg-red-900/20' : ''
+                className={`cursor-pointer flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${isFavorite ? 'bg-red-50 dark:bg-red-900/20' : ''
                   }`}
               >
                 {isFavorite ? (
@@ -238,7 +238,7 @@ const HotelDetails = () => {
               <button
                 type="button"
                 onClick={handleWhatsAppShare}
-                className="flex items-center gap-2 px-4 py-2 border border-green-500/30 dark:border-green-500/30 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 text-green-600 dark:text-green-400 transition-colors"
+                className="cursor-pointer flex items-center gap-2 px-4 py-2 border border-green-500/30 dark:border-green-500/30 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 text-green-600 dark:text-green-400 transition-colors"
                 title="Share on WhatsApp"
               >
                 <FaWhatsapp size={20} />
@@ -255,7 +255,7 @@ const HotelDetails = () => {
               <button
                 key={tab.id}
                 onClick={() => scrollToSection(tab.ref, tab.id)}
-                className={`pb-1 px-1 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
+                className={`cursor-pointer pb-1 px-1 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
                   ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
                   : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-700'
                   }`}
@@ -330,7 +330,7 @@ const HotelDetails = () => {
           <button
             type="button"
             onClick={() => setIsMobileBookingOpen(true)}
-            className="flex-1 inline-flex justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-700 transition-colors"
+            className="cursor-pointer flex-1 inline-flex justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-700 transition-colors"
           >
             View booking details
           </button>
@@ -344,7 +344,7 @@ const HotelDetails = () => {
           <button
             type="button"
             onClick={() => setIsMobileBookingOpen(false)}
-            className="absolute inset-0 bg-black/40"
+            className="cursor-pointer absolute inset-0 bg-black/40"
           />
 
           {/* Sheet */}
@@ -356,7 +356,7 @@ const HotelDetails = () => {
               <button
                 type="button"
                 onClick={() => setIsMobileBookingOpen(false)}
-                className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white"
+                className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white"
               >
                 Close
               </button>

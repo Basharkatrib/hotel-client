@@ -99,7 +99,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
           </p>
           <button
             type="button"
-            className="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
+            className="cursor-pointer text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             onClick={handleClear}
           >
             Clear
@@ -126,7 +126,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                     key={label}
                     type="button"
                     onClick={() => setTypeOfPlace(label)}
-                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                    className={`cursor-pointer rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
                       typeOfPlace === label
                         ? "border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600"
                         : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500"
@@ -279,7 +279,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
                           key={label}
                           type="button"
                           onClick={() => toggleAmenity(label)}
-                          className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                          className={`cursor-pointer rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
                             active
                               ? "border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600"
                               : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500"
@@ -301,7 +301,7 @@ const FiltersSidebar = ({ filters, onFiltersChange, hotels = [] }) => {
           <button
             type="button"
             onClick={applyFilters}
-            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all active:scale-95"
+            className="cursor-pointer w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all active:scale-95"
           >
             Show results
           </button>

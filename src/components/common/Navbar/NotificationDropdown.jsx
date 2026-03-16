@@ -56,7 +56,7 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
                             </div>
                             <button
                                 onClick={onClose}
-                                className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                                className="cursor-pointer p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                             >
                                 <FaTimes size={18} />
                             </button>
@@ -67,7 +67,7 @@ const NotificationDropdown = ({ notifications, unreadCount, isOpen, onClose }) =
                             <div className="px-6 py-3 bg-blue-50 dark:bg-blue-900/10 border-b border-blue-100 dark:border-blue-900/30 flex justify-end">
                                 <button
                                     onClick={handleMarkAllRead}
-                                    className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-white flex items-center gap-1.5 transition-colors"
+                                    className="cursor-pointer text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-white flex items-center gap-1.5 transition-colors"
                                 >
                                     <FaCheck size={12} />
                                     Mark all as read

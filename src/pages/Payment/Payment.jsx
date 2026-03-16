@@ -43,7 +43,7 @@ const Payment = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-4">Sorry, we couldn't find this booking.</p>
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-md transition-all duration-300 font-bold"
+            className="cursor-pointer px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-md transition-all duration-300 font-bold"
           >
             Go Home
           </button>

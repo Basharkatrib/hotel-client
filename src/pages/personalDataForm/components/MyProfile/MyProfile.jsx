@@ -168,7 +168,7 @@ function MyProfile() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="absolute -bottom-1 -right-1 z-40 flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="cursor-pointer absolute -bottom-1 -right-1 z-40 flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               title="Upload profile photo"
               disabled={isUploading}
             >
@@ -178,7 +178,7 @@ function MyProfile() {
               type="file"
               accept="image/*"
               ref={fileInputRef}
-              className="hidden"
+              className="cursor-pointer hidden"
               onChange={handleAvatarFileChange}
             />
           </div>
@@ -187,7 +187,7 @@ function MyProfile() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white shadow-sm transition-all duration-300"
+            className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white shadow-sm transition-all duration-300"
             title="Change profile photo"
             disabled={isUploading}
           >
@@ -257,11 +257,11 @@ function MyProfile() {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 pb-3">
-          <button className="flex items-center justify-center px-6 py-2.5 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg shadow-sm font-semibold w-full sm:w-auto transition-all duration-300">
+          <button className="cursor-pointer flex items-center justify-center px-6 py-2.5 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg shadow-sm font-semibold w-full sm:w-auto transition-all duration-300">
             <X className="w-5 h-5 mr-2" />
             Discard
           </button>
-          <button className="flex items-center justify-center px-6 py-2.5 border text-blue-700 dark:text-blue-400 border-blue-600 dark:border-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white rounded-lg shadow-md font-semibold w-full sm:w-auto transition-all duration-300">
+          <button className="cursor-pointer flex items-center justify-center px-6 py-2.5 border text-blue-700 dark:text-blue-400 border-blue-600 dark:border-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white rounded-lg shadow-md font-semibold w-full sm:w-auto transition-all duration-300">
             <Save className="w-5 h-5 mr-2" />
             {isSaving ? "Saving..." : "Save changes"}
           </button>

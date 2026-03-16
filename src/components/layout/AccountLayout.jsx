@@ -25,7 +25,7 @@ const AccountLayout = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleSidebar}
-          className="lg:hidden fixed top-4 right-4 z-50 p-2 bg-white dark:bg-card rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border border-transparent dark:border-gray-800"
+          className="cursor-pointer lg:hidden fixed top-4 right-4 z-50 p-2 bg-white dark:bg-card rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border border-transparent dark:border-gray-800"
           aria-label="Toggle menu"
         >
           {isSidebarOpen ? (

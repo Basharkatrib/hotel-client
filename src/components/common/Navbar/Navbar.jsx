@@ -149,7 +149,7 @@ const Navbar = () => {
               <div className="relative notification-container">
                 <button
                   onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                  className={`relative p-2.5 rounded-full transition-all duration-300 group ${isNotificationOpen
+                  className={` cursor-pointer relative p-2.5 rounded-full transition-all duration-300 group ${isNotificationOpen
                     ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400'
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
@@ -180,7 +180,7 @@ const Navbar = () => {
               <div className="hidden md:block relative user-menu-container">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl"
+                  className=" cursor-pointer flex items-center gap-3 px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl"
                   aria-label="User menu"
                 >
                   <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20">
@@ -239,7 +239,7 @@ const Navbar = () => {
                             setIsUserMenuOpen(false);
                             navigate("/my-profile");
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                          className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
                         >
                           <svg
                             className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors"
@@ -262,7 +262,7 @@ const Navbar = () => {
                             setIsUserMenuOpen(false);
                             navigate("/my-bookings");
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                          className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
                         >
                           <svg
                             className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors"
@@ -285,7 +285,7 @@ const Navbar = () => {
                             setIsUserMenuOpen(false);
                             navigate("/favorites");
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                          className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
                         >
                           <svg
                             className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors"
@@ -307,7 +307,7 @@ const Navbar = () => {
 
                         <button
                           onClick={handleLogout}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors group"
+                          className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors group"
                         >
                           <svg
                             className="w-5 h-5"
@@ -337,7 +337,7 @@ const Navbar = () => {
                       state: { backgroundLocation: location },
                     })
                   }
-                  className="
+                  className="cursor-pointer
     px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300
     text-black dark:text-white
     hover:text-gray-900 dark:hover:text-gray-100
@@ -348,7 +348,7 @@ const Navbar = () => {
                 </button>
                 <button
                   onClick={handleAuthOpen}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl"
+                  className="cursor-pointer flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl"
                   aria-label="Sign in"
                 >
                   <FaUser className="text-sm" />
@@ -361,7 +361,7 @@ const Navbar = () => {
             <div className="flex items-center gap-2 md:hidden">
               <button
                 type="button"
-                className="flex items-center justify-center h-10 w-10 rounded-full bg-white/90 dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-md border border-gray-200 dark:border-gray-700 transition-colors"
+                className="cursor-pointer flex items-center justify-center h-10 w-10 rounded-full bg-white/90 dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-md border border-gray-200 dark:border-gray-700 transition-colors"
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                 aria-label="Toggle navigation menu"
               >
@@ -406,7 +406,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-200"
+                  className="cursor-pointer p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-200"
                   aria-label="Close menu"
                 >
                   <FaTimes className="text-xl" />
@@ -480,7 +480,7 @@ const Navbar = () => {
                         setIsMobileMenuOpen(false);
                         navigate("/my-profile");
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-all duration-200"
+                      className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-all duration-200"
                     >
                       <svg
                         className="w-5 h-5"
@@ -503,7 +503,7 @@ const Navbar = () => {
                         setIsMobileMenuOpen(false);
                         navigate("/my-bookings");
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-all duration-200"
+                      className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-all duration-200"
                     >
                       <svg
                         className="w-5 h-5"
@@ -526,7 +526,7 @@ const Navbar = () => {
                         setIsMobileMenuOpen(false);
                         navigate("/favorites");
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-all duration-200"
+                      className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-all duration-200"
                     >
                       <svg
                         className="w-5 h-5"
@@ -554,7 +554,7 @@ const Navbar = () => {
                         setIsMobileMenuOpen(false);
                         handleLogout();
                       }}
-                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-3 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-95"
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-3 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-95"
                     >
                       <svg
                         className="w-5 h-5"
@@ -580,7 +580,7 @@ const Navbar = () => {
                             state: { backgroundLocation: location },
                           });
                         }}
-                        className="w-full flex items-center justify-center gap-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 text-sm font-semibold transition-all duration-200 active:scale-95"
+                        className="cursor-pointer w-full flex items-center justify-center gap-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 text-sm font-semibold transition-all duration-200 active:scale-95"
                       >
                         <svg
                           className="w-5 h-5"
@@ -603,7 +603,7 @@ const Navbar = () => {
                           setIsMobileMenuOpen(false);
                           handleAuthOpen();
                         }}
-                        className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-3 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-95"
+                        className="cursor-pointer w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-3 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-95"
                       >
                         <FaUser className="text-sm" />
                         <span>Sign In</span>

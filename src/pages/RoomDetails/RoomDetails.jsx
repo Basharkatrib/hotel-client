@@ -211,7 +211,7 @@ const RoomDetails = () => {
             <p className="text-red-800 dark:text-red-400">Failed to load rooms. Please try again later.</p>
             <button
               onClick={() => navigate('/rooms')}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="cursor-pointer mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Back to Rooms
             </button>
@@ -271,7 +271,7 @@ const RoomDetails = () => {
             <div className="absolute top-5 right-5 z-20">
               <button
                 onClick={() => setShow3DModal(false)}
-                className="p-2.5 bg-black/40 hover:bg-black/60 backdrop-blur-xl text-white rounded-full transition-all hover:scale-110 active:scale-95 border border-white/10"
+                className="cursor-pointer p-2.5 bg-black/40 hover:bg-black/60 backdrop-blur-xl text-white rounded-full transition-all hover:scale-110 active:scale-95 border border-white/10"
               >
                 <FaTimes size={22} />
               </button>

@@ -395,7 +395,7 @@ const BookingConfirmation = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full group bg-blue-600 dark:bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 dark:hover:bg-blue-500 active:scale-[0.98] transition-all disabled:bg-gray-400 dark:disabled:bg-gray-800 disabled:cursor-not-allowed shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2"
+                className="cursor-pointer w-full group bg-blue-600 dark:bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 dark:hover:bg-blue-500 active:scale-[0.98] transition-all disabled:bg-gray-400 dark:disabled:bg-gray-800 disabled:cursor-not-allowed shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -434,7 +434,7 @@ const BookingConfirmation = () => {
                 </div>
                 <button
                   onClick={() => setIsMobileSummaryOpen(true)}
-                  className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700"
+                  className="cursor-pointer bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700"
                 >
                   View Summary
                 </button>
@@ -457,7 +457,7 @@ const BookingConfirmation = () => {
                     </span>
                     <button
                       onClick={() => setIsMobileSummaryOpen(false)}
-                      className="text-sm text-gray-500 hover:text-gray-700"
+                      className="cursor-pointer text-sm text-gray-500 hover:text-gray-700"
                     >
                       Close
                     </button>

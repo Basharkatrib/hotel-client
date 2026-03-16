@@ -71,7 +71,7 @@ const ImageGallery = ({ images, hotelName }) => {
       <button
         type="button"
         onClick={() => setShowAll(true)}
-        className="absolute bottom-4 right-4 flex items-center gap-2 bg-white px-4 py-2.5 rounded-lg shadow-lg hover:bg-gray-50 transition-colors border border-gray-200 dark:border-gray-800 dark:bg-gray-800"
+        className="cursor-pointer absolute bottom-4 right-4 flex items-center gap-2 bg-white px-4 py-2.5 rounded-lg shadow-lg hover:bg-gray-50 transition-colors border border-gray-200 dark:border-gray-800 dark:bg-gray-800"
       >
         <MdPhotoLibrary size={20} />
         <span className="text-sm font-medium">
@@ -86,7 +86,7 @@ const ImageGallery = ({ images, hotelName }) => {
           <button
             type="button"
             onClick={() => setShowAll(false)}
-            className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors"
+            className="cursor-pointer absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors"
           >
             <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

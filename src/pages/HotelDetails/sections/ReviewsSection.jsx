@@ -161,7 +161,7 @@ const ReviewsSection = ({ hotel }) => {
     {canReview && !showReviewForm && (
       <button
         onClick={() => setShowReviewForm(true)}
-        className="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+        className="cursor-pointer px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
       >
         Write a Review
       </button>
@@ -294,7 +294,7 @@ const ReviewsSection = ({ hotel }) => {
       <button
         onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
         disabled={currentPage === 1}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+        className="cursor-pointer px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
       >
         Previous
       </button>
@@ -306,7 +306,7 @@ const ReviewsSection = ({ hotel }) => {
       <button
         onClick={() => setCurrentPage((prev) => Math.min(pagination.last_page, prev + 1))}
         disabled={currentPage === pagination.last_page}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+        className="cursor-pointer px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
       >
         Next
       </button>

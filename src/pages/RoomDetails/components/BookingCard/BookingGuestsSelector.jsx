@@ -12,7 +12,7 @@ const BookingGuestsSelector = ({ guests, maxGuests, onGuestsChange }) => {
         <button
           type="button"
           onClick={() => onGuestsChange(Math.max(1, guests - 1))}
-          className="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="cursor-pointer w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <span className="text-xl font-semibold text-gray-700 dark:text-gray-300">−</span>
         </button>
@@ -29,7 +29,7 @@ const BookingGuestsSelector = ({ guests, maxGuests, onGuestsChange }) => {
           type="button"
           onClick={() => onGuestsChange(Math.min(maxGuests, guests + 1))}
           disabled={guests >= maxGuests}
-          className="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="cursor-pointer w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span className="text-xl font-semibold text-gray-700 dark:text-gray-300">+</span>
         </button>

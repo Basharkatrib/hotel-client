@@ -106,7 +106,7 @@ const TopThingsToDo = () => {
         {/* Navigation Buttons */}
         <div className="flex justify-center items-center gap-3 mt-2">
           <button
-            className="top-things-prev w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-white hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-200"
+            className="cursor-pointer top-things-prev w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-white hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-200"
             aria-label="Previous activities"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -114,7 +114,7 @@ const TopThingsToDo = () => {
             </svg>
           </button>
           <button
-            className="top-things-next w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-white hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-200"
+            className="cursor-pointer top-things-next w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-white hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-200"
             aria-label="Next activities"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

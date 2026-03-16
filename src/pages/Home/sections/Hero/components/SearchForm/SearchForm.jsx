@@ -112,7 +112,7 @@ const SearchForm = ({
         {/* Search Button */}
         <button
           type="submit"
-          className="w-full sm:w-auto shrink-0 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-2xl transition-colors shadow-lg sm:self-stretch"
+          className="cursor-pointer w-full sm:w-auto shrink-0 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-2xl transition-colors shadow-lg sm:self-stretch"
           aria-label="Search for accommodations"
         >
           <IoSearch className="text-lg sm:text-xl" aria-hidden="true" />

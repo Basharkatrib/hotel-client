@@ -95,7 +95,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
               <div className="relative shrink-0" ref={menuRef}>
                 <button
                   onClick={() => setShowMenu(!showMenu)}
-                  className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+                  className="cursor-pointer p-1.5 rounded-full hover:bg-gray-100 transition-colors"
                   aria-label="More options"
                 >
                   <HiDotsVertical className="w-5 h-5 text-gray-600" />
@@ -107,7 +107,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
                     {canEdit && (
                       <button
                         onClick={handleEdit}
-                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                        className="cursor-pointer w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors"
                       >
                         <FaEdit className="w-4 h-4" />
                         <span>Edit</span>
@@ -116,7 +116,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
                     {canDelete && (
                       <button
                         onClick={handleDelete}
-                        className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                        className="cursor-pointer w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
                       >
                         <FaTrash className="w-4 h-4" />
                         <span>Delete</span>

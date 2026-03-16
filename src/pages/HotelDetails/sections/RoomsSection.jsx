@@ -51,7 +51,7 @@ const RoomsSection = ({ hotelId, rooms, loading, hotel, checkIn, checkOut, guest
                 key={filter.value}
                 type="button"
                 onClick={() => setSelectedBedFilter(filter.value)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                className={`cursor-pointer px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   selectedBedFilter === filter.value
                     ? 'bg-gray-900 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'

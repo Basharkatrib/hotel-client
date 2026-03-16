@@ -14,7 +14,7 @@ const HeroContent = ({ title, subtitle }) => {
       <div className="mt-8 flex justify-center">
         <button
           onClick={() => window.dispatchEvent(new CustomEvent('open-smart-search'))}
-          className="group relative flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold transition-all hover:bg-white/20 hover:scale-105 active:scale-95 shadow-xl"
+          className="cursor-pointer group relative flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold transition-all hover:bg-white/20 hover:scale-105 active:scale-95 shadow-xl"
         >
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-indigo-500/20 blur-xl group-hover:blur-2xl transition-all" />
           <IoSparkles className="text-blue-400 animate-pulse" />

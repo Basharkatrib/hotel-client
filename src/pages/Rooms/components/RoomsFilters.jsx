@@ -13,7 +13,7 @@ const RoomsFilters = ({
       <div className="mb-6 flex items-center justify-between">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors ${
+          className={`cursor-pointer flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors ${
             showFilters
               ? "bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800"
               : "bg-white dark:bg-card border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300"
@@ -79,7 +79,7 @@ const RoomsFilters = ({
           </h2>
           <button
             onClick={() => setShowFilters(false)}
-            className="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+            className="cursor-pointer p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
           >
             <FaTimes size={20} />
           </button>
@@ -190,7 +190,7 @@ const RoomsFilters = ({
         <div className="mt-8 lg:hidden">
           <button
             onClick={() => setShowFilters(false)}
-            className="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/30 active:scale-[0.98] transition-transform"
+            className="cursor-pointer w-full py-3 bg-blue-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/30 active:scale-[0.98] transition-transform"
           >
             Show Results
           </button>

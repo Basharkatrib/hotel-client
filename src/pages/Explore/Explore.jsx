@@ -66,7 +66,7 @@ const Explore = () => {
             <button
               type="button"
               onClick={() => setIsMobileFiltersOpen(true)}
-              className="inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm hover:border-gray-900 dark:hover:border-blue-500 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm hover:border-gray-900 dark:hover:border-blue-500 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
                 <span className="block h-2 w-2 rounded-full bg-gray-700 dark:bg-gray-300" />
@@ -117,7 +117,7 @@ const Explore = () => {
                       setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
                       setCurrentPage(1);
                     }}
-                    className="w-full sm:w-auto rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    className="cursor-pointer w-full sm:w-auto rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-xs sm:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   >
                     {sortOrder === "asc" ? "↑ Ascending" : "↓ Descending"}
                   </button>
@@ -144,7 +144,7 @@ const Explore = () => {
           {/* Backdrop */}
           <button
             type="button"
-            className="absolute inset-0 bg-black/40"
+            className="cursor-pointer absolute inset-0 bg-black/40"
             aria-label="Close filters"
             onClick={() => setIsMobileFiltersOpen(false)}
           />
@@ -158,7 +158,7 @@ const Explore = () => {
               <button
                 type="button"
                 onClick={() => setIsMobileFiltersOpen(false)}
-                className="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white"
+                className="cursor-pointer text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white"
               >
                 Close
               </button>

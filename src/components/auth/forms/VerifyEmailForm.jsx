@@ -46,7 +46,7 @@ const VerifyEmailForm = () => {
       <button
         type="button"
         onClick={() => navigate('/auth/register')}
-        className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-bold transition-colors"
+        className="cursor-pointer flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-bold transition-colors"
       >
         <span className="text-lg">&larr;</span>
         <span>Back</span>
@@ -108,7 +108,7 @@ const VerifyEmailForm = () => {
             <button
               type="submit"
               disabled={!isValid || Object.values(values).some((v) => !v) || isLoading}
-              className={`w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || Object.values(values).some((v) => !v) || isLoading
+              className={`cursor-pointer w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${!isValid || Object.values(values).some((v) => !v) || isLoading
                   ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-gray-700'
                   : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg active:scale-[0.98]'
                 }`}
@@ -124,7 +124,7 @@ const VerifyEmailForm = () => {
               <button
                 type="button"
                 disabled={isResending}
-                className="text-blue-600 hover:underline font-medium disabled:opacity-50"
+                className="cursor-pointer text-blue-600 hover:underline font-medium disabled:opacity-50"
                 onClick={async () => {
                   try {
                     const result = await resendOtp({

@@ -100,7 +100,7 @@ const BookingCard = ({
       <button
         onClick={onBookNow}
         disabled={isDisabled}
-        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
+        className={`cursor-pointer w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
           isDisabled
             ? "bg-gray-300 dark:bg-gray-800 text-gray-500 dark:text-gray-600 cursor-not-allowed"
             : "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl"
@@ -140,7 +140,7 @@ const BookingCard = ({
 
           <button
             onClick={() => setIsMobileBookingOpen(true)}
-            className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700"
+            className="cursor-pointer bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700"
           >
             View booking
           </button>
@@ -163,7 +163,7 @@ const BookingCard = ({
               </span>
               <button
                 onClick={() => setIsMobileBookingOpen(false)}
-                className="text-sm text-gray-500 hover:text-gray-700"
+                className="cursor-pointer text-sm text-gray-500 hover:text-gray-700"
               >
                 Close
               </button>

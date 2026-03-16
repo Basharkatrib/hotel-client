@@ -131,7 +131,7 @@ const HotelCard = ({ hotel }) => {
             type="button"
             disabled={isUpdating}
             onClick={handleFavoriteToggle}
-            className={`absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-card shadow-md transition-all ${
+            className={`cursor-pointer absolute z-10 top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-card shadow-md transition-all ${
               isUpdating ? 'cursor-not-allowed opacity-80' : 'hover:scale-110 active:scale-95'
             } ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'}`}
             aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
@@ -161,7 +161,7 @@ const HotelCard = ({ hotel }) => {
                 <button
                   type="button"
                   onClick={() => setIsLocationModalOpen(true)}
-                  className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline"
+                  className="cursor-pointer inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline"
                 >
                   <MdOutlineLocationOn className="text-sm" />
                   <span>{hotel.city || 'Barcelona'}</span>
@@ -238,7 +238,7 @@ const HotelCard = ({ hotel }) => {
 
             <button
               onClick={() => navigate(`/hotel/${hotel.slug}`)}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/25 flex items-center gap-2 group/btn"
+              className="cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/25 flex items-center gap-2 group/btn"
             >
               <span>Visit Hotel</span>
               <svg
