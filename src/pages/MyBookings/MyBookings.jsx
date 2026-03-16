@@ -84,7 +84,7 @@ const MyBookings = () => {
                 setActiveTab(tab.id);
                 setPage(1);
               }}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === tab.id
+              className={`cursor-pointer px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === tab.id
                 ? 'bg-blue-600 dark:bg-blue-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
@@ -107,7 +107,7 @@ const MyBookings = () => {
           </p>
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            className="cursor-pointer px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Explore Hotels
           </button>
@@ -175,7 +175,7 @@ const MyBookings = () => {
                     <div className="flex gap-2 mt-4 sm:mt-0">
                       <button
                         onClick={() => navigate(`/payment/success/${booking.id}`)}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 shadow-md hover:shadow-lg transition-all duration-300"
+                        className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 shadow-md hover:shadow-lg transition-all duration-300"
                       >
                         View Details
                       </button>
@@ -183,7 +183,7 @@ const MyBookings = () => {
                         <button
                           onClick={() => handleCancelBooking(booking.id)}
                           disabled={isCancelling}
-                          className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:bg-gray-400"
+                          className="cursor-pointer px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:bg-gray-400"
                         >
                           {isCancelling ? 'Cancelling...' : 'Cancel'}
                         </button>
@@ -203,7 +203,7 @@ const MyBookings = () => {
           <button
             onClick={() => setPage(page - 1)}
             disabled={page === 1}
-            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="cursor-pointer px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Previous
           </button>
@@ -213,7 +213,7 @@ const MyBookings = () => {
           <button
             onClick={() => setPage(page + 1)}
             disabled={page === pagination.last_page}
-            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="cursor-pointer px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Next
           </button>

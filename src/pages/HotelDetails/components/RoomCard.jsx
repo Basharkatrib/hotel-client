@@ -282,7 +282,7 @@ const RoomCard = ({ room, hotel, checkIn, checkOut, guests }) => {
             <button
               type="button"
               onClick={() => navigate(`/room/${room.id}`, { state: { checkIn, checkOut, guests } })}
-              className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
+              className="cursor-pointer px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
             >
               Visit Room
             </button>

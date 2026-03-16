@@ -40,7 +40,7 @@ const Favorites = () => {
         <p className="text-gray-600 dark:text-gray-400 mb-6">You need to be logged in to view your favorites.</p>
         <button
           onClick={() => navigate('/auth/login')}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="cursor-pointer px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           Login
         </button>
@@ -76,7 +76,7 @@ const Favorites = () => {
       <div className="mb-6 flex gap-2 border-b border-gray-200 dark:border-gray-800 transition-colors">
         <button
           onClick={() => setActiveTab('all')}
-          className={`px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'all'
+          className={`cursor-pointer px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'all'
             ? 'text-blue-600 border-b-2 border-blue-600'
             : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
@@ -85,7 +85,7 @@ const Favorites = () => {
         </button>
         <button
           onClick={() => setActiveTab('hotels')}
-          className={`px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'hotels'
+          className={`cursor-pointer px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'hotels'
             ? 'text-blue-600 border-b-2 border-blue-600'
             : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
@@ -94,7 +94,7 @@ const Favorites = () => {
         </button>
         <button
           onClick={() => setActiveTab('rooms')}
-          className={`px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'rooms'
+          className={`cursor-pointer px-4 py-2 font-medium transition-all duration-300 ${activeTab === 'rooms'
             ? 'text-blue-600 border-b-2 border-blue-600'
             : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
@@ -114,13 +114,13 @@ const Favorites = () => {
           <div className="flex gap-4 justify-center">
             <button
               onClick={() => navigate('/explore')}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="cursor-pointer px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Explore Hotels
             </button>
             <button
               onClick={() => navigate('/rooms')}
-              className="px-6 py-3 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition-all duration-300"
+              className="cursor-pointer px-6 py-3 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition-all duration-300"
             >
               Browse Rooms
             </button>
@@ -160,7 +160,7 @@ const Favorites = () => {
                             e.stopPropagation();
                             handleRemoveFavorite(hotel.favorite_id, hotel.name);
                           }}
-                          className="absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
+                          className="cursor-pointer absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                           aria-label="Remove from favorites"
                         >
                           <FaHeart className="text-red-500" size={20} />
@@ -186,7 +186,7 @@ const Favorites = () => {
                           </div>
                           <button
                             onClick={() => navigate(`/hotel/${hotel.slug}`)}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
+                            className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
                           >
                             View Details
                           </button>
@@ -231,7 +231,7 @@ const Favorites = () => {
                             e.stopPropagation();
                             handleRemoveFavorite(room.favorite_id, room.name);
                           }}
-                          className="absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
+                          className="cursor-pointer absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                           aria-label="Remove from favorites"
                         >
                           <FaHeart className="text-red-500" size={20} />
@@ -266,7 +266,7 @@ const Favorites = () => {
                           </div>
                           <button
                             onClick={() => navigate(`/room/${room.id}`)}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
+                            className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
                           >
                             View Details
                           </button>

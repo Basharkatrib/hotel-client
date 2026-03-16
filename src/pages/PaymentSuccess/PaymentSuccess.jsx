@@ -54,7 +54,7 @@ const PaymentSuccess = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-4 font-medium">Sorry, we couldn't find this booking.</p>
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
+            className="cursor-pointer px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
           >
             Go Home
           </button>
@@ -191,19 +191,19 @@ const PaymentSuccess = () => {
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={handleDownloadReceipt}
-            className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+            className="cursor-pointer flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
           >
             <FaDownload /> Download Receipt
           </button>
           <button
             onClick={() => navigate('/my-bookings')}
-            className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
+            className="cursor-pointer flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
           >
             View My Bookings
           </button>
           <button
             onClick={() => navigate('/')}
-            className="flex-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-3 rounded-lg font-semibold border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300"
+            className="cursor-pointer flex-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-3 rounded-lg font-semibold border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300"
           >
             Back to Home
           </button>

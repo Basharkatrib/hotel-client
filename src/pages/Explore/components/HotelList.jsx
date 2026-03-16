@@ -33,7 +33,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         type="button"
         onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors ${currentPage === 1
+        className={`cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors ${currentPage === 1
           ? 'opacity-40 cursor-default'
           : 'hover:border-gray-900 dark:hover:border-blue-500'
           }`}
@@ -59,7 +59,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             key={item.key}
             type="button"
             onClick={() => onPageChange(item.page)}
-            className={`inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm transition-colors ${item.page === currentPage
+            className={`cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm transition-colors ${item.page === currentPage
               ? 'border-gray-900 bg-gray-900 text-white dark:bg-blue-600 dark:border-blue-600'
               : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-500'
               }`}
@@ -75,7 +75,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           currentPage < totalPages && onPageChange(currentPage + 1)
         }
         disabled={currentPage === totalPages}
-        className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors ${currentPage === totalPages
+        className={`cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors ${currentPage === totalPages
           ? 'opacity-40 cursor-default'
           : 'hover:border-gray-900 dark:hover:border-blue-500'
           }`}

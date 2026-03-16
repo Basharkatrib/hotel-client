@@ -48,7 +48,7 @@ const Footer = () => {
               </h4>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full">
-                <button className="flex items-center gap-3 bg-black/5 dark:bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-md hover:bg-black/10 dark:hover:bg-white/20 transition w-full sm:w-auto">
+                <button className="cursor-pointer flex items-center gap-3 bg-black/5 dark:bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-md hover:bg-black/10 dark:hover:bg-white/20 transition w-full sm:w-auto">
                   <img
                     src={appleBlack} // الصورة الافتراضية النهارية
                     alt="App Store"
@@ -66,7 +66,7 @@ const Footer = () => {
                   </div>
                 </button>
 
-                <button className="flex items-center gap-3 bg-black/5 dark:bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-md hover:bg-black/10 dark:hover:bg-white/20 transition w-full sm:w-auto">
+                <button className="cursor-pointer flex items-center gap-3 bg-black/5 dark:bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-md hover:bg-black/10 dark:hover:bg-white/20 transition w-full sm:w-auto">
                   <img src={googlePlay} alt="Google Play" className="w-8 h-8" />
                   <div className="flex flex-col text-left">
                     <p className="text-[10px] text-gray-600 dark:text-gray-300">

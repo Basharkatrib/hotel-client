@@ -1,5 +1,5 @@
-import React from 'react';
-import { IoSearch, IoCalendarOutline, IoPeople } from 'react-icons/io5';
+import React from "react";
+import { IoSearch, IoCalendarOutline, IoPeople } from "react-icons/io5";
 
 const SearchForm = ({
   location,
@@ -92,20 +92,27 @@ const SearchForm = ({
               type="number"
               min={1}
               value={adults}
-              onChange={(e) =>
-                onGuestsChange?.(Number.isNaN(Number(e.target.value)) ? 1 : Number(e.target.value))
-              }
+              onChange={(e) => {
+                const value = e.target.value;
+
+                if (value === "") {
+                  onGuestsChange?.("");
+                  return;
+                }
+
+                const num = Number(value);
+                onGuestsChange?.(Number.isNaN(num) || num < 1 ? 1 : num);
+              }}
               placeholder="Number of guests"
               className="w-full text-sm text-gray-700 dark:text-gray-200 border-0 focus:outline-none focus:ring-0 bg-transparent"
             />
           </div>
         </div>
 
-
         {/* Search Button */}
         <button
           type="submit"
-          className="w-full sm:w-auto shrink-0 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-2xl transition-colors shadow-lg sm:self-stretch"
+          className="cursor-pointer w-full sm:w-auto shrink-0 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-2xl transition-colors shadow-lg sm:self-stretch"
           aria-label="Search for accommodations"
         >
           <IoSearch className="text-lg sm:text-xl" aria-hidden="true" />
@@ -117,4 +124,3 @@ const SearchForm = ({
 };
 
 export default SearchForm;
-

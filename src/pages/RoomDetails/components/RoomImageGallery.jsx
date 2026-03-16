@@ -16,7 +16,7 @@ const RoomImageGallery = ({ images, roomName, onView3D }) => {
         <div className="flex justify-end">
           <button
             onClick={onView3D}
-            className="group flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold font-['Outfit'] shadow-lg shadow-blue-500/20 transition-all hover:scale-105 active:scale-95"
+            className="cursor-pointer group flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold font-['Outfit'] shadow-lg shadow-blue-500/20 transition-all hover:scale-105 active:scale-95"
           >
             <FaCube className="group-hover:rotate-12 transition-transform duration-300" size={20} />
             <span>Virtual 3D Tour</span>

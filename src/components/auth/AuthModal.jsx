@@ -72,7 +72,7 @@ const AuthModal = ({ variant }) => {
             <button
               type="button"
               onClick={handleClose}
-              className="absolute right-4 top-3.5 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+              className="cursor-pointer absolute right-4 top-3.5 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               aria-label="Close"
             >
               <span className="text-2xl leading-none">&times;</span>

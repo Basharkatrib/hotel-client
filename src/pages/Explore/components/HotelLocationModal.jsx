@@ -64,7 +64,7 @@ const HotelLocationModal = ({ hotel, isOpen, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+            className="cursor-pointer flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
             aria-label="Close"
           >
             <MdClose className="text-xl text-gray-500 dark:text-gray-400" />

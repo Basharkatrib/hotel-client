@@ -6,7 +6,7 @@ import SearchForm from './components/SearchForm';
 import HeroContent from './components/HeroContent';
 
 const Hero = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const [activeCategory, setActiveCategory] = useState('Hotel');
   const [location, setLocation] = useState('');

@@ -23,7 +23,7 @@ const CategoryTabs = ({ activeCategory, onCategoryChange }) => {
                 onClick={() => onCategoryChange(category.name)}
                 aria-label={`Filter by ${category.name}`}
                 aria-pressed={activeCategory === category.name}
-                className={`flex items-center gap-1 sm:gap-1.5 md:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 rounded-lg transition-all text-[9px] sm:text-xs md:text-sm font-medium ${activeCategory === category.name
+                className={`cursor-pointer flex items-center gap-1 sm:gap-1.5 md:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 rounded-lg transition-all text-[9px] sm:text-xs md:text-sm font-medium ${activeCategory === category.name
                     ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-lg'
                     : 'text-white hover:bg-white/20'
                   }`}

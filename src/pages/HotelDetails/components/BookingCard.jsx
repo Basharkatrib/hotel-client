@@ -146,7 +146,7 @@ const BookingCard = ({ hotel, selectedRoom = null, onDatesChange }) => {
           <button
             type="button"
             onClick={() => setAdults(Math.max(1, adults - 1))}
-            className="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="cursor-pointer w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             <span className="text-xl font-semibold text-gray-700 dark:text-gray-200">−</span>
           </button>
@@ -159,7 +159,7 @@ const BookingCard = ({ hotel, selectedRoom = null, onDatesChange }) => {
           <button
             type="button"
             onClick={() => setAdults(adults + 1)}
-            className="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="cursor-pointer w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             <span className="text-xl font-semibold text-gray-700 dark:text-gray-200">+</span>
           </button>
@@ -197,7 +197,7 @@ const BookingCard = ({ hotel, selectedRoom = null, onDatesChange }) => {
       {/* Show Rooms / Book Now Button */}
       <button
         onClick={selectedRoom ? handleBookNow : handleShowRooms}
-        className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-4"
+        className="cursor-pointer w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-4"
       >
         {selectedRoom ? 'Book Now' : 'Show Rooms'}
       </button>

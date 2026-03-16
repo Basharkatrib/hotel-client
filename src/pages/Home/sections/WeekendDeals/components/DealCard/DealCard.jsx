@@ -32,7 +32,7 @@ const DealCard = ({
             setIsFavorite(!isFavorite);
           }}
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-          className="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 z-10"
+          className="cursor-pointer absolute top-4 right-4 w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 z-10"
         >
           {isFavorite ? (
             <FaHeart className="text-red-500 text-lg" />

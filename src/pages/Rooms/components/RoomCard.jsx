@@ -103,7 +103,7 @@ const RoomCard = ({ room }) => {
           type="button"
           disabled={isUpdating}
           onClick={handleFavoriteToggle}
-          className={`absolute top-2 right-2 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg transition-all ${
+          className={`cursor-pointer absolute top-2 right-2 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg transition-all ${
             isUpdating ? 'cursor-not-allowed opacity-80' : 'hover:scale-110 active:scale-95'
           } ${isFavorited ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'}`}
           aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
@@ -251,7 +251,7 @@ const RoomCard = ({ room }) => {
           </div>
           <button
             onClick={handleViewDetails}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
+            className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
           >
             View Details
           </button>

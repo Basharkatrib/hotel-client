@@ -31,7 +31,7 @@ const RoomInfo = ({ room, isFavorited, onFavoriteToggle, isUpdating }) => {
             <button
               onClick={onFavoriteToggle}
               disabled={isUpdating}
-              className={`p-2 rounded-full transition-all duration-300 ${isFavorited ? 'text-red-500 bg-red-50 dark:bg-red-900/20' : 'text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
+              className={`cursor-pointer p-2 rounded-full transition-all duration-300 ${isFavorited ? 'text-red-500 bg-red-50 dark:bg-red-900/20' : 'text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                 } ${isUpdating ? 'opacity-50 cursor-not-allowed scale-90' : 'hover:scale-110 active:scale-95'}`}
               aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
             >

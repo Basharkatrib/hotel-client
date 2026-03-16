@@ -82,7 +82,7 @@ const HomesGuestsLove = () => {
           {/* Navigation Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <button
-              className="homes-guests-love-prev w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center hover:border-gray-900 dark:hover:border-blue-500 hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white text-gray-700 dark:text-gray-300 transition-all duration-200 shadow-sm"
+              className="cursor-pointer homes-guests-love-prev w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center hover:border-gray-900 dark:hover:border-blue-500 hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white text-gray-700 dark:text-gray-300 transition-all duration-200 shadow-sm"
               aria-label="Previous homes"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -90,7 +90,7 @@ const HomesGuestsLove = () => {
               </svg>
             </button>
             <button
-              className="homes-guests-love-next w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center hover:border-gray-900 dark:hover:border-blue-500 hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white text-gray-700 dark:text-gray-300 transition-all duration-200 shadow-sm"
+              className="cursor-pointer homes-guests-love-next w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex items-center justify-center hover:border-gray-900 dark:hover:border-blue-500 hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white text-gray-700 dark:text-gray-300 transition-all duration-200 shadow-sm"
               aria-label="Next homes"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

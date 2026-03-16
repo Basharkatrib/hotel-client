@@ -70,7 +70,7 @@ const SmartSearchWizard = () => {
                             <button
                                 key={city}
                                 onClick={() => updateFormData('city', city)}
-                                className="px-4 py-2 rounded-full text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 transition-colors"
+                                className="cursor-pointer px-4 py-2 rounded-full text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 transition-colors"
                             >
                                 {city}
                             </button>
@@ -150,7 +150,7 @@ const SmartSearchWizard = () => {
                         <button
                             key={item.id}
                             onClick={() => toggleAmenity(item.id)}
-                            className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${formData.amenities.includes(item.id)
+                            className={`cursor-pointer flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${formData.amenities.includes(item.id)
                                 ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                                 : 'border-gray-100 dark:border-gray-800 hover:border-gray-200'
                                 }`}
@@ -178,7 +178,7 @@ const SmartSearchWizard = () => {
                         <button
                             key={item.id}
                             onClick={() => updateFormData('view', item.id)}
-                            className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${formData.view === item.id
+                            className={`cursor-pointer w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${formData.view === item.id
                                 ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                                 : 'border-gray-100 dark:border-gray-800 hover:border-gray-200'
                                 }`}
@@ -250,7 +250,7 @@ const SmartSearchWizard = () => {
                             <p className="text-sm text-gray-500">Try adjusting your budget or amenities for more results.</p>
                             <button
                                 onClick={() => setStep(1)}
-                                className="text-blue-600 font-bold hover:underline"
+                                className="cursor-pointer text-blue-600 font-bold hover:underline"
                             >
                                 Start Over
                             </button>
@@ -270,7 +270,7 @@ const SmartSearchWizard = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 z-[90] flex items-center justify-center w-14 h-14 rounded-full bg-blue-600 text-white shadow-2xl hover:bg-blue-700 transition-colors group"
+                className="cursor-pointer fixed bottom-6 right-6 z-[90] flex items-center justify-center w-14 h-14 rounded-full bg-blue-600 text-white shadow-2xl hover:bg-blue-700 transition-colors group"
             >
                 <div className="absolute inset-0 rounded-full bg-blue-400 group-hover:animate-ping opacity-20" />
                 <IoSparkles className="text-2xl" />
@@ -322,7 +322,7 @@ const SmartSearchWizard = () => {
                                 </div>
                                 <button
                                     onClick={closeModal}
-                                    className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                                    className="cursor-pointer p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
                                 >
                                     <IoClose className="text-xl text-gray-500" />
                                 </button>
@@ -357,7 +357,7 @@ const SmartSearchWizard = () => {
                                 <button
                                     onClick={prevStep}
                                     disabled={step === 1}
-                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                                    className={`cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
                                         }`}
                                 >
                                     <IoChevronBack />
@@ -367,7 +367,7 @@ const SmartSearchWizard = () => {
                                 {step < totalSteps && (
                                     <button
                                         onClick={nextStep}
-                                        className="flex items-center gap-2 px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-95"
+                                        className="cursor-pointer flex items-center gap-2 px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-95"
                                     >
                                         Next
                                         <IoChevronForward />
@@ -376,7 +376,7 @@ const SmartSearchWizard = () => {
                                 {step === totalSteps && (
                                     <button
                                         onClick={closeModal}
-                                        className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold transition-all active:scale-95"
+                                        className="cursor-pointer flex items-center gap-2 px-6 py-2 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold transition-all active:scale-95"
                                     >
                                         Close
                                     </button>

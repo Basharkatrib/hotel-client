@@ -11,7 +11,7 @@ const TrendingDestinations = () => {
   const { data, isLoading, error } = useGetHotelsQuery({
     sort_by: 'rating',
     sort_order: 'desc',
-    per_page: 4
+    per_page: 4 
   });
 
   const categories = [
