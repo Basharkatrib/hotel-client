@@ -203,7 +203,10 @@ export const hotelsApi = createApi({
       query: () => '/notifications',
       providesTags: ['Notifications'],
     }),
-
+    getLocations: builder.query({
+      query: () => '/locations',
+      providesTags: ['Hotels'],
+    }),
     markAsRead: builder.mutation({
       query: (id) => ({
         url: `/notifications/${id}/read`,
@@ -229,6 +232,7 @@ export const {
   useGetRoomQuery,
   useGetRecommendationsQuery,
   useGetNotificationsQuery,
+  useGetLocationsQuery,
   useMarkAsReadMutation,
   useMarkAllAsReadMutation
 } = hotelsApi;

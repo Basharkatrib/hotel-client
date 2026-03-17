@@ -75,6 +75,8 @@ const column2Fields = [
 ];
 
 function renderField(field, value, onChange) {
+
+
   if (field.type === "select") {
     return (
       <select
@@ -122,25 +124,21 @@ function MyProfile() {
   });
 
   useEffect(() => {
-    // الـ API بيرجع الشكل: { status, data: { user: {...} } }
-    // لذلك نقرأ من data.data.user وليس data.user مباشرة
-    const u = data?.data?.user || data?.user;
+    const u = data?.data?.user;
+    if (!u) return;
 
-    if (u) {
-      setFormData((prev) => ({
-        ...prev,
-        first_name: u.first_name || "",
-        last_name: u.last_name || "",
-        email: u.email || "",
-        avatar: u.avatar || "",
-        phone: u.phone || "",
-        gender: u.gender || "",
-        birthday: u.birthday ? String(u.birthday).substring(0, 10) : "",
-        address: u.address || "",
-        country: u.country || "",
-        zip_code: u.zip_code || "",
-      }));
-    }
+    setFormData({
+      first_name: u.first_name || "",
+      last_name: u.last_name || "",
+      email: u.email || "",
+      avatar: u.avatar || "",
+      phone: u.phone || "",
+      gender: u.gender || "",
+      birthday: u.birthday ? String(u.birthday).substring(0, 10) : "",
+      address: u.address || "",
+      country: u.country || "",
+      zip_code: u.zip_code || "",
+    });
   }, [data]);
 
   const handleChange = (name, value) => {
@@ -189,7 +187,7 @@ function MyProfile() {
         {/* Avatar + Edit button row */}
         <div className="flex w-full items-center justify-between px-6 pt-6 pb-4">
           {/* Left: avatar with small camera icon */}
-          <div className="relative w-25 h-25 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold text-gray-600 dark:text-gray-400">
+          <div className="relative bg-blue-600 w-25 h-25 rounded-full dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold text-white dark:text-gray-400">
             {formData.avatar ? (
               <img
                 src={`${import.meta.env.VITE_API_URL}${formData.avatar}`}
@@ -198,8 +196,7 @@ function MyProfile() {
               />
             ) : (
               <span>
-                {(formData.first_name?.[0] || "") +
-                  (formData.last_name?.[0] || "") || "U"}
+                {(formData.first_name?.[0] || "")}
               </span>
             )}
             {/* Small camera button on avatar */}
