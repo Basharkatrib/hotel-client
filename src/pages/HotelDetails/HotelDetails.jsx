@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetHotelQuery, useGetRoomsQuery } from '../../services/hotelsApi';
@@ -19,16 +19,24 @@ import '../../index.css';
 
 const HotelDetails = () => {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState('overview');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMobileBookingOpen, setIsMobileBookingOpen] = useState(false);
 
   // Booking state to share between BookingCard and RoomsSection
-  const [bookingDates, setBookingDates] = useState({
-    checkIn: new Date(Date.now() + 86400000).toISOString(),
-    checkOut: new Date(Date.now() + 86400000 * 6).toISOString(),
-    guests: 2,
+  const [bookingDates, setBookingDates] = useState(() => {
+    const urlCheckIn = searchParams.get('check_in_date');
+    const urlCheckOut = searchParams.get('check_out_date');
+    const urlGuests = parseInt(searchParams.get('guests'));
+
+    // We keep dates as strings (YYYY-MM-DD) to avoid timezone shifts
+    return {
+      checkIn: urlCheckIn || new Date(Date.now() + 86400000).toISOString().split('T')[0],
+      checkOut: urlCheckOut || new Date(Date.now() + 86400000 * 6).toISOString().split('T')[0],
+      guests: !isNaN(urlGuests) ? urlGuests : 2,
+    };
   });
 
   // Refs for scrolling
@@ -95,8 +103,8 @@ const HotelDetails = () => {
       ? {
         hotel_id: hotelId,
         per_page: 20,
-        check_in_date: bookingDates.checkIn ? new Date(bookingDates.checkIn).toISOString().split('T')[0] : undefined,
-        check_out_date: bookingDates.checkOut ? new Date(bookingDates.checkOut).toISOString().split('T')[0] : undefined,
+        check_in_date: bookingDates.checkIn || undefined,
+        check_out_date: bookingDates.checkOut || undefined,
         max_guests: bookingDates.guests || undefined,
       }
       : skipToken
@@ -310,6 +318,7 @@ const HotelDetails = () => {
               <BookingCard
                 hotel={hotel}
                 onDatesChange={setBookingDates}
+                initialBookingDates={bookingDates}
               />
             </div>
           </div>
@@ -365,6 +374,7 @@ const HotelDetails = () => {
               <BookingCard
                 hotel={hotel}
                 onDatesChange={setBookingDates}
+                initialBookingDates={bookingDates}
               />
             </div>
           </div>

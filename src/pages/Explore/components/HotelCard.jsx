@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart, FaStar, FaUmbrellaBeach } from 'react-icons/fa';
 import { CgSpinner } from 'react-icons/cg';
@@ -17,6 +17,7 @@ import RatingBadge from '../../../components/common/RatingBadge';
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFavorited, setIsFavorited] = useState(Boolean(hotel.is_favorited));
@@ -152,7 +153,7 @@ const HotelCard = ({ hotel }) => {
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
             <div>
               <h2
-                onClick={() => navigate(`/hotel/${hotel.slug}`)}
+                onClick={() => navigate(`/hotel/${hotel.slug}?${searchParams.toString()}`)}
                 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors"
               >
                 {hotel.name}
@@ -237,7 +238,7 @@ const HotelCard = ({ hotel }) => {
             </div>
 
             <button
-              onClick={() => navigate(`/hotel/${hotel.slug}`)}
+              onClick={() => navigate(`/hotel/${hotel.slug}?${searchParams.toString()}`)}
               className="cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-lg shadow-blue-500/25 flex items-center gap-2 group/btn"
             >
               <span>Visit Hotel</span>
