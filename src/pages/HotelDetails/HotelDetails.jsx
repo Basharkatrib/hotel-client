@@ -31,13 +31,25 @@ const HotelDetails = () => {
     const urlCheckOut = searchParams.get('check_out_date');
     const urlGuests = parseInt(searchParams.get('guests'));
 
+    // Check localStorage fallback
+    const savedCheckIn = localStorage.getItem('hotel_search_check_in');
+    const savedCheckOut = localStorage.getItem('hotel_search_check_out');
+    const savedGuests = localStorage.getItem('hotel_search_guests');
+
     // We keep dates as strings (YYYY-MM-DD) to avoid timezone shifts
     return {
-      checkIn: urlCheckIn || new Date(Date.now() + 86400000).toISOString().split('T')[0],
-      checkOut: urlCheckOut || new Date(Date.now() + 86400000 * 6).toISOString().split('T')[0],
-      guests: !isNaN(urlGuests) ? urlGuests : 2,
+      checkIn: urlCheckIn || savedCheckIn || new Date(Date.now() + 86400000).toISOString().split('T')[0],
+      checkOut: urlCheckOut || savedCheckOut || new Date(Date.now() + 86400000 * 6).toISOString().split('T')[0],
+      guests: !isNaN(urlGuests) ? urlGuests : (savedGuests ? parseInt(savedGuests) : 2),
     };
   });
+
+  // Sync booking dates to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem('hotel_search_check_in', bookingDates.checkIn);
+    localStorage.setItem('hotel_search_check_out', bookingDates.checkOut);
+    localStorage.setItem('hotel_search_guests', String(bookingDates.guests));
+  }, [bookingDates]);
 
   // Refs for scrolling
   const overviewRef = useRef(null);

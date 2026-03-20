@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bannerImg from '../../../../assets/Home/banner/bg-banner.jpg';
 import CategoryTabs from './components/CategoryTabs';
@@ -9,11 +9,33 @@ const Hero = () => {
   const navigate = useNavigate(); 
 
   const [activeCategory, setActiveCategory] = useState('Hotel');
-  const [location, setLocation] = useState('');
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
+  
+  // Load initial search params from localStorage
+  const [location, setLocation] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_location');
+    return saved || '';
+  });
+  const [checkIn, setCheckIn] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_check_in');
+    return saved || '';
+  });
+  const [checkOut, setCheckOut] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_check_out');
+    return saved || '';
+  });
   const [rooms] = useState(1);
-  const [guests, setGuests] = useState(1);
+  const [guests, setGuests] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_guests');
+    return saved ? parseInt(saved) : 1;
+  });
+
+  // Auto-save changes to localStorage
+  useEffect(() => {
+    if (location) localStorage.setItem('hotel_search_location', location);
+    if (checkIn) localStorage.setItem('hotel_search_check_in', checkIn);
+    if (checkOut) localStorage.setItem('hotel_search_check_out', checkOut);
+    localStorage.setItem('hotel_search_guests', String(guests));
+  }, [location, checkIn, checkOut, guests]);
 
   const handleSearch = (formValues) => {
     const {

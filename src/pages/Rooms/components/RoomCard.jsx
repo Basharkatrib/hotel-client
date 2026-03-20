@@ -5,7 +5,7 @@ import { FaMapMarkerAlt, FaBed, FaUsers, FaWifi, FaSnowflake, FaTv, FaUtensils, 
 import { CgSpinner } from 'react-icons/cg';
 import { MdBalcony } from 'react-icons/md';
 import { getImageUrls } from '../../../utils/imageHelper';
-import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
+import { useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
 import { toast } from 'react-toastify';
 import RatingBadge from '../../../components/common/RatingBadge';
 
@@ -17,19 +17,26 @@ const RoomCard = ({ room }) => {
   const images = getImageUrls(room.images);
   const mainImage = images[0] || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
 
-  const hasDiscount = room.original_price && room.original_price > room.price_per_night;
+  // ✅ الخصم من الإعلان
+  const hasDiscount = room.has_discount;
+  const discountInfo = room.advertisement_discount; // { value: 10, type: 'percentage' | 'fixed' }
+
+  // حساب السعر الأصلي قبل الخصم (للعرض فقط)
+  const originalPrice = hasDiscount && discountInfo
+    ? discountInfo.type === 'percentage'
+      ? (room.price_per_night / (1 - discountInfo.value / 100))
+      : (room.price_per_night + discountInfo.value)
+    : null;
 
   const [addToFavorites, { isLoading: isAdding }] = useAddToFavoritesMutation();
   const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
-  
+
   const isUpdating = isAdding || isRemoving;
 
-  // Sync with prop changes if needed
   useEffect(() => {
     setIsFavorited(Boolean(room.is_favorited));
   }, [room.is_favorited]);
 
-  // Build bed description
   const beds = [];
   if (room.single_beds > 0) beds.push(`${room.single_beds} Single`);
   if (room.double_beds > 0) beds.push(`${room.double_beds} Double`);
@@ -85,15 +92,17 @@ const RoomCard = ({ room }) => {
         />
 
         {/* Discount Badge */}
-        {hasDiscount && (
+        {hasDiscount && discountInfo && (
           <div className="absolute top-2 left-2 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
-            {room.discount_percentage}% OFF
+            {discountInfo.type === 'percentage'
+              ? `${discountInfo.value}% OFF`
+              : `-$${discountInfo.value}`}
           </div>
         )}
 
         {/* Availability Badge */}
         {!room.is_available && (
-          <div className="absolute top-2 left-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+          <div className={`absolute px-3 py-1 rounded-full text-xs font-semibold shadow-lg text-white bg-red-600 ${hasDiscount ? 'top-9 left-2' : 'top-2 left-2'}`}>
             Not Available
           </div>
         )}
@@ -232,16 +241,21 @@ const RoomCard = ({ room }) => {
         {/* Price */}
         <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
           <div>
-            {hasDiscount && (
+            {/* السعر الأصلي مشطوب + badge الخصم */}
+            {hasDiscount && discountInfo && originalPrice && (
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-sm text-gray-400 dark:text-gray-500 line-through">
-                  ${Number(room.original_price).toFixed(0)}
+                  ${Number(originalPrice).toFixed(0)}
                 </span>
                 <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full text-xs font-bold">
-                  Save {room.discount_percentage}%
+                  {discountInfo.type === 'percentage'
+                    ? `Save ${discountInfo.value}%`
+                    : `Save $${discountInfo.value}`}
                 </span>
               </div>
             )}
+
+            {/* السعر بعد الخصم */}
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 ${Number(room.price_per_night).toFixed(0)}
@@ -249,6 +263,7 @@ const RoomCard = ({ room }) => {
               <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">/ night</span>
             </div>
           </div>
+
           <button
             onClick={handleViewDetails}
             className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
@@ -262,4 +277,3 @@ const RoomCard = ({ room }) => {
 };
 
 export default RoomCard;
-
