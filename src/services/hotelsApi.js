@@ -222,6 +222,10 @@ export const hotelsApi = createApi({
       }),
       invalidatesTags: ['Notifications'],
     }),
+    getAdvertisements: builder.query({
+      query: () => '/advertisements',
+      providesTags: ['Hotels'],
+    }),
   }),
 });
 
@@ -234,6 +238,7 @@ export const {
   useGetNotificationsQuery,
   useGetLocationsQuery,
   useMarkAsReadMutation,
-  useMarkAllAsReadMutation
+  useMarkAllAsReadMutation,
+  useGetAdvertisementsQuery
 } = hotelsApi;
 
