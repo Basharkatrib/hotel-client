@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSendChatMessageMutation } from '../../services/api';
-import { FaRobot, FaTimes, FaPaperPlane, FaChevronDown, FaCommentDots } from 'react-icons/fa';
+import { FaRobot, FaTimes, FaPaperPlane } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi2';
 import { IoSparkles } from 'react-icons/io5';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,14 +21,12 @@ const ChatWidget = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [sendChatMessage, { isLoading }] = useSendChatMessageMutation();
 
-  // Auto-scroll to bottom
   useEffect(() => {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isOpen]);
 
-  // Focus input when opened
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
@@ -44,8 +42,10 @@ const ChatWidget = () => {
     setMessages(updatedMessages);
     setInputValue('');
 
+    // FIX: Send only the last 6 user/assistant messages to avoid token limit
     const apiMessages = updatedMessages
       .filter((m) => m.role === 'user' || m.role === 'assistant')
+      .slice(-6)
       .map((m) => ({ role: m.role, content: m.content }));
 
     try {
@@ -90,12 +90,11 @@ const ChatWidget = () => {
 
   return (
     <>
-      {/* Container for Floating Buttons */}
+      {/* Floating Buttons */}
       <div className="fixed bottom-6 right-6 z-[101] flex flex-col items-center gap-3">
         <AnimatePresence>
           {isMenuOpen && (
             <>
-              {/* Smart Search Option */}
               <motion.div
                 initial={{ opacity: 0, y: 15, scale: 0.8 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -113,7 +112,6 @@ const ChatWidget = () => {
                 </button>
               </motion.div>
 
-              {/* AI Chat Option */}
               <motion.div
                 initial={{ opacity: 0, y: 15, scale: 0.8 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -135,7 +133,7 @@ const ChatWidget = () => {
           )}
         </AnimatePresence>
 
-        {/* Main Magic Button */}
+        {/* Main Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className={`relative z-10 flex items-center justify-center w-13 h-13 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
@@ -143,7 +141,7 @@ const ChatWidget = () => {
           } text-white`}
         >
           {isMenuOpen ? (
-            <FaTimes size={20} className="rotate-0 transition-transform duration-300" />
+            <FaTimes size={20} />
           ) : (
             <HiSparkles size={24} className="animate-pulse" />
           )}
@@ -176,7 +174,6 @@ const ChatWidget = () => {
             <button
               onClick={() => setIsOpen(false)}
               className="p-1.5 rounded-full hover:bg-blue-500 transition-colors cursor-pointer"
-              aria-label="Close chat"
             >
               <FaTimes size={14} />
             </button>
@@ -185,10 +182,7 @@ const ChatWidget = () => {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-gray-50 dark:bg-gray-900">
             {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.role === 'assistant' && (
                   <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center mr-2 mt-0.5">
                     <FaRobot size={12} className="text-white" />
@@ -206,7 +200,6 @@ const ChatWidget = () => {
               </div>
             ))}
 
-            {/* Typing indicator */}
             {isLoading && (
               <div className="flex justify-start">
                 <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center mr-2">
@@ -227,13 +220,10 @@ const ChatWidget = () => {
           {/* Quick Actions */}
           {messages.length <= 1 && (
             <div className="px-4 py-2 flex flex-wrap gap-2 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 flex-shrink-0">
-              {['🏨 Hotels in spain', '📋 My Bookings', '💡 How to book?'].map((q) => (
+              {['🏨 Hotels in Spain', '📋 My Bookings', '💡 How to book?'].map((q) => (
                 <button
                   key={q}
-                  onClick={() => {
-                    setInputValue(q.slice(2).trim());
-                    inputRef.current?.focus();
-                  }}
+                  onClick={() => { setInputValue(q.slice(2).trim()); inputRef.current?.focus(); }}
                   className="text-xs px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-pointer"
                 >
                   {q}
