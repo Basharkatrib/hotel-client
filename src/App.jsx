@@ -7,6 +7,7 @@ import { AccountLayout, MainLayout } from "./components/layout";
 import { ThemeProvider } from "./context/ThemeContext";
 import SmartSearchWizard from "./components/common/SmartSearch/SmartSearchWizard";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ChatWidget from "./components/ui/ChatWidget";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Explore from "./pages/Explore/Explore.jsx";
 import Home from "./pages/Home/index";
@@ -98,6 +99,7 @@ function App() {
           <AuthOverlay />
           <AuthChecker />
           <SmartSearchWizard />
+          <ChatWidget />
         </Suspense>
       </BrowserRouter>
     </ThemeProvider>

@@ -163,6 +163,15 @@ export const api = createApi({
         body: data,
       }),
     }),
+
+    // AI Chat
+    sendChatMessage: builder.mutation({
+      query: (messages) => ({
+        url: '/chat',
+        method: 'POST',
+        body: { messages },
+      }),
+    }),
   }),
 });
 
@@ -181,4 +190,5 @@ export const {
   useUpdateProfileMutation,
   useUploadAvatarMutation,
   useUpdateFcmTokenMutation,
+  useSendChatMessageMutation,
 } = api;
