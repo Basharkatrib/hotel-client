@@ -145,6 +145,15 @@ export const api = createApi({
       invalidatesTags: ['User'],
     }),
 
+    // Delete avatar
+    deleteAvatar: builder.mutation({
+      query: () => ({
+        url: '/user/avatar',
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['User'],
+    }),
+
     // Logout
     // Logout
     logout: builder.mutation({
@@ -189,6 +198,7 @@ export const {
   useLogoutMutation,
   useUpdateProfileMutation,
   useUploadAvatarMutation,
+  useDeleteAvatarMutation,
   useUpdateFcmTokenMutation,
   useSendChatMessageMutation,
 } = api;
