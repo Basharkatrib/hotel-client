@@ -5,7 +5,7 @@ import VideoThumbnail from "./components/VideoThumbnail";
 const ExploreInMotion = () => {
   const mainVideo = {
     image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWFsZGl2ZXN8fHx8fHwxNjg3OTQxOTk5&ixlib=rb-4.0.3&q=80&w=1200",
     title: "Step Into a world",
     subtitle: "of Luxury",
     description:
@@ -17,26 +17,25 @@ const ExploreInMotion = () => {
     {
       id: 1,
       image:
-        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80",
+        "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
       location: "Maldives, Asia",
       rating: 4.5,
     },
     {
       id: 2,
       image:
-        "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
       location: "Phuket, Thailand",
       rating: 4.5,
     },
     {
       id: 3,
       image:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
       location: "Maui, Hawaii, USA",
       rating: 4.5,
     },
   ];
-
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-background transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
