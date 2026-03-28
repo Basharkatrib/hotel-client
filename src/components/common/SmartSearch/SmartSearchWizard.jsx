@@ -263,24 +263,6 @@ const SmartSearchWizard = () => {
 
     return (
         <>
-            {/* Floating Action Button */}
-            <motion.button
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(true)}
-                className="cursor-pointer fixed bottom-6 right-6 z-[90] flex items-center justify-center w-14 h-14 rounded-full bg-blue-600 text-white shadow-2xl hover:bg-blue-700 transition-colors group"
-            >
-                <div className="absolute inset-0 rounded-full bg-blue-400 group-hover:animate-ping opacity-20" />
-                <IoSparkles className="text-2xl" />
-
-                {/* Tooltip */}
-                <div className="absolute right-full mr-4 px-3 py-1 bg-gray-900 text-white text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                    Smart Search
-                </div>
-            </motion.button>
-
             <AnimatePresence>
                 {isOpen && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">

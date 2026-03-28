@@ -22,9 +22,25 @@ const RoomDetails = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
 
-  const [checkIn, setCheckIn] = useState(addDays(new Date(), 1));
-  const [checkOut, setCheckOut] = useState(addDays(new Date(), 6));
-  const [guests, setGuests] = useState(2);
+  // Safe date parsing for YYYY-MM-DD strings
+  const parseYYYYMMDD = (str) => {
+    if (!str) return null;
+    const [y, m, d] = str.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  };
+
+  const [checkIn, setCheckIn] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_check_in');
+    return saved ? parseYYYYMMDD(saved) : addDays(new Date(), 1);
+  });
+  const [checkOut, setCheckOut] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_check_out');
+    return saved ? parseYYYYMMDD(saved) : addDays(new Date(), 6);
+  });
+  const [guests, setGuests] = useState(() => {
+    const saved = localStorage.getItem('hotel_search_guests');
+    return saved ? parseInt(saved) : 2;
+  });
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
   const [availabilityStatus, setAvailabilityStatus] = useState(null);
 
@@ -172,15 +188,29 @@ const RoomDetails = () => {
     });
   };
 
+  const getDayString = (date) => {
+    if (!date) return "";
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  };
+
   const handleCheckInChange = (date) => {
     setCheckIn(date);
+    const dateStr = getDayString(date);
+    localStorage.setItem("hotel_search_check_in", dateStr);
+    
     if (date >= checkOut) {
-      setCheckOut(addDays(date, 1));
+      const nextDate = addDays(date, 1);
+      setCheckOut(nextDate);
+      localStorage.setItem("hotel_search_check_out", getDayString(nextDate));
     }
   };
 
   const handleCheckOutChange = (date) => {
     setCheckOut(date);
+    localStorage.setItem("hotel_search_check_out", getDayString(date));
   };
 
   const handleGuestsChange = (newGuests) => {
@@ -189,6 +219,7 @@ const RoomDetails = () => {
       return;
     }
     setGuests(newGuests);
+    localStorage.setItem("hotel_search_guests", String(newGuests));
   };
 
   if (isLoading) {

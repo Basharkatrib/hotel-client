@@ -1,11 +1,13 @@
 // MyProfile.jsx
 import React, { useEffect, useState, useRef } from "react";
-import { X, Save, Camera } from "lucide-react";
+import { X, Save, Camera, Trash2, AlertTriangle } from "lucide-react";
 import { toast } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   useGetUserQuery,
   useUpdateProfileMutation,
   useUploadAvatarMutation,
+  useDeleteAvatarMutation,
 } from "@/services/api";
 
 const column1Fields = [
@@ -75,6 +77,8 @@ const column2Fields = [
 ];
 
 function renderField(field, value, onChange) {
+
+
   if (field.type === "select") {
     return (
       <select
@@ -106,6 +110,8 @@ function MyProfile() {
   const { data, isLoading } = useGetUserQuery();
   const [updateProfile, { isLoading: isSaving }] = useUpdateProfileMutation();
   const [uploadAvatar, { isLoading: isUploading }] = useUploadAvatarMutation();
+  const [deleteAvatar, { isLoading: isDeletingAvatar }] = useDeleteAvatarMutation();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -122,25 +128,21 @@ function MyProfile() {
   });
 
   useEffect(() => {
-    // الـ API بيرجع الشكل: { status, data: { user: {...} } }
-    // لذلك نقرأ من data.data.user وليس data.user مباشرة
-    const u = data?.data?.user || data?.user;
+    const u = data?.data?.user;
+    if (!u) return;
 
-    if (u) {
-      setFormData((prev) => ({
-        ...prev,
-        first_name: u.first_name || "",
-        last_name: u.last_name || "",
-        email: u.email || "",
-        avatar: u.avatar || "",
-        phone: u.phone || "",
-        gender: u.gender || "",
-        birthday: u.birthday ? String(u.birthday).substring(0, 10) : "",
-        address: u.address || "",
-        country: u.country || "",
-        zip_code: u.zip_code || "",
-      }));
-    }
+    setFormData({
+      first_name: u.first_name || "",
+      last_name: u.last_name || "",
+      email: u.email || "",
+      avatar: u.avatar || "",
+      phone: u.phone || "",
+      gender: u.gender || "",
+      birthday: u.birthday ? String(u.birthday).substring(0, 10) : "",
+      address: u.address || "",
+      country: u.country || "",
+      zip_code: u.zip_code || "",
+    });
   }, [data]);
 
   const handleChange = (name, value) => {
@@ -173,36 +175,58 @@ function MyProfile() {
       console.error("Failed to upload avatar", err);
       toast.error("Failed to upload avatar. Please try again.");
     } finally {
-      // Reset input so same file can be selected again if needed
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
     }
   };
 
+  const handleAvatarDelete = () => {
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteAvatar = async () => {
+    try {
+      await deleteAvatar().unwrap();
+      setFormData((prev) => ({ ...prev, avatar: "" }));
+      toast.success("Profile photo removed");
+      setShowDeleteModal(false);
+    } catch (err) {
+      console.error("Failed to delete avatar", err);
+      toast.error("Failed to delete profile photo.");
+    }
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <form
         className="bg-white dark:bg-card rounded-xl transition-colors duration-300"
         onSubmit={handleSubmit}
       >
-        {/* Avatar + Edit button row */}
         <div className="flex w-full items-center justify-between px-6 pt-6 pb-4">
-          {/* Left: avatar with small camera icon */}
-          <div className="relative w-25 h-25 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold text-gray-600 dark:text-gray-400">
+          <div className="relative bg-blue-600 w-25 h-25 rounded-full dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold text-white dark:text-gray-400">
             {formData.avatar ? (
-              <img
-                src={`${import.meta.env.VITE_API_URL}${formData.avatar}`}
-                alt="Profile avatar"
-                className="w-full h-full object-cover rounded-full"
-              />
+              <>
+                <img
+                  src={`${import.meta.env.VITE_API_URL || ''}${formData.avatar}`}
+                  alt="Profile avatar"
+                  className="w-full h-full object-cover rounded-full"
+                />
+                {/* Trash icon overlay when hovering or always? Let's do a top-right overlay */}
+                <button
+                  type="button"
+                  onClick={() => setShowDeleteModal(true)}
+                  className="cursor-pointer absolute -top-1 -right-1 z-40 flex h-8 w-8 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800 shadow-sm hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
+                  title="Delete profile photo"
+                >
+                  <Trash2 className="w-4 h-4 text-red-600 dark:text-red-400" />
+                </button>
+              </>
             ) : (
               <span>
-                {(formData.first_name?.[0] || "") +
-                  (formData.last_name?.[0] || "") || "U"}
+                {(formData.first_name?.[0] || "U").toUpperCase()}
               </span>
             )}
-            {/* Small camera button on avatar */}
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
@@ -312,6 +336,56 @@ function MyProfile() {
           </button>
         </div>
       </form>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowDeleteModal(false)}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-sm bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 overflow-hidden"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-4">
+                  <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  Delete Photo?
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
+                  Are you sure you want to remove your profile picture? This action cannot be undone.
+                </p>
+                <div className="flex w-full gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowDeleteModal(false)}
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={confirmDeleteAvatar}
+                    disabled={isDeletingAvatar}
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold shadow-lg shadow-red-200 dark:shadow-none transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                  >
+                    {isDeletingAvatar ? "Deleting..." : "Delete"}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

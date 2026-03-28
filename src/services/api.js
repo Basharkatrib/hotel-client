@@ -145,6 +145,15 @@ export const api = createApi({
       invalidatesTags: ['User'],
     }),
 
+    // Delete avatar
+    deleteAvatar: builder.mutation({
+      query: () => ({
+        url: '/user/avatar',
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['User'],
+    }),
+
     // Logout
     // Logout
     logout: builder.mutation({
@@ -161,6 +170,15 @@ export const api = createApi({
         url: '/user/fcm-token',
         method: 'POST',
         body: data,
+      }),
+    }),
+
+    // AI Chat
+    sendChatMessage: builder.mutation({
+      query: (messages) => ({
+        url: '/chat',
+        method: 'POST',
+        body: { messages },
       }),
     }),
   }),
@@ -180,5 +198,7 @@ export const {
   useLogoutMutation,
   useUpdateProfileMutation,
   useUploadAvatarMutation,
+  useDeleteAvatarMutation,
   useUpdateFcmTokenMutation,
+  useSendChatMessageMutation,
 } = api;

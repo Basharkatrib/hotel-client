@@ -218,8 +218,18 @@ const Navbar = () => {
                       {/* User Info Header */}
                       <div className="px-4 py-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 border-b border-gray-100 dark:border-gray-700">
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-md">
-                            {user?.name?.charAt(0).toUpperCase() || "U"}
+                          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-md overflow-hidden">
+                            {user?.avatar ? (
+                              <img
+                                src={`${import.meta.env.VITE_API_URL || ''}${user.avatar}`}
+                                alt="Profile"
+                                className="w-full h-full object-cover"
+                                onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                              />
+                            ) : null}
+                            <span className={`${user?.avatar ? 'hidden' : 'flex'} items-center justify-center w-full h-full`}>
+                              {user?.name?.charAt(0).toUpperCase() || "U"}
+                            </span>
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
@@ -424,8 +434,18 @@ const Navbar = () => {
                     className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-4"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-md">
-                        {user?.name?.charAt(0).toUpperCase() || "U"}
+                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-md overflow-hidden">
+                        {user?.avatar ? (
+                          <img
+                            src={`${import.meta.env.VITE_API_URL || ''}${user.avatar}`}
+                            alt="Profile"
+                            className="w-full h-full object-cover"
+                            onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                          />
+                        ) : null}
+                        <span className={`${user?.avatar ? 'hidden' : 'flex'} items-center justify-center w-full h-full`}>
+                          {user?.name?.charAt(0).toUpperCase() || "U"}
+                        </span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">

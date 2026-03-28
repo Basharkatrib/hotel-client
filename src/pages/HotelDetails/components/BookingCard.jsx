@@ -6,19 +6,39 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { differenceInDays, addDays } from 'date-fns';
 import { toast } from 'react-toastify';
 
-const BookingCard = ({ hotel, selectedRoom = null, onDatesChange }) => {
+const BookingCard = ({ hotel, selectedRoom = null, onDatesChange, initialBookingDates }) => {
   const navigate = useNavigate();
-  const [checkIn, setCheckIn] = useState(addDays(new Date(), 1));
-  const [checkOut, setCheckOut] = useState(addDays(new Date(), 6));
+  
+  // Safe date parsing for YYYY-MM-DD strings
+  const parseYYYYMMDD = (str) => {
+    if (!str) return null;
+    const [y, m, d] = str.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  };
+
+  const getDayString = (date) => {
+    if (!date) return '';
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
+  const [checkIn, setCheckIn] = useState(() => 
+    initialBookingDates?.checkIn ? parseYYYYMMDD(initialBookingDates.checkIn) : addDays(new Date(), 1)
+  );
+  const [checkOut, setCheckOut] = useState(() => 
+    initialBookingDates?.checkOut ? parseYYYYMMDD(initialBookingDates.checkOut) : addDays(new Date(), 6)
+  );
   const [rooms, setRooms] = useState(1);
-  const [adults, setAdults] = useState(2);
+  const [adults, setAdults] = useState(initialBookingDates?.guests || 2);
 
   // Update parent component when dates change
   useEffect(() => {
     if (onDatesChange) {
       onDatesChange({
-        checkIn: checkIn.toISOString(),
-        checkOut: checkOut.toISOString(),
+        checkIn: getDayString(checkIn),
+        checkOut: getDayString(checkOut),
         guests: adults,
       });
     }
