@@ -107,7 +107,7 @@ const ContactUs = () => {
                 className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all placeholder:text-gray-500 resize-none text-sm"
               />
 
-              <button className="w-full py-2.5 bg-[#2563EB] text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all text-sm">
+              <button className="cursor-pointer w-full py-2.5 bg-[#2563EB] text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all text-sm">
                 Send Message
               </button>
             </form>
