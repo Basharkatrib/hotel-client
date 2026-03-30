@@ -27,7 +27,7 @@ const VideoCard = ({ image, title, subtitle, description, buttonText }) => {
           </p>
           <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors shadow-lg">
             {buttonText}
-          </button>
+          </button> 
         </div>
       </div>
     </div>

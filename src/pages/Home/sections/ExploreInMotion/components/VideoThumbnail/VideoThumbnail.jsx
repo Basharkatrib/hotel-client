@@ -23,7 +23,7 @@ const VideoThumbnail = ({ image, location, rating }) => {
       <div className="relative h-40 sm:h-36 overflow-hidden">
         <img
           src={image}
-          alt={location}
+          alt={location} 
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />

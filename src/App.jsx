@@ -20,6 +20,7 @@ import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import MyBookings from "./pages/MyBookings";
 import PersonalDataForm from "./pages/personalDataForm/PersonalDataForm";
+import PartnerForm from "./pages/PartnerForm/PartnerForm";
 // Lazy load pages for better performance
 // const Home = lazy(() => import("./pages/Home/index"));
 // const Explore = lazy(() => import("./pages/Explore/Explore.jsx"));
@@ -67,6 +68,7 @@ function App() {
               <Route path="/hotel/:slug" element={<HotelDetails />} />
 
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/partnerform" element={<PartnerForm />} />
 
               {/* Booking routes */}
               <Route

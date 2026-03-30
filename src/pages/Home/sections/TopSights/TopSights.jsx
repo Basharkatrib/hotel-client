@@ -1,42 +1,47 @@
-import React from 'react';
-import SightCard from './components/SightCard';
+import React from "react";
+import SightCard from "./components/SightCard";
 
 const TopSights = () => {
   const sights = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
-      location: 'Sassnitz',
-      country: 'Finland',
-      flag: '🇫🇮',
+      image:
+        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80", // Eiffel Tower
+      location: "Paris",
+      country: "France",
+      flag: "🇫🇷",
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80',
-      location: 'Binz',
-      country: 'Vietnam',
-      flag: '🇻🇳',
+      image:
+        "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80", // Colosseum
+      location: "Rome",
+      country: "Italy",
+      flag: "🇮🇹",
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&q=80',
-      location: 'Sagard',
-      country: 'France',
-      flag: '🇫🇷',
+      image:
+        "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=800&q=80", // Barcelona
+      location: "Barcelona",
+      country: "Spain",
+      flag: "SP",
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80',
-      location: 'Bergen',
-      country: 'United Kingdom',
-      flag: '🇬🇧',
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
+      location: "Bergen",
+      country: "Norway",
+      flag: "🇳🇴",
     },
     {
       id: 5,
-      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=80',
-      location: 'Freedom',
-      country: 'United States',
-      flag: '🇺🇸',
+      image:
+        "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800&q=80", // Brooklyn Bridge
+      location: "New York",
+      country: "United States",
+      flag: "🇺🇸",
     },
   ];
 
@@ -99,4 +104,3 @@ const TopSights = () => {
 };
 
 export default TopSights;
-
