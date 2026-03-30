@@ -68,15 +68,26 @@ const PartnerForm = () => {
 
         {/* Stepper Progress */}
         <div className="relative mb-16 px-4">
-          <div className="absolute top-5 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-700 -z-0"></div>
-          <div className="relative z-10 flex justify-between">
-            <StepItem number="1" label="HOTEL INFO" active={isStep1Complete} />
+          {/* حاوية الدوائر */}
+          <div className="relative z-10 flex justify-between items-center w-full">
+            <StepItem
+              number="1"
+              label="HOTEL INFO"
+              active={isStep1Complete}
+              position="start"
+            />
             <StepItem
               number="2"
               label="REPRESENTATIVE"
               active={isStep2Complete}
+              position="center"
             />
-            <StepItem number="3" label="DOCUMENTS" active={isStep3Complete} />
+            <StepItem
+              number="3"
+              label="DOCUMENTS"
+              active={isStep3Complete}
+              position="end"
+            />
           </div>
         </div>
 
@@ -280,7 +291,6 @@ const PartnerForm = () => {
             </div>
           </div>
         </form>
-
         {/* Support Banner */}
         <div className="mt-12 bg-blue-600 dark:bg-blue-700 rounded-3xl p-8 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 dark:bg-blue-600 rounded-full -mr-20 -mt-20 opacity-50"></div>
@@ -320,28 +330,61 @@ const PartnerForm = () => {
 
 // --- Helper Components ---
 
-const StepItem = ({ number, label, active }) => (
-  <div className="flex flex-col items-center gap-2 flex-1">
-    <div
-      className={`w-10 h-10 rounded-full flex  items-center justify-center font-bold transition-all duration-300 ${
-        active
-          ? "bg-blue-700 dark:bg-blue-700 text-white scale-110 shadow-lg"
-          : "bg-gray-200 dark:bg-gray-900 text-gray-500 dark:text-gray-600"
-      }`}
-    >
-      {active ? <CheckCircle2 size={20} /> : number}
+const StepItem = ({ number, label, active, position }) => {
+  const alignmentClass =
+    position === "start"
+      ? "items-start text-left"
+      : position === "end"
+      ? "items-end text-right"
+      : "items-center text-center";
+
+  return (
+    <div className={`relative flex flex-col ${alignmentClass} flex-1`}>
+      {/* الدائرة */}
+      <div className="relative flex items-center justify-center w-full">
+        {/* خط يسار */}
+        {position !== "start" && (
+          <div
+            className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-1/2 ${
+              active ? "bg-blue-700" : "bg-gray-200 dark:bg-gray-700"
+            }`}
+          />
+        )}
+
+        {/* خط يمين */}
+        {position !== "end" && (
+          <div
+            className={`absolute right-0 top-1/2 -translate-y-1/2 h-[2px] w-1/2 ${
+              active ? "bg-blue-700" : "bg-gray-200 dark:bg-gray-700"
+            }`}
+          />
+        )}
+
+        {/* الدائرة نفسها */}
+        <div
+          className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
+            active
+              ? "bg-blue-700 text-white scale-110 shadow-lg"
+              : "bg-gray-200 dark:bg-gray-900 text-gray-500 dark:text-white"
+          }`}
+        >
+          {active ? <CheckCircle2 size={20} /> : number}
+        </div>
+      </div>
+
+      {/* الليبل */}
+      <span
+        className={`flex items-center justify-center w-full text-[10px] font-bold tracking-wider mt-2 ${
+          active
+            ? "text-blue-700 dark:text-blue-400"
+            : "text-gray-500 dark:text-white"
+        }`}
+      >
+        {label}
+      </span>
     </div>
-    <span
-      className={`text-[10px] font-bold tracking-wider transition-colors duration-300 ${
-        active
-          ? "text-blue-700 dark:text-blue-400"
-          : "text-gray-400 dark:text-gray-600"
-      }`}
-    >
-      {label}
-    </span>
-  </div>
-);
+  );
+};
 
 const SectionWrapper = ({ icon, title, subtitle, children }) => (
   <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
