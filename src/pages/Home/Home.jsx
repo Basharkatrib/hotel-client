@@ -9,6 +9,7 @@ import TopSights from './sections/TopSights';
 import TopThingsToDo from './sections/TopThingsToDo';
 import ExploreInMotion from './sections/ExploreInMotion';
 import HomesGuestsLove from './sections/HomesGuestsLove';
+import Subscribe from './sections/Subscribe';
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
       <TopThingsToDo />
       <ExploreInMotion />
       <HomesGuestsLove />
+      <Subscribe />
     </div>
   );
 };

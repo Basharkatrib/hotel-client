@@ -68,7 +68,7 @@ function App() {
               <Route path="/hotel/:slug" element={<HotelDetails />} />
 
               <Route path="/contact-us" element={<ContactUs />} />
-              <Route path="/partnerform" element={<PartnerForm />} />
+              <Route path="/partner" element={<PartnerForm />} />
 
               {/* Booking routes */}
               <Route
