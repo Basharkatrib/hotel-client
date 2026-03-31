@@ -18,6 +18,7 @@ import { bookingsApi } from '../services/bookingsApi';
 import { paymentsApi } from '../services/paymentsApi';
 import { favoritesApi } from '../services/favoritesApi';
 import { reviewsApi } from '../services/reviewsApi';
+import { partnerApi } from '../services/partnerApi';
 import authReducer from './slices/authSlice';
 
 // إعدادات Redux Persist
@@ -43,6 +44,7 @@ const appReducer = combineReducers({
   [paymentsApi.reducerPath]: paymentsApi.reducer,
   [favoritesApi.reducerPath]: favoritesApi.reducer,
   [reviewsApi.reducerPath]: reviewsApi.reducer,
+  [partnerApi.reducerPath]: partnerApi.reducer,
   auth: persistReducer(authPersistConfig, authReducer),
 });
 
@@ -69,7 +71,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware, hotelsApi.middleware, bookingsApi.middleware, paymentsApi.middleware, favoritesApi.middleware, reviewsApi.middleware),
+    }).concat(api.middleware, hotelsApi.middleware, bookingsApi.middleware, paymentsApi.middleware, favoritesApi.middleware, reviewsApi.middleware, partnerApi.middleware),
 });
 
 setupListeners(store.dispatch);
