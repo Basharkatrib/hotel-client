@@ -1,3 +1,6 @@
+import SplashScreen from "./components/common/SplashScreen";
+import { AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -37,8 +40,16 @@ import PartnerForm from "./pages/PartnerForm/PartnerForm";
 // );
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <ThemeProvider>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <SplashScreen key="splash" finishLoading={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
       <BrowserRouter>
         <ScrollToTop />
         <ToastContainer
