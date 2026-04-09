@@ -6,7 +6,7 @@ const Subscribe = () => {
   return (
     // الخلفية الأساسية تتغير حسب الوضع
     <section className=" transition-colors duration-300 py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden flex flex-col md:flex-row gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col md:flex-row gap-10">
         
         {/* القسم الأيسر - محتوى النصوص */}
         <div className="flex-[0.8] flex flex-col justify-center">
@@ -21,10 +21,12 @@ const Subscribe = () => {
             An elite management system designed for visionary hospitality leaders globally.
           </p>
           <div className="flex items-center gap-4 mb-10">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl text-sm font-medium flex items-center gap-2 shadow-md shadow-blue-100 dark:shadow-none transition-all active:scale-95">
-              <Link to="partner">Register Now</Link>
+            <Link to="partner">
+            <button className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-3 rounded-2xl text-sm font-medium flex items-center gap-2 shadow-md shadow-blue-100 dark:shadow-none transition-all active:scale-95">
+              Register Now
               <ArrowRight size={16} />
             </button>
+            </Link>
           </div>
         </div>
 
