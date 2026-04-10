@@ -119,6 +119,7 @@ const HotelList = ({
     if (filters.rooms) params.rooms = filters.rooms;
     if (filters.minPrice > 0) params.min_price = filters.minPrice;
     if (filters.maxPrice < 2000) params.max_price = filters.maxPrice;
+    if (filters.search) params.search = filters.search;
 
     return params;
   }, [currentPage, perPage, sortBy, sortOrder, filters]);

@@ -37,6 +37,11 @@ export const hotelsApi = createApi({
           searchParams.append('city', params.city);
         }
 
+        // Search filter
+        if (params.search) {
+          searchParams.append('search', params.search);
+        }
+
         // Availability filters (optional, backend may ignore if not supported)
         if (params.check_in_date) {
           searchParams.append('check_in_date', params.check_in_date);
