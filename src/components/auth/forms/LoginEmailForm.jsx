@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../services/firebase";
+import { motion, AnimatePresence } from "framer-motion";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -17,10 +18,15 @@ const LoginEmailForm = () => {
   const location = useLocation();
   const [login, { isLoading }] = useLoginMutation();
   const [googleLogin, { isLoading: isGoogleLoading }] = useGoogleLoginMutation();
+  const [isProcessingGoogle, setIsProcessingGoogle] = useState(false);
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      
+      // نبدأ التغبيش فور العودة من نافذة جوجل بنجاح
+      setIsProcessingGoogle(true);
+      
       const idToken = await result.user.getIdToken();
       const backendResult = await googleLogin({ token: idToken }).unwrap();
       
@@ -31,11 +37,11 @@ const LoginEmailForm = () => {
         navigate(location.state?.backgroundLocation || "/");
       }
     } catch (error) {
+      setIsProcessingGoogle(false); // نلغي التغبيش في حال حدث خطأ
       console.error("Google login error:", error);
       if (error.code === 'auth/popup-blocked') {
         toast.error("Please allow popups for this site in your browser settings to sign in with Google.", { autoClose: 5000 });
       } else if (error.code === 'auth/popup-closed-by-user') {
-         // Silently ignore or show info
          toast.info("Google sign in was cancelled.");
       } else {
         toast.error(error?.data?.messages?.[0] || error?.message || "Google login failed", {
@@ -72,23 +78,44 @@ const LoginEmailForm = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-          Welcome to Vayka
-        </h3>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 font-medium">
-          Log in or sign up to continue.
-        </p>
-      </div>
+    <div className="relative">
+      {/* Loading Overlay */}
+      <AnimatePresence>
+        {isProcessingGoogle && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/40 dark:bg-black/40 backdrop-blur-md transition-all"
+          >
+            <div className="flex flex-col items-center gap-4 bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800">
+              <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+              <div className="text-center">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Authenticating...</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Verifying your Google account info</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        validationSchema={loginSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isValid, dirty }) => (
-          <Form className="space-y-4">
+      <div className={`space-y-6 transition-all duration-300 ${isProcessingGoogle ? 'blur-sm pointer-events-none grayscale-[0.5]' : ''}`}>
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            Welcome to Vayka
+          </h3>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 font-medium">
+            Log in or sign up to continue.
+          </p>
+        </div>
+
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={loginSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isValid, dirty }) => (
+            <Form className="space-y-4">
             <div className="space-y-1.5 text-left">
               <label
                 htmlFor="email"
@@ -212,6 +239,7 @@ const LoginEmailForm = () => {
         >
           Sign up
         </button>
+      </div>
       </div>
     </div>
   );
