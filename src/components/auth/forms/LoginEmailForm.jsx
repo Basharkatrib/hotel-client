@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useLoginMutation, useGoogleLoginMutation } from "../../../services/api";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../services/firebase";
 
 const loginSchema = Yup.object().shape({
@@ -20,11 +20,28 @@ const LoginEmailForm = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      // 2. توجيه المستخدم لصفحة جوجل بدلاً من الـ Popup
-      await signInWithRedirect(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const idToken = await result.user.getIdToken();
+      const backendResult = await googleLogin({ token: idToken }).unwrap();
+      
+      if (backendResult.status && backendResult.data.user) {
+        toast.success("Logged in with Google successfully!", {
+          toastId: "google-login-success",
+        });
+        navigate(location.state?.backgroundLocation || "/");
+      }
     } catch (error) {
-      console.error("Google handle error:", error);
-      toast.error("Could not start Google login");
+      console.error("Google login error:", error);
+      if (error.code === 'auth/popup-blocked') {
+        toast.error("Please allow popups for this site in your browser settings to sign in with Google.", { autoClose: 5000 });
+      } else if (error.code === 'auth/popup-closed-by-user') {
+         // Silently ignore or show info
+         toast.info("Google sign in was cancelled.");
+      } else {
+        toast.error(error?.data?.messages?.[0] || error?.message || "Google login failed", {
+          toastId: "google-login-error"
+        });
+      }
     }
   };
 
