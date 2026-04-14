@@ -11,6 +11,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import SmartSearchWizard from "./components/common/SmartSearch/SmartSearchWizard";
 import ScrollToTop from "./components/common/ScrollToTop";
 import ChatWidget from "./components/ui/ChatWidget";
+import GoogleRedirectHandler from "./components/auth/GoogleRedirectHandler";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Explore from "./pages/Explore/Explore.jsx";
 import Home from "./pages/Home/index";
@@ -52,6 +53,7 @@ function App() {
 
       <BrowserRouter>
         <ScrollToTop />
+        <GoogleRedirectHandler />
         <ToastContainer
           position="top-center"
           autoClose={3000}
