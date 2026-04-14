@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRedirectResult } from "firebase/auth";
-import { auth } from "../../../services/firebase";
-import { useGoogleLoginMutation } from "../../../services/api";
+import { auth } from "../../services/firebase";
+import { useGoogleLoginMutation } from "../../services/api";
 import { toast } from "react-toastify";
 
 const GoogleRedirectHandler = () => {
