@@ -85,9 +85,10 @@ function Sidebar({ onClose, user }) {
         <div className="flex items-center gap-3">
           {user?.data?.user?.avatar ? (
             <img
-              src={`${import.meta.env.VITE_API_URL}${user.data.user.avatar}`}
+              src={user.data.user.avatar.startsWith('http') ? user.data.user.avatar : `${import.meta.env.VITE_API_URL || ''}${user.data.user.avatar}`}
               alt="profile"
               className="w-12 h-12 rounded-full object-cover ring-2 ring-blue-500/20"
+              referrerPolicy="no-referrer"
             />
           ) : (
             <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg ring-2 ring-blue-500/20">

@@ -79,6 +79,15 @@ export const api = createApi({
       }),
     }),
 
+    // Google Login
+    googleLogin: builder.mutation({
+      query: (data) => ({
+        url: '/auth/google',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
     // Send OTP (Login)
     sendOtp: builder.mutation({
       query: (data) => ({
@@ -190,6 +199,7 @@ export const {
   useVerifyEmailMutation,
   useResendOtpMutation,
   useLoginMutation,
+  useGoogleLoginMutation,
   useSendOtpMutation,
   useVerifyOtpMutation,
   useForgotPasswordMutation,

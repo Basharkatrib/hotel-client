@@ -42,6 +42,18 @@ const authSlice = createSlice({
       }
     );
 
+    // عند نجاح Google Login
+    builder.addMatcher(
+      api.endpoints.googleLogin.matchFulfilled,
+      (state, { payload }) => {
+        if (payload.status && payload.data) {
+          state.user = payload.data.user;
+          state.token = payload.data.access_token;
+          state.isAuthenticated = true;
+        }
+      }
+    );
+
     // عند نجاح Verify OTP (Login)
     builder.addMatcher(
       api.endpoints.verifyOtp.matchFulfilled,
@@ -73,6 +85,37 @@ const authSlice = createSlice({
         if (payload.status && payload.data) {
           state.user = payload.data.user;
           state.isAuthenticated = true;
+        }
+      }
+    );
+
+    // عند نجاح تحديث البروفايل
+    builder.addMatcher(
+      api.endpoints.updateProfile.matchFulfilled,
+      (state, { payload }) => {
+        if (payload.status && payload.data) {
+          state.user = { ...state.user, ...payload.data.user };
+        }
+      }
+    );
+
+    // عند نجاح رفع صورة جديدة
+    builder.addMatcher(
+      api.endpoints.uploadAvatar.matchFulfilled,
+      (state, { payload }) => {
+        const newAvatar = payload?.data?.avatar || payload?.avatar;
+        if (newAvatar && state.user) {
+          state.user.avatar = newAvatar;
+        }
+      }
+    );
+
+    // عند حذف الصورة
+    builder.addMatcher(
+      api.endpoints.deleteAvatar.matchFulfilled,
+      (state) => {
+        if (state.user) {
+          state.user.avatar = null;
         }
       }
     );

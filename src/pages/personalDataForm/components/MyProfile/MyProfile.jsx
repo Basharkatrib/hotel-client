@@ -208,9 +208,10 @@ function MyProfile() {
             {formData.avatar ? (
               <>
                 <img
-                  src={`${import.meta.env.VITE_API_URL || ''}${formData.avatar}`}
+                  src={formData.avatar.startsWith('http') ? formData.avatar : `${import.meta.env.VITE_API_URL || ''}${formData.avatar}`}
                   alt="Profile avatar"
                   className="w-full h-full object-cover rounded-full"
+                  referrerPolicy="no-referrer"
                 />
                 {/* Trash icon overlay when hovering or always? Let's do a top-right overlay */}
                 <button

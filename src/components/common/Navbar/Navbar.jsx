@@ -221,9 +221,10 @@ const Navbar = () => {
                           <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-md overflow-hidden">
                             {user?.avatar ? (
                               <img
-                                src={`${import.meta.env.VITE_API_URL || ''}${user.avatar}`}
+                                src={user.avatar.startsWith('http') ? user.avatar : `${import.meta.env.VITE_API_URL || ''}${user.avatar}`}
                                 alt="Profile"
                                 className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
                                 onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                               />
                             ) : null}
@@ -437,9 +438,11 @@ const Navbar = () => {
                       <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-md overflow-hidden">
                         {user?.avatar ? (
                           <img
-                            src={`${import.meta.env.VITE_API_URL || ''}${user.avatar}`}
+                            src={user.avatar.startsWith('http') ? user.avatar : `${import.meta.env.VITE_API_URL || ''}${user.avatar}`}
                             alt="Profile"
                             className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                            crossOrigin="anonymous"
                             onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                           />
                         ) : null}
