@@ -42,6 +42,12 @@ import PartnerForm from "./pages/PartnerForm/PartnerForm";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    fetch('/sanctum/csrf-cookie', {
+      credentials: 'include',
+    });
+  }, []);
+  
   return (
     <ThemeProvider>
       <AnimatePresence mode="wait">
