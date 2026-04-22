@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Phone,
   Mail,
@@ -14,6 +14,7 @@ import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 import background from "../../../src/assets/ContactUs/background.png";
+import { useSendContactMessageMutation } from "../../services/api";
 
 // إعداد الـ Leaflet Marker
 let DefaultIcon = L.icon({
@@ -25,12 +26,6 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const position = [30.0444, 31.2357];
-
-const formFields = [
-  { type: "text", placeholder: "Your Name" },
-  { type: "email", placeholder: "Your Email" },
-  { type: "text", placeholder: "Subject" },
-];
 
 const quickActions = [
   { icon: MessageCircle, label: "Live Chat", color: "text-indigo-600" },
@@ -62,7 +57,46 @@ const contactCards = [
   },
 ];
 
+const formFields = [
+  { name: "name", type: "text", placeholder: "Your Name" },
+  { name: "email", type: "email", placeholder: "Your Email" },
+  { name: "subject", type: "text", placeholder: "Subject" },
+];
+
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [sendContactMessage, { isLoading }] = useSendContactMessageMutation();
+  const [status, setStatus] = useState({ type: "", message: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ type: "", message: "" });
+
+    try {
+      const response = await sendContactMessage(formData).unwrap();
+      if (response.status) {
+        setStatus({ type: "success", message: "Your message has been sent!" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }
+    } catch (err) {
+      setStatus({ 
+        type: "error", 
+        message: err.data?.message || "Something went wrong. Please try again." 
+      });
+    }
+  };
+
   return (
     <div className="bg-gray-50  dark:bg-[#1e293b] flex items-center justify-center font-sans bg-gray-50 !pt-[80px] md:!pt-[120px] dark:bg-[#1e293b] flex items-center justify-center pb-7 md:pb-10 pl-7 pr-7 font-sans lg:h-[calc(100vh-85px)]]">
       <div className="relative w-full max-w-6xl bg-[#d8e4ff] md:max-w-[950px] dark:bg-gray-900 rounded-[15px] shadow-[1px_2px_25px_blue] overflow-hidden flex flex-col lg:flex-row-reverse p-4 md:p-5 gap-4 h-auto">
@@ -91,24 +125,46 @@ const ContactUs = () => {
               Send us a message
             </p>
 
-            <form className="space-y-3">
+            {status.message && (
+              <div className={`mb-4 p-3 rounded-lg text-xs font-bold text-center ${
+                status.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+              }`}>
+                {status.message}
+              </div>
+            )}
+
+            <form className="space-y-3" onSubmit={handleSubmit}>
               {formFields.map((field, index) => (
                 <input
                   key={index}
+                  name={field.name}
                   type={field.type}
                   placeholder={field.placeholder}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  required
                   className="w-full px-3 py-2 rounded-lg bg-gray-50 text-black border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all placeholder:text-gray-500 text-sm"
                 />
               ))}
 
               <textarea
+                name="message"
                 placeholder="Your Message"
                 rows="3"
+                value={formData.message}
+                onChange={handleChange}
+                required
                 className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all placeholder:text-gray-500 resize-none text-sm"
               />
 
-              <button className="cursor-pointer w-full py-2.5 bg-[#2563EB] text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all text-sm">
-                Send Message
+              <button 
+                type="submit"
+                disabled={isLoading}
+                className={`cursor-pointer w-full py-2.5 bg-[#2563EB] text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all text-sm ${
+                  isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                {isLoading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>

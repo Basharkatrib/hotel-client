@@ -14,14 +14,14 @@ function injectFirebaseConfigPlugin(env) {
         if (req.url === '/firebase-messaging-sw.js') {
           const swPath = path.resolve(__dirname, 'public/firebase-messaging-sw.js');
           let content = fs.readFileSync(swPath, 'utf-8');
-          
+
           // Replace VITE_ strings with env values
           Object.keys(env).forEach(key => {
             if (key.startsWith('VITE_FIREBASE_')) {
               content = content.replace(key, env[key]);
             }
           });
-          
+
           res.setHeader('Content-Type', 'application/javascript');
           res.end(content);
           return;

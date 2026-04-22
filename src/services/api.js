@@ -190,6 +190,14 @@ export const api = createApi({
         body: { messages },
       }),
     }),
+    // Contact Us Message
+    sendContactMessage: builder.mutation({
+      query: (data) => ({
+        url: '/contact',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -211,4 +219,5 @@ export const {
   useDeleteAvatarMutation,
   useUpdateFcmTokenMutation,
   useSendChatMessageMutation,
+  useSendContactMessageMutation,
 } = api;

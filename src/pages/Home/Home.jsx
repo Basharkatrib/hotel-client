@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/common/Navbar';
 import Hero from './sections/Hero';
+import AirplaneSection from './sections/AirplaneSection/AirplaneSection';
 import Trust from './sections/Trust';
 import TrendingDestinations from './sections/TrendingDestinations';
 import WeekendDeals from './sections/WeekendDeals';
@@ -15,6 +16,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <AirplaneSection />
       <Trust />
       <TrendingDestinations />
       <WeekendDeals />
