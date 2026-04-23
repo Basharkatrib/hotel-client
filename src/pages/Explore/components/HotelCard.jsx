@@ -224,7 +224,11 @@ const HotelCard = ({ hotel }) => {
               )}
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  ${Number(hotel.price_per_night).toLocaleString()}
+                  {hotel.min_room_price === hotel.max_room_price ? (
+                    `$${Number(hotel.min_room_price).toLocaleString()}`
+                  ) : (
+                    `$${Number(hotel.min_room_price).toLocaleString()} - $${Number(hotel.max_room_price).toLocaleString()}`
+                  )}
                 </span>
                 {hasDiscount && (
                   <span className="text-sm text-gray-400 dark:text-gray-500 line-through">
@@ -233,7 +237,7 @@ const HotelCard = ({ hotel }) => {
                 )}
               </div>
               <p className="text-[11px] text-gray-500 dark:text-gray-400">
-                per night including taxes
+                range per night including taxes
               </p>
             </div>
 
