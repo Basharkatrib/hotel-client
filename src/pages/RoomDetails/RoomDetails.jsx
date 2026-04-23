@@ -16,6 +16,7 @@ import RoomDescription from './components/RoomDescription';
 import RoomAmenities from './components/RoomAmenities';
 import RoomReviews from './components/RoomReviews';
 import BookingCard from './components/BookingCard/BookingCard';
+import Room3DView from './components/Room3DView';
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -309,15 +310,8 @@ const RoomDetails = () => {
             </div>
             
             {/* Modal Content */}
-            <div className="w-full h-full">
-              <iframe 
-                src='https://my.spline.design/visionosiconsin3d-6VHWWIvlyyyyGESk8ijlpUXf/' 
-                frameBorder='0' 
-                width='100%' 
-                height='100%'
-                title="Room 3D View"
-                className="w-full h-full bg-slate-900"
-              ></iframe>
+            <div className="w-full h-full p-4">
+              <Room3DView />
             </div>
 
           </div>

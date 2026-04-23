@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, Float } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 
 export default function Airplane(props) {
@@ -11,8 +11,9 @@ export default function Airplane(props) {
   const [isDragging, setIsDragging] = useState(false);
   const [lastPointerPos, setLastPointerPos] = useState({ x: 0, y: 0 });
 
-  // Responsive scale
-  const responsiveScale = viewport.width < 5 ? 0.006 : 0.01;
+  // Responsive scale: balanced for mobile and desktop
+  const isMobile = size.width < 768;
+  const responsiveScale = isMobile ? 0.015 : 0.025;
 
   useFrame(() => {
     if (groupRef.current && !isDragging) {
@@ -48,19 +49,25 @@ export default function Airplane(props) {
   };
 
   return (
-    <group 
-      ref={groupRef} 
-      {...props} 
-      scale={[responsiveScale, responsiveScale, responsiveScale]} 
-      position={[0, 0, 0]}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
-      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+    <Float
+      speed={2} // Animation speed, defaults to 1
+      rotationIntensity={0.5} // Ammo of rotation, defaults to 1
+      floatIntensity={0.5} // Up/down float intensity, defaults to 1
     >
-      <primitive object={scene} />
-    </group>
+      <group 
+        ref={groupRef} 
+        {...props} 
+        scale={[responsiveScale, responsiveScale, responsiveScale]} 
+        position={[0, 0, 0]}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      >
+        <primitive object={scene} />
+      </group>
+    </Float>
   );
 }
 
