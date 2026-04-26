@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const WELCOME_MESSAGE = {
   role: 'assistant',
-  content: "Hello! 👋 I'm Vayka AI, your personal hotel booking assistant. I can help you with:\n• Searching for hotels in any city\n• Answering questions about our platform\n• Viewing your reservations (if you're logged in)\n\nHow can I assist you today?",
+  content: "Hello! 👋 I'm Vayka AI, your personal hotel booking assistant. I can help you with:\n• Searching for hotels in any city\n• Comparing hotels side-by-side\n• Viewing your reservations (if you're logged in)\n\nHow can I assist you today?",
 };
 
 const ChatWidget = () => {
@@ -220,7 +220,7 @@ const ChatWidget = () => {
           {/* Quick Actions */}
           {messages.length <= 1 && (
             <div className="px-4 py-2 flex flex-wrap gap-2 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 flex-shrink-0">
-              {['🏨 Hotels in Spain', '📋 My Bookings', '💡 How to book?'].map((q) => (
+              {['🏨 Hotels in Spain', '⚖️ Compare Hotels', '📋 My Bookings'].map((q) => (
                 <button
                   key={q}
                   onClick={() => { setInputValue(q.slice(2).trim()); inputRef.current?.focus(); }}
