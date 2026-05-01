@@ -208,17 +208,40 @@ const PaymentSuccess = () => {
                       onClick={() => {
                         const canvas = document.querySelector('#qr-code-to-download canvas');
                         if (canvas) {
-                          const url = canvas.toDataURL("image/png");
-                          const link = document.createElement('a');
-                          link.download = `Vayka-Key-${booking.id}.png`;
-                          link.href = url;
-                          link.click();
+                          canvas.toBlob(async (blob) => {
+                            if (!blob) return;
+                            const file = new File([blob], `Vayka-Key-${booking.id}.png`, { type: 'image/png' });
+                            
+                            // 1. Try Web Share API (Best for Mobile)
+                            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                              try {
+                                await navigator.share({
+                                  files: [file],
+                                  title: 'Vayka Biometric Key',
+                                  text: 'My Vayka Hotel Check-in Key',
+                                });
+                                return;
+                              } catch (err) {
+                                console.log('Share failed, falling back to download');
+                              }
+                            }
+                            
+                            // 2. Fallback to standard download (Better for Laptop)
+                            const url = URL.createObjectURL(blob);
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.download = `Vayka-Key-${booking.id}.png`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            setTimeout(() => URL.revokeObjectURL(url), 100);
+                          }, 'image/png');
                         }
                       }}
                       className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-600 hover:text-white transition-all"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                      Save to Phone
+                      Save Key
                     </button>
                     <button 
                       onClick={() => window.print()}
