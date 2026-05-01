@@ -20,7 +20,7 @@ const PaymentSuccess = () => {
   const booking = locationBooking || bookingData?.data?.booking;
 
   const token = useSelector(selectToken);
-  
+
   const handleDownloadReceipt = () => {
     if (!token) {
       alert('Please login to download the receipt.');
@@ -71,10 +71,10 @@ const PaymentSuccess = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 dark:from-emerald-950/20 dark:via-gray-950 dark:to-blue-950/20 pt-24 pb-16 transition-colors duration-300">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Main Ticket Card */}
         <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-2xl shadow-emerald-900/5 dark:shadow-emerald-900/10 border border-emerald-100/50 dark:border-emerald-800/30 overflow-hidden relative">
-          
+
           {/* Decorative Top Accent */}
           <div className="h-3 w-full bg-gradient-to-r from-emerald-400 to-emerald-600"></div>
 
@@ -88,7 +88,7 @@ const PaymentSuccess = () => {
               <p className="text-lg text-gray-500 dark:text-gray-400 font-medium">
                 Thank you for your payment. Your adventure awaits.
               </p>
-              
+
               <div className="mt-6 inline-flex items-center gap-3 px-5 py-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-full border border-emerald-100 dark:border-emerald-800/50">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Booking Reference</span>
                 <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400 tracking-wider">#{booking.id}</span>
@@ -97,15 +97,15 @@ const PaymentSuccess = () => {
 
             {/* Email Notice */}
             <div className="bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800/30 rounded-2xl p-5 mb-10 flex items-start gap-4">
-               <div className="mt-1 flex-shrink-0 text-blue-500">
-                  <FaEnvelope className="text-xl" />
-               </div>
-               <div>
-                 <h4 className="font-semibold text-blue-900 dark:text-blue-100">Confirmation Sent</h4>
-                 <p className="text-sm text-blue-700/80 dark:text-blue-300/80 mt-1">
-                   We've sent a detailed confirmation email to <strong className="text-blue-800 dark:text-blue-200">{booking.guest_email}</strong>.
-                 </p>
-               </div>
+              <div className="mt-1 flex-shrink-0 text-blue-500">
+                <FaEnvelope className="text-xl" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100">Confirmation Sent</h4>
+                <p className="text-sm text-blue-700/80 dark:text-blue-300/80 mt-1">
+                  We've sent a detailed confirmation email to <strong className="text-blue-800 dark:text-blue-200">{booking.guest_email}</strong>.
+                </p>
+              </div>
             </div>
 
             {/* Details Grid */}
@@ -136,14 +136,14 @@ const PaymentSuccess = () => {
 
               <div className="bg-gray-50 dark:bg-gray-800/40 rounded-2xl p-6 border border-gray-100 dark:border-gray-700/50">
                 <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">Stay Overview</h3>
-                
+
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
                       <FaRegCalendarAlt /> Check-in
                     </div>
                     <span className="font-bold text-gray-900 dark:text-white">
-                       {new Date(booking.check_in_date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
+                      {new Date(booking.check_in_date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
@@ -151,7 +151,7 @@ const PaymentSuccess = () => {
                       <FaRegCalendarAlt /> Check-out
                     </div>
                     <span className="font-bold text-gray-900 dark:text-white">
-                       {new Date(booking.check_out_date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
+                      {new Date(booking.check_out_date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
                     </span>
                   </div>
                   <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
@@ -168,25 +168,25 @@ const PaymentSuccess = () => {
 
             {/* Payment Summary */}
             <div className="bg-gradient-to-br from-emerald-50/50 to-transparent dark:from-emerald-900/10 dark:to-transparent rounded-2xl p-6 border border-emerald-100/50 dark:border-emerald-800/30">
-               <h3 className="text-xs font-bold uppercase tracking-widest text-emerald-800 dark:text-emerald-500 mb-4 flex items-center gap-2">
-                 <HiOutlineDocumentText className="text-lg" /> Payment Summary
-               </h3>
-               
-               <div className="space-y-3 mb-4">
-                 <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 font-medium">
-                   <span>${booking.price_per_night} × {booking.total_nights} nights</span>
-                   <span className="text-gray-900 dark:text-white">${booking.subtotal}</span>
-                 </div>
-                 <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 font-medium">
-                   <span>Taxes & Fees</span>
-                   <span className="text-gray-900 dark:text-white">${(Number(booking.service_fee) + Number(booking.taxes)).toFixed(2)}</span>
-                 </div>
-               </div>
-               
-               <div className="pt-4 border-t border-dashed border-emerald-200 dark:border-emerald-800/50 flex justify-between items-end">
-                 <span className="font-bold text-gray-900 dark:text-white">Total Paid</span>
-                 <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">${booking.total_amount}</span>
-               </div>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-emerald-800 dark:text-emerald-500 mb-4 flex items-center gap-2">
+                <HiOutlineDocumentText className="text-lg" /> Payment Summary
+              </h3>
+
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 font-medium">
+                  <span>${booking.price_per_night} × {booking.total_nights} nights</span>
+                  <span className="text-gray-900 dark:text-white">${booking.subtotal}</span>
+                </div>
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 font-medium">
+                  <span>Taxes & Fees</span>
+                  <span className="text-gray-900 dark:text-white">${(Number(booking.service_fee) + Number(booking.taxes)).toFixed(2)}</span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-dashed border-emerald-200 dark:border-emerald-800/50 flex justify-between items-end">
+                <span className="font-bold text-gray-900 dark:text-white">Total Paid</span>
+                <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">${booking.total_amount}</span>
+              </div>
             </div>
 
             {/* Biometric QR Key Section */}
@@ -194,60 +194,37 @@ const PaymentSuccess = () => {
               <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-950/20 rounded-[2rem] border border-blue-100 dark:border-blue-800/30 flex flex-col items-center text-center">
                 <div className="bg-white p-4 rounded-3xl shadow-xl shadow-blue-500/10 mb-6 border-4 border-white flex flex-col items-center">
                   <div id="qr-code-to-download">
-                    <QRCodeCanvas 
-                      value={booking.qr_token} 
-                      size={220} 
-                      level="M" 
-                      includeMargin={true} 
+                    <QRCodeCanvas
+                      value={booking.qr_token}
+                      size={220}
+                      level="M"
+                      includeMargin={true}
                     />
                   </div>
-                  
+
                   {/* Download & Print Controls */}
                   <div className="flex gap-4 mt-4 w-full justify-center">
-                    <button 
+                    <button
                       onClick={() => {
                         const canvas = document.querySelector('#qr-code-to-download canvas');
                         if (canvas) {
-                          canvas.toBlob(async (blob) => {
-                            if (!blob) return;
-                            const file = new File([blob], `Vayka-Key-${booking.id}.png`, { type: 'image/png' });
-                            
-                            // 1. Try Web Share API (Best for Mobile)
-                            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                              try {
-                                await navigator.share({
-                                  files: [file],
-                                  title: 'Vayka Biometric Key',
-                                  text: 'My Vayka Hotel Check-in Key',
-                                });
-                                return;
-                              } catch (err) {
-                                console.log('Share failed, falling back to download');
-                              }
-                            }
-                            
-                            // 2. Fallback to standard download (Better for Laptop)
-                            const url = URL.createObjectURL(blob);
-                            const link = document.createElement('a');
-                            link.href = url;
-                            link.download = `Vayka-Key-${booking.id}.png`;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            setTimeout(() => URL.revokeObjectURL(url), 100);
-                          }, 'image/png');
+                          const url = canvas.toDataURL("image/png");
+                          const link = document.createElement('a');
+                          link.download = `Vayka-Key-${booking.id}.png`;
+                          link.href = url;
+                          link.click();
                         }
                       }}
                       className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-600 hover:text-white transition-all"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                      Save Key
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+                      Save to Phone
                     </button>
-                    <button 
+                    <button
                       onClick={() => window.print()}
                       className="flex items-center gap-2 px-4 py-2 bg-gray-50 text-gray-600 rounded-xl text-xs font-bold hover:bg-gray-800 hover:text-white transition-all"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect width="12" height="8" x="6" y="14" /></svg>
                       Print Key
                     </button>
                   </div>
@@ -264,7 +241,7 @@ const PaymentSuccess = () => {
             )}
 
           </div>
-          
+
           {/* Action Buttons - Footer of the card */}
           <div className="bg-gray-50 dark:bg-gray-800/50 px-8 py-6 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row gap-4 justify-center">
             <button
@@ -277,7 +254,7 @@ const PaymentSuccess = () => {
               onClick={() => navigate('/my-bookings')}
               className="cursor-pointer inline-flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 hover:shadow-xl transition-all active:scale-95"
             >
-               View My Bookings
+              View My Bookings
             </button>
             <button
               onClick={() => navigate('/')}
