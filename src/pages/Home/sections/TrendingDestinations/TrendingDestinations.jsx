@@ -29,10 +29,10 @@ const TrendingDestinations = () => {
   // Filter for unique cities to make it feel like "Destinations"
   const destinations = useMemo(() => {
     if (!data?.data?.hotels) return [];
-    
+
     const uniqueCities = new Set();
     const result = [];
-    
+
     for (const hotel of data.data.hotels) {
       if (!uniqueCities.has(hotel.city) && result.length < 4) {
         uniqueCities.add(hotel.city);
@@ -78,7 +78,7 @@ const TrendingDestinations = () => {
     }
 
     return (
-      <motion.div 
+      <motion.div
         layout
         className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${isFetching ? 'opacity-50' : 'opacity-100'}`}
       >
@@ -111,7 +111,7 @@ const TrendingDestinations = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 sm:mb-12">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -6,10 +6,10 @@ import SearchForm from './components/SearchForm';
 import HeroContent from './components/HeroContent';
 
 const Hero = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState('Hotel');
-  
+
   // Load initial search params from localStorage
   const [location, setLocation] = useState(() => {
     const saved = localStorage.getItem('hotel_search_location');

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectToken } from '../../store/slices/authSlice';
 import { FaCheckCircle, FaRegCalendarAlt, FaMapMarkerAlt, FaUserFriends, FaEnvelope, FaPhoneAlt, FaDownload, FaHome, FaBed } from 'react-icons/fa';
 import { HiOutlineDocumentText } from 'react-icons/hi';
+import { QRCodeCanvas } from 'qrcode.react';
 
 const PaymentSuccess = () => {
   const { bookingId } = useParams();
@@ -187,6 +188,57 @@ const PaymentSuccess = () => {
                  <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">${booking.total_amount}</span>
                </div>
             </div>
+
+            {/* Biometric QR Key Section */}
+            {booking.qr_token && (
+              <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-950/20 rounded-[2rem] border border-blue-100 dark:border-blue-800/30 flex flex-col items-center text-center">
+                <div className="bg-white p-4 rounded-3xl shadow-xl shadow-blue-500/10 mb-6 border-4 border-white flex flex-col items-center">
+                  <div id="qr-code-to-download">
+                    <QRCodeCanvas 
+                      value={booking.qr_token} 
+                      size={220} 
+                      level="M" 
+                      includeMargin={true} 
+                    />
+                  </div>
+                  
+                  {/* Download & Print Controls */}
+                  <div className="flex gap-4 mt-4 w-full justify-center">
+                    <button 
+                      onClick={() => {
+                        const canvas = document.querySelector('#qr-code-to-download canvas');
+                        if (canvas) {
+                          const url = canvas.toDataURL("image/png");
+                          const link = document.createElement('a');
+                          link.download = `Vayka-Key-${booking.id}.png`;
+                          link.href = url;
+                          link.click();
+                        }
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-600 hover:text-white transition-all"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                      Save to Phone
+                    </button>
+                    <button 
+                      onClick={() => window.print()}
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-50 text-gray-600 rounded-xl text-xs font-bold hover:bg-gray-800 hover:text-white transition-all"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                      Print Key
+                    </button>
+                  </div>
+                </div>
+                <h3 className="text-xl font-black text-blue-900 dark:text-blue-100 mb-2">Your Biometric Key</h3>
+                <p className="text-sm text-blue-700/70 dark:text-blue-400/70 max-w-xs mx-auto mb-4">
+                  Show this QR code to the Vayka Kiosk at the hotel for instant face registration and fast check-in.
+                </p>
+                <div className="flex gap-2 items-center text-[10px] font-bold uppercase tracking-widest text-blue-500/60">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
+                  Ready for Kiosk
+                </div>
+              </div>
+            )}
 
           </div>
           
