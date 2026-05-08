@@ -5,12 +5,12 @@ import Airplane from './Airplane';
 
 const AirplaneSection = () => {
   return (
-    <section className="pt-48 md:pt-12 bg-white overflow-hidden relative">
+    <section className="pt-48 md:pt-12 bg-white dark:bg-background transition-colors duration-300 overflow-hidden relative">
       <div
         className="w-full relative h-[450px] sm:h-[650px]"
       >
         {/* Sky Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-white to-white pointer-events-none" />
+        <div className="absolute inset-0 dark:bg-background pointer-events-none transition-colors duration-300" />
         
         <Canvas
           dpr={[1, 2]}
@@ -40,8 +40,8 @@ const AirplaneSection = () => {
       </div>
 
       <div className="text-center mt-12 px-4">
-        <h2 className="text-3xl sm:text-5xl font-black text-gray-900 tracking-tight leading-tight">
-          Fly to your <span className="text-blue-600">dream destination</span> with Vayka
+        <h2 className="text-3xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight leading-tight">
+          Fly to your <span className="text-blue-600 dark:text-blue-400">dream destination</span> with Vayka
         </h2>
       </div>
     </section>
