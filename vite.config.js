@@ -60,12 +60,14 @@ export default defineConfig(({ mode }) => {
       },
       dedupe: ['react', 'react-dom', 'three'],
     },
-    // بعد
     build: {
       sourcemap: false,
       rollupOptions: {
         output: {
           manualChunks(id) {
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('node_modules/scheduler/')) {
+              return 'react-core';
+            }
             if (id.includes('three') || id.includes('@react-three')) {
               return 'three-vendor';
             }
