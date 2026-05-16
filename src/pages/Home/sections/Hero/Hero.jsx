@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import bannerImg from '../../../../assets/Home/banner/bg-banner.jpg';
+import bannerImg from '../../../../assets/Home/banner/bg-banner.webp';
 import CategoryTabs from './components/CategoryTabs';
 import SearchForm from './components/SearchForm';
 import HeroContent from './components/HeroContent';

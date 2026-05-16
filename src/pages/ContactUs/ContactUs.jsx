@@ -13,7 +13,7 @@ import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
-import background from "../../../src/assets/ContactUs/background.png";
+import background from "../../../src/assets/ContactUs/background.webp";
 import { useSendContactMessageMutation } from "../../services/api";
 
 // إعداد الـ Leaflet Marker

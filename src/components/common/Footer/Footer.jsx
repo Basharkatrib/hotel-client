@@ -2,7 +2,7 @@ import React from "react";
 import logoHotel from "../../../assets/Home/footer/Logo-hotel.svg";
 import vector from "../../../assets/Home/footer/Vector.png";
 import appleBlack from "../../../assets/Home/footer/apple-black.svg";
-import googlePlay from "../../../assets/Home/footer/googlePlay.png";
+import googlePlay from "../../../assets/Home/footer/googlePlay.jpg";
 import payment from "../../../assets/Home/footer/Payment Method.png";
 import payment1 from "../../../assets/Home/footer/Payment Method (1).png";
 import payment2 from "../../../assets/Home/footer/Payment Method (2).png";
