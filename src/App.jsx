@@ -1,6 +1,4 @@
-import SplashScreen from "./components/common/SplashScreen";
-import { AnimatePresence } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -40,22 +38,14 @@ import PartnerForm from "./pages/PartnerForm/PartnerForm";
 // );
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     fetch('/sanctum/csrf-cookie', {
       credentials: 'include',
-    });
+    }).catch(() => {});
   }, []);
   
   return (
     <ThemeProvider>
-      <AnimatePresence mode="wait">
-        {isLoading && (
-          <SplashScreen key="splash" finishLoading={() => setIsLoading(false)} />
-        )}
-      </AnimatePresence>
-
       <BrowserRouter>
         <ScrollToTop />
         <ToastContainer
@@ -68,13 +58,7 @@ function App() {
           pauseOnHover
           theme="light"
         />
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center min-h-screen">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
-            </div>
-          }
-        >
+        <Suspense fallback={null}>
           <Routes>
             {/* Routes with Navbar and Footer */}
             <Route element={<MainLayout />}>
