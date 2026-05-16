@@ -60,8 +60,27 @@ export default defineConfig(({ mode }) => {
       },
       dedupe: ['react', 'react-dom'],
     },
+    // بعد
     build: {
       sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'three-vendor';
+            }
+            if (id.includes('firebase')) {
+              return 'firebase-vendor';
+            }
+            if (id.includes('framer-motion') || id.includes('/motion/')) {
+              return 'motion-vendor';
+            }
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
     },
     server: {
       headers: {
