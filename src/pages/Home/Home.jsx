@@ -16,7 +16,6 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <AirplaneSection />
       <Trust />
       <TrendingDestinations />
       <WeekendDeals />
