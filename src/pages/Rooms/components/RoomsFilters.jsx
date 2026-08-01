@@ -23,28 +23,6 @@ const RoomsFilters = ({
           <span>{showFilters ? "Hide Filters" : "Filters"}</span>
         </button>
 
-        {/* Sort */}
-        <div className="flex items-center gap-2">
-          <label className="hidden sm:block text-sm text-gray-600 dark:text-gray-400">
-            Sort by:
-          </label>
-          <select
-            value={`${filters.sort_by}_${filters.sort_order}`}
-            onChange={(e) => {
-              const [sortBy, sortOrder] = e.target.value.split("_");
-              onFilterChange("sort_by", sortBy);
-              onFilterChange("sort_order", sortOrder);
-            }}
-            className="px-3 py-2 bg-white dark:bg-card border border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-          >
-            <option value="created_at_desc">Newest First</option>
-            <option value="created_at_asc">Oldest First</option>
-            <option value="price_per_night_asc">Price: Low to High</option>
-            <option value="price_per_night_desc">Price: High to Low</option>
-            <option value="max_guests_desc">Capacity: High to Low</option>
-            <option value="max_guests_asc">Capacity: Low to High</option>
-          </select>
-        </div>
       </div>
 
       {/* Mobile Sidebar Overlay */}

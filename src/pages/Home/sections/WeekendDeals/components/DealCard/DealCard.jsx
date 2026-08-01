@@ -31,21 +31,7 @@ const DealCard = ({
           <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-300" />
         </Link>
 
-        {/* Favorite Button */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsFavorite(!isFavorite);
-          }}
-          className="cursor-pointer absolute top-4 right-4 w-10 h-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-200 z-10"
-        >
-          {isFavorite ? (
-            <FaHeart className="text-red-500 text-lg" />
-          ) : (
-            <FaRegHeart className="text-gray-700 dark:text-gray-300 text-lg" />
-          )}
-        </button>
+       
 
         {/* Badge Overlay */}
         <div className="absolute bottom-4 left-4 z-10">
