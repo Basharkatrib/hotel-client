@@ -29,7 +29,7 @@ const rawBaseQuery = fetchBaseQuery({
       headers.set('Authorization', `Bearer ${token}`);
     }
 
-    if (endpoint !== 'uploadAvatar') {
+    if (endpoint !== 'uploadAvatar' && endpoint !== 'submitPartnerApplication') {
       headers.set('Content-Type', 'application/json');
     }
     return headers;
@@ -101,7 +101,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User'],
+  tagTypes: [
+    'User', 'Bookings', 'Favorites', 'Payments',
+    'Reviews', 'HotelReviews', 'RoomReviews',
+    'Hotels', 'Notifications',
+  ],
   endpoints: (builder) => ({
     // Refresh Token (Silent Refresh)
     refresh: builder.mutation({

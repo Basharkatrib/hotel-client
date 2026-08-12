@@ -1,19 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { api } from './api';
 
-export const hotelsApi = createApi({
-  reducerPath: 'hotelsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
-  tagTypes: ['Hotels', 'Notifications'],
+export const hotelsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getHotels: builder.query({
       query: (params = {}) => {
@@ -246,4 +233,3 @@ export const {
   useMarkAllAsReadMutation,
   useGetAdvertisementsQuery
 } = hotelsApi;
-

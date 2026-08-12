@@ -13,12 +13,12 @@ import {
 import storage from 'redux-persist/lib/storage'; // localStorage
 import { combineReducers } from '@reduxjs/toolkit';
 import { api } from '../services/api';
-import { hotelsApi } from '../services/hotelsApi';
-import { bookingsApi } from '../services/bookingsApi';
-import { paymentsApi } from '../services/paymentsApi';
-import { favoritesApi } from '../services/favoritesApi';
-import { reviewsApi } from '../services/reviewsApi';
-import { partnerApi } from '../services/partnerApi';
+import '../services/hotelsApi';
+import '../services/bookingsApi';
+import '../services/paymentsApi';
+import '../services/favoritesApi';
+import '../services/reviewsApi';
+import '../services/partnerApi';
 import authReducer from './slices/authSlice';
 
 // إعدادات Redux Persist
@@ -39,12 +39,6 @@ const persistConfig = {
 // دمج الـ reducers مع حماية الـ auth
 const appReducer = combineReducers({
   [api.reducerPath]: api.reducer,
-  [hotelsApi.reducerPath]: hotelsApi.reducer,
-  [bookingsApi.reducerPath]: bookingsApi.reducer,
-  [paymentsApi.reducerPath]: paymentsApi.reducer,
-  [favoritesApi.reducerPath]: favoritesApi.reducer,
-  [reviewsApi.reducerPath]: reviewsApi.reducer,
-  [partnerApi.reducerPath]: partnerApi.reducer,
   auth: persistReducer(authPersistConfig, authReducer),
 });
 
@@ -71,7 +65,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware, hotelsApi.middleware, bookingsApi.middleware, paymentsApi.middleware, favoritesApi.middleware, reviewsApi.middleware, partnerApi.middleware),
+    }).concat(api.middleware),
 });
 
 setupListeners(store.dispatch);

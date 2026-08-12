@@ -1,23 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { api } from './api';
 
-export const bookingsApi = createApi({
-  reducerPath: 'bookingsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-      headers.set('Accept', 'application/json');
-      headers.set('Content-Type', 'application/json');
-      
-      const token = getState().auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      
-      return headers;
-    },
-  }),
-  tagTypes: ['Bookings'],
+export const bookingsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // Check room availability
     checkAvailability: builder.mutation({

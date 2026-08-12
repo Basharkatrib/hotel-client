@@ -1,18 +1,6 @@
-// services/partnerApi.js
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { api } from './api';
 
-export const partnerApi = createApi({
-  reducerPath: 'partnerApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-      headers.set('Accept', 'application/json');
-      const token = getState().auth.token;
-      if (token) headers.set('Authorization', `Bearer ${token}`);
-      return headers;
-    },
-  }),
+export const partnerApi = api.injectEndpoints({
   endpoints: (builder) => ({
     submitPartnerApplication: builder.mutation({
       query: (formData) => ({

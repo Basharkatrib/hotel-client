@@ -1,23 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { api } from './api';
 
-export const paymentsApi = createApi({
-  reducerPath: 'paymentsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-      headers.set('Accept', 'application/json');
-      headers.set('Content-Type', 'application/json');
-      
-      const token = getState().auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      
-      return headers;
-    },
-  }),
-  tagTypes: ['Payments'],
+export const paymentsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // Create payment intent
     createPaymentIntent: builder.mutation({
