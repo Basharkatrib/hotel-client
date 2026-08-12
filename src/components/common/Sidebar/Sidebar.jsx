@@ -74,8 +74,8 @@ function Sidebar({ onClose, user }) {
     );
   };
 
-  const firstLetter =
-    user?.data?.user?.first_name?.charAt(0)?.toUpperCase() || "U";
+  const displayName = user?.data?.user?.first_name || user?.data?.user?.name || 'User';
+  const firstLetter = displayName.charAt(0).toUpperCase();
 
   return (
     <div className="w-[250px] sticky top-0 h-screen bg-white dark:bg-card p-4 lg:p-8 mb-4 lg:mb-0 flex flex-col justify-between overflow-y-auto border-r border-transparent dark:border-gray-800 transition-colors duration-300">
@@ -98,7 +98,7 @@ function Sidebar({ onClose, user }) {
 
           <div>
             <h2 className="text-[16px] font-bold text-gray-900 dark:text-white">
-              {user?.data?.user?.first_name || "User"}
+              {displayName}
             </h2>
             <h5 className="text-[12px] text-gray-500 dark:text-gray-400 font-medium">
               {user?.data?.user?.email || "Customer Operations"}

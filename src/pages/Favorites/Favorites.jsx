@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useGetFavoritesQuery, useRemoveFavoriteByIdMutation } from '../../services/favoritesApi';
-import { FaHeart, FaHotel, FaBed, FaMapMarkerAlt, FaArrowLeft } from 'react-icons/fa';
+import { useGetFavoritesQuery, useRemoveFromFavoritesMutation } from '../../services/favoritesApi';
+import { FaHeart, FaHotel, FaBed, FaMapMarkerAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { getImageUrls } from '../../utils/imageHelper';
 
@@ -11,22 +11,19 @@ const Favorites = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'hotels', 'rooms'
 
-  const { data: favoritesData, isLoading, refetch } = useGetFavoritesQuery({});
-  const [removeFavorite] = useRemoveFavoriteByIdMutation();
+  const { data: favoritesData, isLoading } = useGetFavoritesQuery({});
+  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
 
   const hotels = favoritesData?.data?.hotels || [];
   const rooms = favoritesData?.data?.rooms || [];
 
-  const handleRemoveFavorite = async (favoriteId, itemName) => {
-    if (!favoriteId) {
-      toast.error('Favorite ID not found');
-      return;
-    }
-
+  const handleRemoveFavorite = async (favoritableType, favoritableId, itemName) => {
     try {
-      await removeFavorite(favoriteId).unwrap();
+      await removeFromFavorites({
+        favoritable_type: favoritableType,
+        favoritable_id: favoritableId,
+      }).unwrap();
       toast.success(`${itemName} removed from favorites`);
-      refetch();
     } catch (error) {
       toast.error(error.data?.messages?.[0] || 'Failed to remove from favorites');
     }
@@ -158,7 +155,7 @@ const Favorites = () => {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleRemoveFavorite(hotel.favorite_id, hotel.name);
+                            handleRemoveFavorite('hotel', hotel.id, hotel.name);
                           }}
                           className="cursor-pointer absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                           aria-label="Remove from favorites"
@@ -233,7 +230,7 @@ const Favorites = () => {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleRemoveFavorite(room.favorite_id, room.name);
+                            handleRemoveFavorite('room', room.id, room.name);
                           }}
                           className="cursor-pointer absolute top-3 right-3 p-2 bg-white dark:bg-card rounded-full shadow-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                           aria-label="Remove from favorites"
