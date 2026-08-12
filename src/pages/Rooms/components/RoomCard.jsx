@@ -1,21 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaMapMarkerAlt, FaBed, FaUsers, FaWifi, FaSnowflake, FaTv, FaUtensils, FaBath, FaShower, FaSmokingBan, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { CgSpinner } from 'react-icons/cg';
 import { MdBalcony } from 'react-icons/md';
 import { getImageUrls } from '../../../utils/imageHelper';
-import { useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
+import { useCheckFavoriteQuery, useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../../services/favoritesApi';
 import { toast } from 'react-toastify';
 import RatingBadge from '../../../components/common/RatingBadge';
 
 const RoomCard = ({ room }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const [isFavorited, setIsFavorited] = useState(Boolean(room.is_favorited));
 
   const images = getImageUrls(room.images);
   const mainImage = images[0] || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80';
+
+  // ✅ الحالة مأخوذة من الـ cache مباشرةً — تتحدث تلقائياً عند invalidatesTags
+  const { data: favCheckData } = useCheckFavoriteQuery(
+    { favoritable_type: 'room', favoritable_id: room.id },
+    { skip: !isAuthenticated }
+  );
+  const isFavorited = isAuthenticated
+    ? (favCheckData?.data?.is_favorited ?? Boolean(room.is_favorited))
+    : false;
 
   // ✅ الخصم من الإعلان
   const hasDiscount = room.has_discount;
@@ -32,10 +40,6 @@ const RoomCard = ({ room }) => {
   const [removeFromFavorites, { isLoading: isRemoving }] = useRemoveFromFavoritesMutation();
 
   const isUpdating = isAdding || isRemoving;
-
-  useEffect(() => {
-    setIsFavorited(Boolean(room.is_favorited));
-  }, [room.is_favorited]);
 
   const beds = [];
   if (room.single_beds > 0) beds.push(`${room.single_beds} Single`);
@@ -63,14 +67,13 @@ const RoomCard = ({ room }) => {
           favoritable_type: 'room',
           favoritable_id: room.id,
         }).unwrap();
-        setIsFavorited(false);
+        // ✅ لا حاجة لـ setIsFavorited — invalidatesTags يُحدّث الـ cache تلقائياً
         toast.success('Removed from favorites');
       } else {
         await addToFavorites({
           favoritable_type: 'room',
           favoritable_id: room.id,
         }).unwrap();
-        setIsFavorited(true);
         toast.success('Added to favorites');
       }
     } catch (error) {

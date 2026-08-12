@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { FaHeart, FaRegHeart, FaStar, FaUmbrellaBeach } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaUmbrellaBeach } from 'react-icons/fa';
 import { CgSpinner } from 'react-icons/cg';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { PiTrainRegionalBold } from 'react-icons/pi';
@@ -20,7 +20,6 @@ const HotelCard = ({ hotel }) => {
   const [searchParams] = useSearchParams();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(Boolean(hotel.is_favorited));
 
   // Handle images - API returns array of paths, we need to construct full URLs
   const images = getImageUrls(hotel.images);
@@ -30,10 +29,14 @@ const HotelCard = ({ hotel }) => {
   
   const isUpdating = isAdding || isRemoving;
 
-  // Sync with prop changes if needed
-  useEffect(() => {
-    setIsFavorited(Boolean(hotel.is_favorited));
-  }, [hotel.is_favorited]);
+  // ✅ الحالة مأخوذة من الـ cache مباشرةً — تتحدث تلقائياً عند invalidatesTags
+  const { data: favCheckData } = useCheckFavoriteQuery(
+    { favoritable_type: 'hotel', favoritable_id: hotel.id },
+    { skip: !isAuthenticated }
+  );
+  const isFavorited = isAuthenticated
+    ? (favCheckData?.data?.is_favorited ?? Boolean(hotel.is_favorited))
+    : false;
 
   const handleFavoriteToggle = async (e) => {
     e.stopPropagation();
@@ -50,14 +53,13 @@ const HotelCard = ({ hotel }) => {
           favoritable_type: 'hotel',
           favoritable_id: hotel.id,
         }).unwrap();
-        setIsFavorited(false);
+        // ✅ لا حاجة لـ setIsFavorited — invalidatesTags يُحدّث الـ cache تلقائياً
         toast.success('Removed from favorites');
       } else {
         await addToFavorites({
           favoritable_type: 'hotel',
           favoritable_id: hotel.id,
         }).unwrap();
-        setIsFavorited(true);
         toast.success('Added to favorites');
       }
     } catch (error) {

@@ -180,9 +180,13 @@ const Favorites = () => {
                         <div className="flex items-center justify-between">
                           <div>
                             <span className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
-                              ${Number(hotel.price_per_night).toFixed(0)}
+                              {hotel.min_room_price === hotel.max_room_price ? (
+                                `$${Number(hotel.min_room_price).toLocaleString()}`
+                              ) : (
+                                `$${Number(hotel.min_room_price).toLocaleString()} – $${Number(hotel.max_room_price).toLocaleString()}`
+                              )}
                             </span>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">/ night</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 font-medium block">range / night</span>
                           </div>
                           <button
                             onClick={() => navigate(`/hotel/${hotel.slug}`)}

@@ -54,6 +54,11 @@ export const favoritesApi = createApi({
           favoritable_id,
         },
       }),
+      // ← الإصلاح الرئيسي: يُبطل cache قائمة المفضلة وبيانات checkFavorite للعنصر
+      invalidatesTags: (result, error, { favoritable_type, favoritable_id }) => [
+        { type: 'Favorites', id: 'LIST' },
+        { type: 'Favorites', id: `${favoritable_type}-${favoritable_id}` },
+      ],
     }),
     
     removeFromFavorites: builder.mutation({
@@ -65,6 +70,11 @@ export const favoritesApi = createApi({
           favoritable_id,
         },
       }),
+      // ← الإصلاح الرئيسي: يُبطل cache قائمة المفضلة وبيانات checkFavorite للعنصر
+      invalidatesTags: (result, error, { favoritable_type, favoritable_id }) => [
+        { type: 'Favorites', id: 'LIST' },
+        { type: 'Favorites', id: `${favoritable_type}-${favoritable_id}` },
+      ],
     }),
     
     removeFavoriteById: builder.mutation({
@@ -72,7 +82,7 @@ export const favoritesApi = createApi({
         url: `/favorites/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Favorites'],
+      invalidatesTags: [{ type: 'Favorites', id: 'LIST' }],
     }),
   }),
 });
