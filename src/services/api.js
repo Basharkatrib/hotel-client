@@ -1,31 +1,99 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { setCredentials, logout } from '../store/slices/authSlice';
 
-// Base query مع interceptor للتعامل مع 401 errors
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Mutex: يمنع إرسال أكثر من طلب refresh في نفس الوقت
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let isRefreshing = false;
+let pendingRequests = [];
+
+const waitForRefresh = () =>
+  new Promise((resolve) => pendingRequests.push(resolve));
+
+const resolvePendingRequests = () => {
+  pendingRequests.forEach((resolve) => resolve());
+  pendingRequests = [];
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Base Query الأساسي
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const rawBaseQuery = fetchBaseQuery({
+  baseUrl: '/api',
+  credentials: 'include',
+  prepareHeaders: (headers, { getState, endpoint }) => {
+    headers.set('Accept', 'application/json');
+
+    const token = getState().auth.token;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    if (endpoint !== 'uploadAvatar') {
+      headers.set('Content-Type', 'application/json');
+    }
+    return headers;
+  },
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Base Query مع Auto-Refresh عند 401
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-  const baseQuery = fetchBaseQuery({
-    baseUrl: '/api',
-    credentials: 'include', // مهم جداً لإرسال الـ Refresh Cookie
-    prepareHeaders: (headers, { getState, endpoint }) => {
-      headers.set('Accept', 'application/json');
-      
-      // الحصول على الـ Access Token من الـ State (Redux)
-      const token = getState().auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      
-      // Avoid forcing JSON Content-Type for file uploads (e.g. avatar)
-      if (endpoint !== 'uploadAvatar') {
-        headers.set('Content-Type', 'application/json');
-      }
-      return headers;
-    },
-  });
+  // إذا كان الطلب نفسه هو refresh أو logout → لا تعيد المحاولة
+  const isRefreshCall =
+    typeof args === 'object' && args?.url === '/auth/refresh';
+  const isLogoutCall =
+    typeof args === 'object' && args?.url === '/auth/logout';
 
-  let result = await baseQuery(args, api, extraOptions);
+  // إذا كانت هناك عملية refresh جارية انتظر انتهاءها أولاً
+  if (isRefreshing && !isRefreshCall && !isLogoutCall) {
+    await waitForRefresh();
+  }
 
-  // إذا كان الخطأ 401، قد يكون التوكن انتهى، لكننا سنعتمد على AuthChecker 
-  // لعمل refresh صامت عند الضرورة أو عند تحميل التطبيق.
+  let result = await rawBaseQuery(args, api, extraOptions);
+
+  // ── إذا كان الخطأ 401 ولم يكن طلب refresh أو logout ──
+  if (
+    result?.error?.status === 401 &&
+    !isRefreshCall &&
+    !isLogoutCall
+  ) {
+    if (!isRefreshing) {
+      isRefreshing = true;
+
+      try {
+        // محاولة تجديد التوكن باستخدام الـ refresh_token cookie
+        const refreshResult = await rawBaseQuery(
+          { url: '/auth/refresh', method: 'POST' },
+          api,
+          extraOptions
+        );
+
+        if (refreshResult?.data?.status && refreshResult.data?.data) {
+          const { user, access_token } = refreshResult.data.data;
+          // تحديث التوكن والمستخدم في Redux
+          api.dispatch(setCredentials({ user, access_token }));
+          // إطلاق الطلبات المنتظرة
+          resolvePendingRequests();
+          // إعادة تنفيذ الطلب الأصلي بعد التجديد
+          result = await rawBaseQuery(args, api, extraOptions);
+        } else {
+          // فشل التجديد → تسجيل خروج
+          resolvePendingRequests();
+          api.dispatch(logout());
+        }
+      } catch {
+        resolvePendingRequests();
+        api.dispatch(logout());
+      } finally {
+        isRefreshing = false;
+      }
+    } else {
+      // كان هناك refresh جارٍ وانتهى → أعد الطلب بالتوكن الجديد
+      result = await rawBaseQuery(args, api, extraOptions);
+    }
+  }
 
   return result;
 };
