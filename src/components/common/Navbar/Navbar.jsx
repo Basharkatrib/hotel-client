@@ -397,7 +397,7 @@ const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Sidebar */}
+            {/* Sideba */}
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
