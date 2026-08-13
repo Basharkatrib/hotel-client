@@ -80,12 +80,12 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
           <div className="flex flex-row sm:items-start sm:justify-between gap-2 sm:gap-0 mb-2">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <div className="font-semibold text-sm sm:text-base text-gray-900 truncate">
+                <div className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white truncate">
                   {review.user?.name || review.name || 'Anonymous'}
                 </div>
                 <RatingStars rating={review.rating} size={12} showNumber={false} />
               </div>
-              <div className="text-xs sm:text-sm text-gray-500 mt-1">
+              <div className="text-xs sm:text-sm text-gray-500 dark:text-white mt-1">
                 {formatDate(review.created_at || review.date)}
               </div>
             </div>
@@ -98,7 +98,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
                   className="cursor-pointer p-1.5 rounded-full hover:bg-gray-100 transition-colors"
                   aria-label="More options"
                 >
-                  <HiDotsVertical className="w-5 h-5 text-gray-600" />
+                  <HiDotsVertical className="w-5 h-5 text-gray-600 dark:text-white" />
                 </button>
 
                 {/* Dropdown Menu */}
@@ -107,7 +107,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
                     {canEdit && (
                       <button
                         onClick={handleEdit}
-                        className="cursor-pointer w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                        className="cursor-pointer w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-white hover:bg-gray-50 flex items-center gap-2 transition-colors"
                       >
                         <FaEdit className="w-4 h-4" />
                         <span>Edit</span>
@@ -116,7 +116,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
                     {canDelete && (
                       <button
                         onClick={handleDelete}
-                        className="cursor-pointer w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                        className="cursor-pointer w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-500 hover:bg-red-50 flex items-center gap-2 transition-colors"
                       >
                         <FaTrash className="w-4 h-4" />
                         <span>Delete</span>
@@ -129,7 +129,7 @@ const ReviewCard = ({ review, onEdit, onDelete, canEdit = false, canDelete = fal
           </div>
 
           {/* Review Comment */}
-          <p className="text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
+          <p className="text-sm sm:text-base text-gray-700 dark:text-white leading-relaxed whitespace-pre-wrap break-words">
             {review.comment || review.content}
           </p>
 

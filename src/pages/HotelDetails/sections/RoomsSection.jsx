@@ -35,11 +35,11 @@ const RoomsSection = ({ hotelId, rooms, loading, hotel, checkIn, checkOut, guest
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Available Rooms</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Available Rooms</h2>
         
         {/* Bed Filters */}
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600 hidden sm:inline">Filter by beds:</span>
+          <span className="text-sm text-gray-600 dark:text-white hidden sm:inline">Filter by beds:</span>
           <div className="flex gap-2">
             {[
               { value: 'all', label: 'All Rooms' },

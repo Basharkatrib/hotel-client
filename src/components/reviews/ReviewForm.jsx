@@ -48,15 +48,15 @@ const ReviewForm = ({
   const isEditing = initialValues?.rating && initialValues.rating > 0;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 p-6">
+      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
         {isEditing ? 'Edit Your Review' : 'Write a Review'}
       </h3>
 
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         {/* Rating Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
             Rating <span className="text-red-500">*</span>
           </label>
           <div 
@@ -72,7 +72,7 @@ const ReviewForm = ({
               }}
             />
             {formik.values.rating > 0 && (
-              <span className="text-sm text-gray-600 ml-2">
+              <span className="text-sm text-gray-600 dark:text-white ml-2">
                 {formik.values.rating === 5 && 'Excellent'}
                 {formik.values.rating === 4 && 'Very Good'}
                 {formik.values.rating === 3 && 'Good'}
@@ -88,7 +88,7 @@ const ReviewForm = ({
 
         {/* Comment */}
         <div>
-          <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
             Your Review <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -99,22 +99,22 @@ const ReviewForm = ({
             value={formik.values.comment}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
           />
           <div className="flex justify-between items-center mt-1">
             {formik.touched.comment && formik.errors.comment ? (
-              <p className="text-sm text-red-600">{formik.errors.comment}</p>
+              <p className="text-sm text-red-600 dark:text-red-500">{formik.errors.comment}</p>
             ) : (
               <div />
             )}
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-white">
               {formik.values.comment.length}/1000 characters
             </p>
           </div>
         </div>
 
         {/* Submit Buttons */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
           {onCancel && (
             <button
               type="button"

@@ -37,13 +37,14 @@ const BookingConfirmation = () => {
   });
 
   const handleGuestInfoChange = (index, field, value) => {
+    const nextValue = field === "phone" ? value.replace(/\D/g, "") : value;
     const updatedGuests = [...guestsInfo];
-    updatedGuests[index][field] = value;
+    updatedGuests[index][field] = nextValue;
     setGuestsInfo(updatedGuests);
     if (index === 0) {
-      if (field === "name") setGuestName(value);
-      if (field === "email") setGuestEmail(value);
-      if (field === "phone") setGuestPhone(value);
+      if (field === "name") setGuestName(nextValue);
+      if (field === "email") setGuestEmail(nextValue);
+      if (field === "phone") setGuestPhone(nextValue);
     }
   };
 
@@ -113,6 +114,16 @@ const BookingConfirmation = () => {
 
     if (!allGuestsValid) {
       toast.error("Please fill in all guest information");
+      setIsLoading(false);
+      return;
+    }
+
+    const allPhonesValid = guestsInfo.every((guest) =>
+      /^\d+$/.test(guest.phone.trim())
+    );
+
+    if (!allPhonesValid) {
+      toast.error("Phone number must contain digits only");
       setIsLoading(false);
       return;
     }
@@ -352,6 +363,8 @@ const BookingConfirmation = () => {
                           </label>
                           <input
                             type="tel"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
                             value={guest.phone}
                             onChange={(e) =>
                               handleGuestInfoChange(
@@ -362,7 +375,7 @@ const BookingConfirmation = () => {
                             }
                             required
                             className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
-                            placeholder="+1 (555) 000-0000"
+                            placeholder="5550000000"
                           />
                         </div>
                       </div>

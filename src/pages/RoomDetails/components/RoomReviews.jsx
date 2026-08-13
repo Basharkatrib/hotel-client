@@ -121,7 +121,7 @@ const RoomReviews = ({ room }) => {
 
   return (
     <>
-      <div className="space-y-8">
+      <div className="space-y-8 dark:text-white dark:bg-gray-900">
 
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -169,7 +169,7 @@ const RoomReviews = ({ room }) => {
 
         {/* Review Form */}
         {showReviewForm && (
-          <div className="bg-white dark:bg-card border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
             <ReviewForm
               onSubmit={handleSubmitReview}
               onCancel={handleCancelEdit}
