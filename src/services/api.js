@@ -2,17 +2,34 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setCredentials, logout } from '../store/slices/authSlice';
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Mutex: يمنع إرسال أكثر من طلب refresh في نفس الوقت
+// Single-flight refresh: طلب تجديد واحد فقط في نفس الوقت
+// (الـ backend يعمل token rotation — refresh متوازي كان يُسقط الجلسة)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-let isRefreshing = false;
-let pendingRequests = [];
+let refreshPromise = null;
 
-const waitForRefresh = () =>
-  new Promise((resolve) => pendingRequests.push(resolve));
+const performTokenRefresh = async (api, extraOptions) => {
+  const refreshResult = await rawBaseQuery(
+    { url: '/auth/refresh', method: 'POST' },
+    api,
+    extraOptions
+  );
 
-const resolvePendingRequests = () => {
-  pendingRequests.forEach((resolve) => resolve());
-  pendingRequests = [];
+  if (refreshResult?.data?.status && refreshResult.data?.data) {
+    const { user, access_token } = refreshResult.data.data;
+    api.dispatch(setCredentials({ user, access_token }));
+    return { ok: true, result: refreshResult };
+  }
+
+  return { ok: false, result: refreshResult };
+};
+
+const getRefreshPromise = (api, extraOptions) => {
+  if (!refreshPromise) {
+    refreshPromise = performTokenRefresh(api, extraOptions).finally(() => {
+      refreshPromise = null;
+    });
+  }
+  return refreshPromise;
 };
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -40,58 +57,34 @@ const rawBaseQuery = fetchBaseQuery({
 // Base Query مع Auto-Refresh عند 401
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-  // إذا كان الطلب نفسه هو refresh أو logout → لا تعيد المحاولة
-  const isRefreshCall =
-    typeof args === 'object' && args?.url === '/auth/refresh';
-  const isLogoutCall =
-    typeof args === 'object' && args?.url === '/auth/logout';
+  const url = typeof args === 'string' ? args : args?.url;
+  const isRefreshCall = url === '/auth/refresh';
+  const isLogoutCall = url === '/auth/logout';
 
-  // إذا كانت هناك عملية refresh جارية انتظر انتهاءها أولاً
-  if (isRefreshing && !isRefreshCall && !isLogoutCall) {
-    await waitForRefresh();
+  if (isLogoutCall) {
+    return rawBaseQuery(args, api, extraOptions);
+  }
+
+  if (isRefreshCall) {
+    const { result } = await getRefreshPromise(api, extraOptions);
+    return result;
+  }
+
+  if (refreshPromise) {
+    const { ok } = await refreshPromise;
+    if (!ok) {
+      return { error: { status: 401, data: { message: 'Unauthenticated' } } };
+    }
   }
 
   let result = await rawBaseQuery(args, api, extraOptions);
 
-  // ── إذا كان الخطأ 401 ولم يكن طلب refresh أو logout ──
-  if (
-    result?.error?.status === 401 &&
-    !isRefreshCall &&
-    !isLogoutCall
-  ) {
-    if (!isRefreshing) {
-      isRefreshing = true;
-
-      try {
-        // محاولة تجديد التوكن باستخدام الـ refresh_token cookie
-        const refreshResult = await rawBaseQuery(
-          { url: '/auth/refresh', method: 'POST' },
-          api,
-          extraOptions
-        );
-
-        if (refreshResult?.data?.status && refreshResult.data?.data) {
-          const { user, access_token } = refreshResult.data.data;
-          // تحديث التوكن والمستخدم في Redux
-          api.dispatch(setCredentials({ user, access_token }));
-          // إطلاق الطلبات المنتظرة
-          resolvePendingRequests();
-          // إعادة تنفيذ الطلب الأصلي بعد التجديد
-          result = await rawBaseQuery(args, api, extraOptions);
-        } else {
-          // فشل التجديد → تسجيل خروج
-          resolvePendingRequests();
-          api.dispatch(logout());
-        }
-      } catch {
-        resolvePendingRequests();
-        api.dispatch(logout());
-      } finally {
-        isRefreshing = false;
-      }
-    } else {
-      // كان هناك refresh جارٍ وانتهى → أعد الطلب بالتوكن الجديد
+  if (result?.error?.status === 401) {
+    const { ok } = await getRefreshPromise(api, extraOptions);
+    if (ok) {
       result = await rawBaseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(logout());
     }
   }
 

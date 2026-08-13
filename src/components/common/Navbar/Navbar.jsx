@@ -22,11 +22,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [logoutServer] = useLogoutMutation();
 
   const { data: notificationData } = useGetNotificationsQuery(undefined, {
-    skip: !isAuthenticated,
+    skip: !isAuthenticated || !token,
   });
 
   const notifications = notificationData?.data?.notifications || [];

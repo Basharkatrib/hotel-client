@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Sidebar from '../common/Sidebar';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import { useGetUserQuery } from '@/services/api';
 
 const AccountLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { data: user } = useGetUserQuery();
+  const token = useSelector((state) => state.auth.token);
+  const { data: user } = useGetUserQuery(undefined, { skip: !token });
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };

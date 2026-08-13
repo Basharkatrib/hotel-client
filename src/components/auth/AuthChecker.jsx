@@ -67,7 +67,7 @@ const AuthChecker = () => {
   // 3. Firebase Cloud Messaging Setup
   // ─────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (isAuthenticated && !fcmRegistered.current) {
+    if (isAuthenticated && token && !fcmRegistered.current) {
       if (!('Notification' in window)) {
         console.warn('This browser does not support desktop notification');
         return;
@@ -87,7 +87,7 @@ const AuthChecker = () => {
       };
       setupFCM();
     }
-  }, [isAuthenticated, updateFcmToken]);
+  }, [isAuthenticated, token, updateFcmToken]);
 
   // ─────────────────────────────────────────────────────────────
   // 4. Listen for Foreground Messages
