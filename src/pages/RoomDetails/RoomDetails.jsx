@@ -215,7 +215,8 @@ const RoomDetails = () => {
   };
 
   const handleGuestsChange = (newGuests) => {
-    if (newGuests > room?.max_guests) {
+    // يمنع الزيادة فقط إذا تجاوزت الحد الأقصى للغرفة، ويسمح بالإنقاص دائماً
+    if (newGuests > guests && newGuests > room?.max_guests) {
       toast.warning(`This room can accommodate a maximum of ${room.max_guests} guests.`);
       return;
     }
